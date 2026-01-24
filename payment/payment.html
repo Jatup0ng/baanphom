@@ -82,8 +82,109 @@
 
     </div>
 
-    <button class="btn-next">ถัดไป</button>
-    </div>
     
+    
+    
+    <!-- แนบสลิปการโอนเงิน -->
+    <div id="paymentModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn " onclick="closePaymentModal()">x</span>
+            
+            <h3 style="color: #5A3E25; margin-bottom: 20px; margin-top: 25px; margin-left: 150px;">แนบสลิปการโอนเงิน</h3>
+            
+            <div class="upload-area" onclick="document.getElementById('slipInput').click()">
+                <input type="file" id="slipInput" hidden accept="image/*" onchange="previewSlip()">
+                
+                <div id="uploadPlaceholder">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 40px; color: #8B5E3C;"></i>
+                    <p style="color: #888; margin-top: 10px;">แตะเพื่อเลือกรูปสลิป</p>
+                </div>
+
+                <img id="slipPreview" class="slip-preview" src="" alt="ตัวอย่างสลิป">
+            </div><br>
+
+            <p id="fileName" style="font-size: 14px; color: #019c20; margin-left: 10%; display: none;"></p>
+
+            <button class="btn-next" onclick="submitSlip()" id="confirmBtn">
+                ยืนยันการโอนเงิน
+            </button>
+        </div>
+    </div>
+
+</div>
+<script>
+    // --- ฟังก์ชันจัดการ Modal ---
+    function openPaymentModal() {
+        document.getElementById("paymentModal").style.display = "flex";
+    }
+
+    function closePaymentModal() {
+        document.getElementById("paymentModal").style.display = "";
+        // (เสริม) รีเซ็ตค่าเมื่อปิด เพื่อให้พร้อมใช้ครั้งหน้า
+        resetUpload(); 
+    }
+
+    // --- ฟังก์ชันแสดงรูปตัวอย่าง (Preview) ---
+    function previewSlip() {
+        const fileInput = document.getElementById('slipInput');
+        const preview = document.getElementById('slipPreview');
+        const placeholder = document.getElementById('uploadPlaceholder');
+        const fileName = document.getElementById('fileName');
+
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';      // โชว์รูป
+                placeholder.style.display = 'none';   // ซ่อนไอคอนอัปโหลด
+                
+                fileName.innerText = "ไฟล์: " + file.name;
+                fileName.style.display = 'block';
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // --- ฟังก์ชันรีเซ็ต (เผื่อเปลี่ยนใจ) ---
+    function resetUpload() {
+        document.getElementById('slipInput').value = "";
+        document.getElementById('slipPreview').style.display = 'none';
+        document.getElementById('uploadPlaceholder').style.display = 'block';
+        document.getElementById('fileName').style.display = 'none';
+        document.getElementById('confirmBtn').innerText = "ยืนยันการโอนเงิน";
+        document.getElementById('confirmBtn').disabled = false;
+        document.getElementById('confirmBtn').style.backgroundColor = "#5A3E25";
+    }
+
+    // --- ฟังก์ชันจำลองการส่งข้อมูล (Simulate Submit) ---
+    function submitSlip() {
+        const fileInput = document.getElementById('slipInput');
+        
+        if (fileInput.files.length === 0) {
+            alert("กรุณาเลือกรูปสลิปก่อนครับ");
+            return;
+        }
+
+        // เปลี่ยนปุ่มเป็นสถานะ "กำลังตรวจสอบ"
+        const btn = document.getElementById('confirmBtn');
+        btn.innerText = "กำลังตรวจสอบ...";
+        btn.style.backgroundColor = "#888"; // เปลี่ยนสีปุ่มให้ดูเหมือนรอ
+        btn.disabled = true;
+
+        // จำลองการรอ 2 วินาที (เหมือนส่งไปเช็ค API)
+        setTimeout(() => {
+            alert("✅ แจ้งโอนเงินเรียบร้อย! ระบบกำลังตรวจสอบ");
+            closePaymentModal();
+            // ตรงนี้อาจจะสั่งให้เปลี่ยนหน้าเว็บไปหน้าขอบคุณ หรือหน้าประวัติ
+             window.location.href = "#"; 
+        }, 2000);
+    }
+</script>
+
+
 </body>
 </html>

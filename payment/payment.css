@@ -83,6 +83,7 @@ body {
             color: var(--text-brown);
             margin-bottom: 30px;
             margin-top: 20px;
+            margin-left: 20px;
         }
 
         h3 {
@@ -169,13 +170,13 @@ body {
             margin-left: 5px;
         }
 
-        /* --- ปุ่มถัดไป --- */
+        /* --- ปุ่มยืนยันการโอน --- */
         .btn-next {
             display: block;
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             margin: 30px auto 0;
-            margin-top: 80px;
+            margin-bottom: 20px;
             background-color: var(--btn-brown);
             color: white;
             text-align: center;
@@ -192,3 +193,44 @@ body {
         .btn-next:hover {
             transform: scale(1.02); /* ขยายใหญ่ขึ้นนิดหน่อยตอนชี้ */
         }
+
+        /* กล่องพื้นที่อัปโหลด */
+.upload-area {
+    border: 2px dashed #8B5E3C; /* เส้นประสีน้ำตาล */
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #FAF7F2;
+    cursor: pointer;
+    transition: 0.3s;
+    min-height: 120px;
+    width: 80% ;
+    margin-left: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.upload-area:hover {
+    background-color: #eee;
+    border-color: #5A3E25;
+}
+
+/* รูปตัวอย่างสลิป */
+.slip-preview {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    display: none; /* ซ่อนไว้ก่อน จนกว่าจะเลือกรูป */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.close-btn {
+    position: absolute;
+    margin-right: 90px;
+    right: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #c71e1e;
+    cursor: pointer;
+}
