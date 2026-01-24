@@ -24,13 +24,16 @@
             
 
         </div>
-        <div class="menu-icon">
-            <b>หน้าแรก</b>&nbsp;&nbsp;
-            จองคิว&nbsp;&nbsp;
-            เข้าสู่ระบบ&nbsp;&nbsp;
-            ประวัติ&nbsp;&nbsp;
-            แอดมิน
+        <div class="menu-icon" >
+            <b><a href="#" class="menu-icon">หน้าแรก</a></b>
+            <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            <a href="#" class="menu-icon">จองคิว</a>
+            <a href="#" class="menu-icon">ประวัติ</a>
+            <a href="#" class="menu-icon">แอดมิน</a>
+            
         </div>
+        
+        
     </div>
 
     <header class="hero">
@@ -103,6 +106,59 @@
             </div>
         </div>
     </section>
+        <div><div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeLogin()">x</span>
+        
+        <h2 style="font-family: 'Playfair Display'; color: #5A3E25; margin-bottom: 5px;">ยินดีต้อนรับสู่ BAAN PHOM</h2>
+        <h3 style="color: #5A3E25; margin-bottom: 20px;">เข้าสู่ระบบสมาชิก</h3>
+
+        <div class="form-group">
+            <label class="form-label">ชื่อผู้ใช้</label>
+            <input type="text" class="form-input" placeholder="ชื่อผู้ใช้">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">รหัสผ่าน</label>
+            <input type="password" class="form-input" placeholder="รหัสผ่าน">
+        </div>
+
+        <button class="login-btn">
+            <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+        </button>
+
+        <div class="divider"><span>หรือ</span></div>
+
+        <p style="font-size: 14px; margin-top: 10px;">
+            <a href="#" style="color: #d9534f; text-decoration: none;">ลืมรหัสผ่าน</a>
+        </p>
+        <p style="font-size: 14px; margin-top: 5px;">
+            ยังไม่มีบัญชี? <a href="#" style="color: #8B5E3C; font-weight: bold;">สมัครสมาชิกใหม่</a>
+        </p>
+    </div>
+</div>
+
+    
+<script>
+    // 1. ฟังก์ชันเปิด Popup
+    function openLogin() {
+        document.getElementById("loginModal").style.display = "flex";
+    }
+
+    // 2. ฟังก์ชันปิด Popup
+    function closeLogin() {
+        document.getElementById("loginModal").style.display = "none";
+    }
+
+    // 3. (เสริม) คลิกพื้นที่ว่างๆ รอบนอกเพื่อปิด
+    window.onclick = function(event) {
+        let modal = document.getElementById("loginModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+    
 
 </body>
 </html>
