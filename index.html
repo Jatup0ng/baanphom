@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baan Phom - Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-area">
+            <div class="logo-container">
+                <span class="scissors-icon">✂️</span>
+                <div class="logo-text">
+                    <h1 class="brand-name">BAAN PHOM</h1>
+                    <p class="brand-sub">บ้านผม บาร์เบอร์</p>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a href="#">หน้าแรก</a>
+            <a href="#" class="active">จองคิว</a>
+            <a href="#">ประวัติ</a>
+            <a href="#" class="user-menu">👤 นายตัดผม</a>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <h2 class="main-title">จองคิว</h2>
+
+        <div class="booking-grid">
+            <section class="card">
+                <h3 class="card-title">เลือกช่างและบริการ</h3>
+                <div class="input-group">
+                    <label>บริการ*</label>
+                    <div class="custom-select">
+                        <select><option>เลือกบริการ</option></select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>ช่างตัดผม*</label>
+                    <div class="custom-select">
+                        <select><option>เลือกช่าง</option></select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>ราคา</label>
+                    <input type="text" value="150" readonly class="readonly-input">
+                </div>
+            </section>
+
+            <section class="card">
+                <h3 class="card-title">เลือกวันและเวลา</h3>
+                <div class="input-group">
+                    <label>วันที่ต้องการจอง*</label>
+                    <input type="text" placeholder="เลือกวันที่">
+                </div>
+                <div class="input-group">
+                    <label>เวลา*</label>
+                    <input type="text" placeholder="กรุณาเลือกบริการ ช่าง และวันที่ก่อนเพื่อดูเวลา" disabled class="disabled-placeholder">
+                </div>
+            </section>
+        </div>
+
+        <section class="card info-card">
+            <h3 class="card-title">ข้อมูลผู้จอง</h3>
+            <div class="info-grid">
+                <div class="input-group">
+                    <label>ชื่อ*</label>
+                    <input type="text" value="นายผมตัด">
+                </div>
+                <div class="input-group">
+                    <label>เบอร์โทร*</label>
+                    <input type="text" value="064-191-1122">
+                </div>
+                <div class="input-group">
+                    <label>อีเมล</label>
+                    <input type="email" value="phomtud@gmail.com">
+                </div>
+                <div class="input-group">
+                    <label>หมายเหตุ</label>
+                    <input type="text" placeholder="">
+                </div>
+            </div>
+            <button type="button" class="btn-next">ถัดไป</button>
+        </section>
+    </main>
+
+</body>
+</html>
