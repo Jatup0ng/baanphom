@@ -43,7 +43,21 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            margin-top: -15px;
         }
+
+        .logo .en {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo .th {
+            display: block;      
+            font-size: 16px;
+            margin-left: 10px;
+            margin-top: -5px;    
+        }
+
 
         .menu-icon {
             font-size: 14px;
