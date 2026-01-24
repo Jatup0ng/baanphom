@@ -1,0 +1,203 @@
+  :root {
+            --primary-brown: #8B5E3C; /* สีน้ำตาลเข้มของกรอบบริการ */
+            --bg-cream: #FAF7F2;      /* สีพื้นหลังครีม */
+            --text-gold: #E8DCC4;     /* สีตัวหนังสือทอง */
+            --text-dark: #333333;
+        }
+  
+  
+  * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+        }
+
+ 
+ 
+ 
+ 
+ .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            
+             
+            font-family: "Rye", serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 45px;
+            font-weight: bold;
+            color: #5A3E25;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: -15px;
+        }
+
+        .logo .en {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo .th {
+            display: block;      
+            font-size: 16px;
+            margin-left: 10px;
+            margin-top: -5px;    
+        }
+
+
+        .menu-icon {
+            /* border:solid 1px;  */
+            font-size: 14px;
+            color: #5A3E25;
+            cursor: pointer;
+            margin-left: 25px;
+            text-decoration: none;
+            
+        }
+
+        /* กล่องคิวอาโค้ด */
+       :root {
+            --bg-cream: #FAF7F2;
+            --text-brown: #5A3E25; /* สีน้ำตาลหัวข้อ */
+            --btn-brown: #4A2E15;  /* สีปุ่มน้ำตาลเข้ม */
+            --text-red: #D32F2F;   /* สีแดง 'รอชำระ' */
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-cream);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            color: var(--text-brown);
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: var(--text-brown);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        /* --- กล่องจัด Layout (Flexbox) --- */
+        .payment-container {
+            display: flex;
+            flex-wrap: wrap; /* ให้ตกบรรทัดได้ถ้าจอเล็ก */
+            gap: 30px; /* ระยะห่างระหว่างกล่องซ้าย-ขวา */
+            max-width: 900px; /* ความกว้างสูงสุด */
+            margin: 0 auto; /* จัดกึ่งกลางจอ */
+        }
+
+        .column {
+            flex: 1; /* แบ่งพื้นที่เท่าๆ กัน */
+            min-width: 300px; /* ถ้าจอย่อเล็กกว่า 300px ให้ซ้อนกัน */
+        }
+
+        /* --- การ์ดสีขาว (Card Style) --- */
+        .card {
+            background: rgb(255, 255, 255);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            height: 80%; /* ให้การ์ดสูงเท่ากัน */
+        }
+
+        /* --- ส่วน QR Code (ซ้าย) --- */
+        .qr-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+        }
+
+        .qr-image {
+            width: 180px;
+            height: 180px;
+            background-color: #eee; /* สีรองพื้นระหว่างรอรูป */
+            margin-bottom: 15px;
+            object-fit: contain; /* กันภาพเบี้ยว */
+        }
+
+        .price-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-brown);
+            margin-bottom: 10px;
+        }
+
+        .save-qr-link {
+            color: var(--text-brown);
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- ส่วนรายละเอียด (ขวา) --- */
+        .detail-row {
+            display: flex;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: var(--text-brown);
+            width: 100px; /* ล็อคความกว้างหัวข้อให้ตรงกัน */
+            flex-shrink: 0;
+        }
+
+        .value {
+            color: #555;
+        }
+
+        .status-wait {
+            color: var(--text-red);
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        /* --- ปุ่มถัดไป --- */
+        .btn-next {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            margin: 30px auto 0;
+            margin-top: 80px;
+            background-color: var(--btn-brown);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: 0.2s;
+        }
+
+        .btn-next:hover {
+            transform: scale(1.02); /* ขยายใหญ่ขึ้นนิดหน่อยตอนชี้ */
+        }
