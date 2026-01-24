@@ -60,9 +60,13 @@
 
 
         .menu-icon {
+            /* border:solid 1px;  */
             font-size: 14px;
             color: #5A3E25;
             cursor: pointer;
+            margin-left: 25px;
+            text-decoration: none;
+            
         }
 
         /* --- 2. Hero Section (ภาพปก) --- */
@@ -245,3 +249,100 @@
             color: #666;
             line-height: 1.4;
         }
+
+        /* --- CSS สำหรับ Modal Popup --- */
+
+/* 1. ฉากหลังสีดำจางๆ (Overlay) */
+.modal-overlay {
+    display: none; /* ซ่อนไว้ก่อน (สำคัญมาก) */
+    position: fixed; /* ล็อคติดหน้าจอ ไม่เลื่อนตาม */
+    z-index: 999; /* อยู่ชั้นบนสุด ทับทุกอย่าง */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* สีดำโปร่งแสง 60% */
+    justify-content: center; /* จัดกึ่งกลางแนวนอน */
+    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+}
+
+/* 2. กล่องล็อกอิน (ตัว Popup) */
+.modal-content {
+    background-color: #FAF7F2; /* สีครีมตามรูป */
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px; /* กว้างไม่เกิน 400px */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s; /* ใส่เอฟเฟกต์ตอนโผล่ */
+}
+
+/* ปุ่มปิด (X) มุมขวา */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #c71e1e;
+    cursor: pointer;
+}
+
+/* จัดสไตล์ฟอร์มให้เหมือนรูป */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #5A3E25;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #8B5E3C;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #5A3E25; /* สีน้ำตาลเข้ม */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* เส้นขีด --- หรือ --- */
+.divider {
+    margin: 20px 0;
+    border-top: 1px solid #ccc;
+    position: relative;
+}
+.divider span {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FAF7F2;
+    padding: 0 10px;
+    color: #888;
+    font-size: 12px;
+}
+
+/* เอฟเฟกต์เลือนขึ้นมา */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
