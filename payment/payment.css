@@ -12,16 +12,13 @@
             padding: 0;
         }
 
-        body {
+body {
             font-family: 'Sarabun', sans-serif;
             background-color: var(--bg-cream);
             color: var(--text-dark);
+            
         }
 
- 
- 
- 
- 
  .navbar {
             display: flex;
             justify-content: space-between;
@@ -80,17 +77,12 @@
             --text-red: #D32F2F;   /* สีแดง 'รอชำระ' */
         }
 
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-cream);
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
+       
 
         h1 {
             color: var(--text-brown);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            margin-top: 20px;
         }
 
         h3 {
@@ -133,15 +125,14 @@
         }
 
         .qr-image {
-            width: 180px;
-            height: 180px;
+            width: 200px;
             background-color: #eee; /* สีรองพื้นระหว่างรอรูป */
             margin-bottom: 15px;
             object-fit: contain; /* กันภาพเบี้ยว */
         }
 
         .price-text {
-            font-size: 24px;
+            font-size: 16px;
             font-weight: bold;
             color: var(--text-brown);
             margin-bottom: 10px;
