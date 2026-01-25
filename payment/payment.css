@@ -203,8 +203,8 @@ body {
     cursor: pointer;
     transition: 0.3s;
     min-height: 120px;
-    width: 80% ;
-    margin-left: 10%;
+    width: 60% ;
+    margin-left: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -227,7 +227,7 @@ body {
 
 .close-btn {
     position: absolute;
-    margin-right: 90px;
+    margin-right: 17%;
     right: 50px;
     font-size: 20px;
     font-weight: bold;
