@@ -111,9 +111,25 @@ body {
             background: rgb(255, 255, 255);
             border-radius: 20px;
             padding: 30px;
+            height: 70%;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            height: 80%; /* ให้การ์ดสูงเท่ากัน */
+            /* ให้การ์ดสูงเท่ากัน */
         }
+
+        .qcard {
+            background: rgb(255, 255, 255);
+            border-radius: 20px;
+            padding: 30px;
+            width: 280px ;   
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            height: 80%;
+            /* border: 1px solid #e00000; */
+            margin-left: 25%;
+        }
+
+
+
+
 
         /* --- ส่วน QR Code (ซ้าย) --- */
         .qr-section {
@@ -127,7 +143,7 @@ body {
 
         .qr-image {
             width: 200px;
-            background-color: #eee; /* สีรองพื้นระหว่างรอรูป */
+            background-color: #000000; /* สีรองพื้นระหว่างรอรูป */
             margin-bottom: 15px;
             object-fit: contain; /* กันภาพเบี้ยว */
         }
@@ -150,7 +166,7 @@ body {
         .detail-row {
             display: flex;
             margin-bottom: 20px;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .label {
@@ -173,8 +189,8 @@ body {
         /* --- ปุ่มยืนยันการโอน --- */
         .btn-next {
             display: block;
-            width: 100%;
-            max-width: 800px;
+            width: 600px ;
+            max-width: 600px;
             margin: 30px auto 0;
             margin-bottom: 20px;
             background-color: var(--btn-brown);
