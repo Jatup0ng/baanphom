@@ -32,52 +32,53 @@
             <a href="#" class="menu-icon fas fa-user-alt ">User</a>
         </div>
         
-        
+       
     </div>
-    <div class="payment">
-        <div style="margin-left: 20px;">
-        <h1>ชำระเงิน</h1>
-    </div>
-
-    <div class="payment-container">
-        
-        <div class="column">
-            <h3 style="margin-left: 25%;">วิธีการชำระเงิน</h3>
-            <div class="qcard qr-section">
-                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/599522693_774603158383442_7518024844061670756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=fc17b8&efg=eyJxZV9ncm91cHMiOlsiaWdkX2Jlc3RfZWZmb3J0X2ltYWdlOmNvbnRyb2wiXX0%3D&_nc_ohc=5BDbr9PF3EsQ7kNvwHLIOPQ&_nc_oc=Adlt7XCU3ty4m19PGOJa0cp3mataVemtWBhb-DTj8R-d1-4OacewzpklQMHhzOS1qGIPG77jGqropwfaItiXVwm8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD4QHl6EO2cpiiD8BnkH6JpPB0jgsvFNU0SzgD_cZ_tOjauQ&oe=699C6E29" alt="QR Code" class="qr-image">
-                
-                <div class="price-text">ชื่อบัญชี : บ้านผม</div>
-                <b style="font-size: 26px ; color: #593f29;">150 Bath</b>
-            </div>
+    
+        <div class="payment">
+            <div style="margin-left: 20px;">
+            <h1>ชำระเงิน</h1>
         </div>
-
-        <div class="column">
-            <h3>รายละเอียดการจอง</h3>
-            <div class="card">
-                
-                <div class="detail-row">
-                    <div class="label">บริการ:</div>
-                    <div class="value">ตัด สระ ไดร์</div>
-                </div>
-
-                <div class="detail-row">
-                    <div class="label">วัน เวลา:</div>
-                    <div class="value">13/01/2026 เวลา 16.00-17.00 น.</div>
-                </div>
-
-                <div class="detail-row">
-                    <div class="label">ระยะเวลา:</div>
-                    <div class="value">60 นาที</div>
-                </div>
-
-                <div class="detail-row">
-                    <div class="label">ค่าบริการ:</div>
-                    <div class="value">
-                        150 บาท <span class="status-wait">*รอชำระ</span>
+    <div class="block_pay"> 
+            <div class="payment-container">
+            
+                <div class="column">
+                    <h3 style="margin-left: 8%;">วิธีการชำระเงิน</h3>
+                    <div class="qcard qr-section">
+                        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/599522693_774603158383442_7518024844061670756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=fc17b8&efg=eyJxZV9ncm91cHMiOlsiaWdkX2Jlc3RfZWZmb3J0X2ltYWdlOmNvbnRyb2wiXX0%3D&_nc_ohc=5BDbr9PF3EsQ7kNvwHLIOPQ&_nc_oc=Adlt7XCU3ty4m19PGOJa0cp3mataVemtWBhb-DTj8R-d1-4OacewzpklQMHhzOS1qGIPG77jGqropwfaItiXVwm8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD4QHl6EO2cpiiD8BnkH6JpPB0jgsvFNU0SzgD_cZ_tOjauQ&oe=699C6E29" alt="QR Code" class="qr-image">
+                        
+                        <div class="price-text">ชื่อบัญชี : บ้านผม</div>
+                        <b style="font-size: 26px ; color: #593f29;">150 Bath</b>
                     </div>
                 </div>
 
-            </div>
+            <div class="column">
+                <h3>รายละเอียดการจอง</h3>
+                <div class="card">
+                    
+                    <div class="detail-row">
+                        <div class="label">บริการ:</div>
+                        <div class="value">ตัด สระ ไดร์</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="label">วัน เวลา:</div>
+                        <div class="value">13/01/2026 เวลา 16.00-17.00 น.</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="label">ระยะเวลา:</div>
+                        <div class="value">60 นาที</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="label">ค่าบริการ:</div>
+                        <div class="value">
+                            150 บาท <span class="status-wait">*รอชำระ</span>
+                        </div>
+                    </div>
+
+                </div>
         </div>
 
     </div>
@@ -90,7 +91,7 @@
         <div class="modal-content">
             <span class="close-btn " onclick="closePaymentModal()">x</span>
             
-            <h3 style="color: #5A3E25; margin-bottom: 20px; margin-top: 25px; margin-left: 25%;">แนบสลิปการโอนเงิน</h3>
+            <h3 style="color: #5A3E25; margin-bottom: 20px; margin-top: 25px; margin-left: 15%;">แนบสลิปการโอนเงิน</h3>
             
             <div class="upload-area " onclick="document.getElementById('slipInput').click()">
                 <input type="file" id="slipInput" hidden accept="image/*" onchange="previewSlip()">
@@ -110,6 +111,7 @@
             </button>
         </div>
     </div>
+</div>
 
 </div>
 <script>
