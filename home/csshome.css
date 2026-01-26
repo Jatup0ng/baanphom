@@ -59,7 +59,7 @@
         }
 
 
-        .menu-icon {
+        .menu-icons {
             /* border:solid 1px;  */
             font-size: 14px;
             color: #5A3E25;
@@ -68,6 +68,31 @@
             text-decoration: none;
             
         }
+        
+        .menu-icon {
+            text-decoration: none;     /* เอาขีดเส้นใต้ออก */
+            color: #442f1c;               /* สีดำเทาๆ (แก้ตามใจชอบ) */
+            font-size: 16px;
+            padding: 10px 15px;        /* เว้นระยะห่างรอบๆ ให้คลิกง่าย */
+            transition: all 0.3s ease; /* หัวใจสำคัญ! สั่งให้ทุกการเปลี่ยนแปลงใช้เวลา 0.3 วิ */
+    
+            /* แก้ปัญหาตัวอักษรขยับ (optional) */
+            display: inline-block; 
+        }
+
+        
+        .menu-icon:hover {
+            /* เทคนิค: ใช้เงาซ้อนกันเบาๆ ให้ดูเหมือนตัวหนา */
+            text-shadow: 0 0 1px #442f1c, 0 0 1px #442f1c; 
+            
+            
+            
+            /* (แถม) ขยับลอยขึ้นนิดนึงให้ดูมีมิติ */
+            transform: translateY(-1px); 
+        }
+            
+        
+    
 
         /* --- 2. Hero Section (ภาพปก) --- */
         .hero {
@@ -279,6 +304,18 @@
     animation: fadeIn 0.3s; /* ใส่เอฟเฟกต์ตอนโผล่ */
 }
 
+.registermodal-content {
+    background-color: #FAF7F2; /* สีครีมตามรูป */
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px; /* กว้างไม่เกิน 400px */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s; /* ใส่เอฟเฟกต์ตอนโผล่ */
+}
+
 /* ปุ่มปิด (X) มุมขวา */
 .close-btn {
     position: absolute;
@@ -304,11 +341,12 @@
 }
 
 .form-input {
+    font-family: 'Sarabun', sans-serif;
     width: 100%;
     padding: 10px;
     border: 1px solid #8B5E3C;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     background: white;
 }
 

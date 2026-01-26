@@ -65,6 +65,6 @@
             alert("✅ แจ้งโอนเงินเรียบร้อย! ระบบกำลังตรวจสอบ");
             closePaymentModal();
             // ตรงนี้อาจจะสั่งให้เปลี่ยนหน้าเว็บไปหน้าขอบคุณ หรือหน้าประวัติ
-             window.location.href = "#"; 
+             window.location.href = "/Queue/q.html"; 
         }, 2000);
     }
