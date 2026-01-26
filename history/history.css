@@ -1,0 +1,152 @@
+ /* --- ตั้งค่าตัวแปรสี --- */
+        :root {
+            --primary-brown: #8B5E3C; /* สีน้ำตาลเข้มของกรอบบริการ */
+            --bg-cream: #FAF7F2;      /* สีพื้นหลังครีม */
+            --text-gold: #E8DCC4;     /* สีตัวหนังสือทอง */
+            --text-dark: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+        }
+
+        /* --- 1. Navbar --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            
+             
+            font-family: "Rye", serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 45px;
+            font-weight: bold;
+            color: #5A3E25;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: -15px;
+        }
+
+        .logo .en {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo .th {
+            display: block;      
+            font-size: 16px;
+            margin-left: 10px;
+            margin-top: -5px;    
+        }
+
+
+        .menu-icon {
+            /* border:solid 1px;  */
+            font-size: 14px;
+            color: #5A3E25;
+            cursor: pointer;
+            margin-left: 25px;
+            text-decoration: none;
+            
+        }
+
+        /* กรอบการ์ด */
+.booking-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-left: 80px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    overflow: hidden; /* สำคัญ! เอาไว้ตัดขอบ */
+    width: 80%;
+    align-items:center;
+    
+
+
+}
+
+/* ส่วนหัว */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-info h3 { margin: 0 0 5px 0; color: #5A3E25; }
+.header-info p { margin: 0; color: #555; }
+
+/* ปุ่มกดเปิดปิด (สีน้ำตาล) */
+.toggle-btn {
+    background: #5A3E25;
+    color: white;
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+.toggle-btn:hover { background: #422d1b; }
+
+/* ส่วนเนื้อหา (ซ่อนไว้ก่อน!) */
+.card-body {
+    display: none; /* 🔴 ซ่อน */
+    animation: fadeIn 0.5s;
+}
+
+/* คลาสนี้จะถูกเติมด้วย JS เพื่อแสดงเนื้อหา */
+.booking-card.active .card-body {
+    display: block; /* 🟢 โชว์ */
+}
+
+/* เปลี่ยนสีปุ่มเมื่อเปิดอยู่ (ให้เป็นปุ่มกากบาท) */
+.booking-card.active .toggle-btn {
+    background: #422d1b;
+    transform: rotate(180deg); /* หมุนปุ่มเท่ๆ */
+}
+
+/* รายละเอียดข้างใน */
+.detail-row {
+    display: flex;
+    
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* ปุ่มยกเลิกสีแดง */
+.cancel-btn {
+    background: #ce1212;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* เอฟเฟกต์ตอนโผล่มา */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
