@@ -1,0 +1,271 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-cream: #FAF7F2;
+    --text-brown: #5A3E25;     /* สีตัวหนังสือหลัก */
+    --panel-brown: #6D4C41;    /* สีพื้นหลังกล่องขวา (น้ำตาลเข้ม) */
+    --card-light: #A1887F;     /* สีการ์ดซ้ายบน */
+    --card-dark: #3E2723;      /* สีการ์ดซ้ายกลาง */
+    --card-red: #C62828;       /* สีการ์ดซ้ายล่าง */
+    --white: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-brown);
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--bg-cream);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #D7CCC8;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-brown);
+}
+
+.logo-icon {
+    font-size: 32px;
+    transform: rotate(-15deg); /* เอียงกรรไกรนิดหน่อยให้ดูมีสไตล์ */
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-en {
+    font-family: 'Rye', serif;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.brand-th {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 16px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #8D6E63;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-item.active, .nav-item:hover {
+    color: var(--text-brown);
+    font-weight: bold;
+}
+
+.admin-name {
+    color: #8D6E63;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* --- Main Layout --- */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 36px;
+    color: var(--text-brown);
+    margin-bottom: 5px;
+}
+
+.page-header .date {
+    font-size: 16px;
+    color: #8D6E63;
+    font-weight: 500;
+}
+
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr; /* ซ้าย 300px, ขวาที่เหลือ */
+    gap: 40px;
+    align-items: start;
+}
+
+/* --- Left Panel: Stat Cards --- */
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-card {
+    height: 160px; /* การ์ดสูงสี่เหลี่ยมจัตุรัสตามภาพ */
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.stat-card h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.stat-card .number {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.card-light-brown { background-color: var(--card-light); }
+.card-dark-brown { background-color: var(--card-dark); }
+.card-red { background-color: var(--card-red); }
+
+/* --- Right Panel: Queue & Schedule --- */
+.right-panel {
+    background-color: var(--panel-brown);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: white;
+}
+
+.panel-heading {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.mt-20 { margin-top: 25px; }
+
+/* Next Queue Card (กล่องสีขาวด้านใน) */
+.next-queue-card {
+    background-color: var(--white);
+    border-radius: 15px;
+    padding: 20px;
+    color: var(--text-brown);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.user-avatar {
+    font-size: 60px;
+    color: var(--text-brown);
+}
+
+.queue-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-row {
+    font-size: 16px;
+    color: var(--text-brown);
+}
+
+.btn-call {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #A1887F;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Time Schedule List */
+.time-schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.time-slot {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.time-label {
+    width: 70px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+}
+
+.slot-box {
+    flex-grow: 1;
+    background-color: #FAF7F2;
+    border: 1px dashed #8D6E63;
+    border-radius: 8px;
+    padding: 8px 15px;
+    color: #8D6E63;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between; /* ให้คำว่าว่าง อยู่ซ้าย ไอคอนบวก อยู่ขวา */
+    align-items: center;
+}
+
+.slot-box i {
+    cursor: pointer;
+    color: var(--text-brown);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+    .left-panel {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    .stat-card {
+        min-width: 140px;
+        height: 140px;
+    }
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
