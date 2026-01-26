@@ -24,12 +24,21 @@
             
 
         </div>
-        <div class="menu-icon" >
-            <b><a href="../home/index.html" class="menu-icon">หน้าแรก</a></b>
-            <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+        <div class="menu-icons" >
+            <b><a href="#" class="menu-icon">หน้าแรก</a></b>
             <a href="#" class="menu-icon">จองคิว</a>
-            <a href="#" class="menu-icon">ประวัติ</a>
-            <a href="#" class="menu-icon">แอดมิน</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none;">
+                <a href="#" class="menu-icon" >
+                    <i class="fas fa-user-alt"></i>
+                    <span id="user-name-display"></span>
+                </a>
+               
+            </span>
+            
         </div>
     
     </div><br>
