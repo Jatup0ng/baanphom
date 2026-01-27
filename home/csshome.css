@@ -131,7 +131,7 @@
         .hero {
             position: relative;
             height: 350px;
-            background-image: url(/home/background01.jpg); /* รูปร้านตัดผม */
+            /* background-image: url(/home/background01.jpg); รูปร้านตัดผม */
             background-size: cover;
             background-position: center;
             display: flex;
