@@ -1,0 +1,177 @@
+/* --- Variables --- */
+:root {
+    --bg-main: #FAF8F5;        
+    --text-brown: #5A3E25;     
+    --panel-dark: #6D4C41;     
+    --card-light-brown: #A1887F;
+    --card-dark-brown: #3E2723;
+    --card-red: #C62828;
+    --schedule-bg: #FAF7F2;    
+    --border-dashed: #8D6E63;
+    --filter-bg: #8D6E63; 
+    --filter-input-bg: #FFFFFF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun', sans-serif; background-color: var(--bg-main); color: var(--text-brown); }
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--bg-main);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #D7CCC8;
+}
+.logo-section { display: flex; align-items: center; gap: 12px; color: var(--text-brown); }
+.logo-icon { font-size: 32px; transform: rotate(-15deg); }
+.logo-text { display: flex; flex-direction: column; }
+.brand-en { font-family: 'Rye', serif; font-size: 24px; line-height: 1; }
+.brand-th { font-size: 16px; }
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #8D6E63;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.nav-item.active, .nav-item:hover { color: var(--text-brown); font-weight: bold; }
+
+/* --- Admin Dropdown (ส่วนที่เพิ่มใหม่) --- */
+.admin-dropdown {
+    position: relative; /* เพื่อให้ dropdown-content อ้างอิงตำแหน่งจากตรงนี้ */
+    display: inline-block;
+}
+
+.admin-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--text-brown);
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* ระยะห่างระหว่างชื่อกับลูกศร */
+}
+
+.dropdown-content {
+    display: none; /* ซ่อนไว้ก่อน */
+    position: absolute;
+    right: 0;
+    top: 120%; /* ขยับลงมาจากปุ่มนิดหน่อย */
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15); /* เงาฟุ้งๆ */
+    border-radius: 8px;
+    z-index: 100;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+/* Class นี้จะถูกใส่ด้วย JS เพื่อแสดงเมนู */
+.dropdown-content.show {
+    display: block; 
+}
+
+.dropdown-content a {
+    color: var(--text-brown);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+}
+
+/* สีแดงสำหรับปุ่มออกจากระบบ */
+.dropdown-content a.logout-link:hover {
+    color: var(--card-red);
+    background-color: #FFF0F0;
+}
+
+/* --- Layout Main --- */
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; min-height: 80vh; }
+.page-header { margin-bottom: 25px; }
+.page-header h1 { font-size: 32px; color: var(--text-brown); margin-bottom: 5px; }
+.page-header .date { color: #8D6E63; font-weight: 500; }
+
+/* --- Dashboard Style --- */
+.dashboard-layout { display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: start; }
+.left-panel { display: flex; flex-direction: column; gap: 20px; }
+.stat-card {
+    height: 150px; border-radius: 12px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center; color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.stat-card h3 { font-size: 16px; font-weight: normal; margin-bottom: 10px; opacity: 0.9; }
+.stat-card .number { font-size: 28px; font-weight: bold; }
+.card-light-brown { background-color: var(--card-light-brown); }
+.card-dark-brown { background-color: var(--card-dark-brown); }
+.card-red { background-color: var(--card-red); }
+
+.right-panel {
+    background-color: var(--panel-dark); border-radius: 15px; padding: 25px;
+    color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.panel-heading { font-size: 18px; margin-bottom: 10px; color: #fff; font-weight: bold; }
+.mt-20 { margin-top: 25px; }
+
+.queue-card {
+    background-color: #fff; border-radius: 12px; padding: 20px;
+    display: flex; align-items: center; gap: 20px; position: relative; color: var(--text-brown);
+}
+.user-icon { font-size: 55px; color: var(--text-brown); }
+.queue-info { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+.info-row { font-size: 15px; }
+.btn-call {
+    position: absolute; top: 15px; right: 15px;
+    background-color: #A1887F; color: white; border: none;
+    padding: 5px 15px; border-radius: 20px; cursor: pointer;
+    font-size: 13px; display: flex; align-items: center; gap: 5px;
+}
+
+.schedule-container { background-color: var(--schedule-bg); border-radius: 12px; padding: 20px; }
+.time-list { display: flex; flex-direction: column; gap: 12px; }
+.time-row { display: flex; align-items: center; gap: 15px; }
+.time-text { width: 65px; text-align: right; font-size: 14px; color: var(--text-brown); font-weight: 500; }
+.slot-box {
+    flex-grow: 1; border: 1px dashed var(--border-dashed);
+    border-radius: 6px; padding: 8px 15px; color: #888; font-size: 14px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.slot-box i { color: var(--text-brown); cursor: pointer; }
+
+/* --- Queue Management Style --- */
+.queue-management-area { display: flex; flex-direction: column; gap: 25px; }
+.filter-section { background-color: var(--filter-bg); border-radius: 8px; padding: 15px 20px; color: white; }
+.filter-title { font-weight: bold; margin-bottom: 10px; font-size: 16px; }
+.filter-inputs { display: flex; gap: 20px; flex-wrap: wrap; }
+.input-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 150px; }
+.input-group label { font-size: 14px; font-weight: normal; }
+.form-control {
+    padding: 8px 10px; border-radius: 5px; border: none; outline: none;
+    background-color: var(--filter-input-bg); color: var(--text-brown); font-family: 'Sarabun', sans-serif;
+}
+.list-section { border: 2px solid var(--filter-bg); border-radius: 8px; overflow: hidden; }
+.list-header { background-color: var(--filter-bg); color: white; padding: 10px 20px; font-weight: bold; }
+.list-body { background-color: #fff; padding: 20px; min-height: 100px; display: flex; justify-content: center; align-items: center; }
+.empty-state { color: #999; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+
+@media (max-width: 768px) {
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .navbar { flex-direction: column; gap: 10px; }
+}
