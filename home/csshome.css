@@ -91,7 +91,40 @@
             transform: translateY(-1px); 
         }
             
-        
+        /* กล่องเมนูย่อย (ปกติจะซ่อนไว้) */
+.dropdown-content {
+    display: none;           /* ซ่อนไว้ก่อน */
+    position: absolute;      /* ลอยอยู่เหนือเนื้อหาอื่น */
+    right: 0;                /* ชิดขวาให้ตรงกับชื่อ */
+    top: 40px;               /* เว้นระยะลงมาจากชื่อนิดหน่อย */
+    background-color: #fff;  /* พื้นหลังสีขาว */
+    min-width: 150px;        /* ความกว้างขั้นต่ำ */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* เงาให้ดูมีมิติ */
+    z-index: 100;            /* ให้ลอยทับทุกอย่าง */
+    border-radius: 5px;      /* มุมมน */
+    overflow: hidden;
+}
+
+/* ลิงก์ข้างในเมนู */
+.dropdown-content a {
+    color: #333 !important;  /* สีตัวหนังสือ */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: red !important;   /* ชี้แล้วเปลี่ยนเป็นสีแดง */
+}
+
+/* คลาสสำหรับสั่งให้โชว์ (จะใช้ JS เติมคลาสนี้) */
+.show {
+    display: block;
+}
     
 
         /* --- 2. Hero Section (ภาพปก) --- */

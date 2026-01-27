@@ -32,12 +32,17 @@
                 <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
             </span>
             <a href="/history/history.html" class="menu-icon">ประวัติ</a>
-            <span id="member-nav" style="display: none;">
-                <a href="#" class="menu-icon" >
-                    <i class="fas fa-user-alt"></i>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-alt"></i> 
                     <span id="user-name-display"></span>
+                    <i class="fas fa-caret-down"></i>
                 </a>
-               
+                <div id="userDropdown" class="dropdown-content">
+                    <a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
             </span>
             
         </div>

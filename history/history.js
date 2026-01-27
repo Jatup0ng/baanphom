@@ -19,3 +19,25 @@
             icon.classList.add('fa-edit');
         }
     }
+
+
+    function checkLoginStatus() {
+    // แอบดูในเครื่องลูกค้าว่ามีตราปั๊ม isLoggedIn ไหม
+    let status = localStorage.getItem("isLoggedIn");
+    let name = localStorage.getItem("userName");
+
+    if (status === "yes") {
+        // ถ้ามี ให้เปลี่ยน Navbar เป็นโหมดสมาชิก
+        updateNavToMember(name);
+    } else {
+        // ถ้าไม่มี ให้เป็นโหมดทั่วไป
+        updateNavToGuest();
+    }
+}
+
+// --- 2. ฟังก์ชันช่วยสลับหน้าตา Navbar (ใช้ภายในไฟล์นี้) ---
+function updateNavToMember(name) {
+    document.getElementById("guest-nav").style.display = "none";  // ซ่อนปุ่มเข้าสู่ระบบ
+    document.getElementById("member-nav").style.display = "inline"; // โชว์ชื่อสมาชิก
+    document.getElementById("user-name-display").innerText = "" + name; // แสดงชื่อสมาชิก
+}

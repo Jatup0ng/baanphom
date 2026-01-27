@@ -36,98 +36,130 @@
     
     
 
-
-    // --- 1. ทำงานทันทีเมื่อเปิดหน้าเว็บ (ตรวจสอบว่าเคยล็อกอินหรือยัง) ---
-
+// --- 1. ทำงานทันทีเมื่อเปิดหน้าเว็บ (ตรวจสอบสถานะ) ---
+document.addEventListener("DOMContentLoaded", function() {
+    checkLoginStatus();
+});
 
 function checkLoginStatus() {
-    // แอบดูในเครื่องลูกค้าว่ามีตราปั๊ม isLoggedIn ไหม
     let status = localStorage.getItem("isLoggedIn");
     let name = localStorage.getItem("userName");
 
     if (status === "yes") {
-        // ถ้ามี ให้เปลี่ยน Navbar เป็นโหมดสมาชิก
         updateNavToMember(name);
     } else {
-        // ถ้าไม่มี ให้เป็นโหมดทั่วไป
         updateNavToGuest();
     }
 }
 
-// --- 2. ฟังก์ชันช่วยสลับหน้าตา Navbar (ใช้ภายในไฟล์นี้) ---
+// --- 2. ฟังก์ชันสลับหน้าตา Navbar (แก้ชื่อ ID ให้ตรง HTML แล้ว) ---
 function updateNavToMember(name) {
-    document.getElementById("guest-nav").style.display = "none";  // ซ่อนปุ่มเข้าสู่ระบบ
-    document.getElementById("member-nav").style.display = "inline"; // โชว์ชื่อสมาชิก
-    document.getElementById("user-name-display").innerText = "" + name; // แสดงชื่อสมาชิก
-    
+    // ใช้ getElementById("member") ให้ตรงกับ index.html
+    let guestNav = document.getElementById("guest-nav");
+    let memberNav = document.getElementById("member-nav");
+    let nameDisplay = document.getElementById("user-name-display");
+
+    if (guestNav) guestNav.style.display = "none"; 
+    if (memberNav) memberNav.style.display = "inline-block";
+    if (nameDisplay) nameDisplay.innerText = name;
 }
 
 function updateNavToGuest() {
-    document.getElementById("guest-nav").style.display = "inline"; // โชว์ปุ่มเข้าสู่ระบบ
-    document.getElementById("member-nav").style.display = "none";  // ซ่อนชื่อสมาชิก
+    let guestNav = document.getElementById("guest-nav");
+    let memberNav = document.getElementById("member-nav");
+
+    if (guestNav) guestNav.style.display = "inline";
+    if (memberNav) memberNav.style.display = "none";
 }
 
-// --- 3. ฟังก์ชันล็อกอิน (ผูกกับปุ่ม "เข้าสู่ระบบ" ใน Modal) ---
-function performLogin() {
-    // 1. ตั้งชื่อสมมติ (หรือดึงจากช่อง Input ก็ได้)
-    document.getElementById("username-input").value
-
-    // 2. บันทึกลงเครื่อง (ปั๊มตรา)
-    localStorage.setItem("isLoggedIn", "yes");
-    localStorage.setItem("userName", mockName);
-
-    // 3. เปลี่ยนหน้าจอทันที
-    updateNavToMember(mockName);
-
-    // 4. สั่งปิด Modal (เรียกฟังก์ชันเดิมที่คุณมี)
-    closeLogin(); 
-
-    
-}
-
-
-
-
-// --- ฟังก์ชันเปิด-ปิด Modal เดิมของคุณ (เก็บไว้เหมือนเดิม) ---
+// --- 3. ระบบ Modal (Login / Register) ---
 function openLogin() {
     document.getElementById("loginModal").style.display = "flex";
 }
+
 function closeLogin() {
     document.getElementById("loginModal").style.display = "none";
 }
 
+function openRegister() {
+    document.getElementById("registerModal").style.display = "flex";
+}
+
+function closeRegister() {
+    document.getElementById("registerModal").style.display = "none";
+}
+
+// --- 4. ฟังก์ชันล็อกอิน ---
 function performLogin() {
-    console.log("เริ่มทำงานฟังก์ชัน performLogin...");
-
-    // 1. ลองหาช่องกรอกชื่อ
     let inputField = document.getElementById("username-input");
-
-    // 🔴 ถ้าหาไม่เจอ ให้ฟ้องทันที
+    
+    // กันเหนียว: ถ้าหาช่องกรอกไม่เจอ
     if (!inputField) {
-        alert("❌ ERROR: หาช่องกรอกชื่อไม่เจอ!\n(คุณน่าจะลืมเติม id='username-input' ในไฟล์ HTML)");
-        return; // หยุดทำงาน
+        console.error("ไม่พบช่องกรอกชื่อ (id='username-input')");
+        return;
     }
 
-    // 2. ถ้าเจอแล้ว ดึงค่าออกมา
     let nameValue = inputField.value;
-    console.log("ชื่อที่ได้คือ:", nameValue);
-
-    // ตั้งชื่อสำรองถ้าไม่ได้กรอก
     if (!nameValue || nameValue.trim() === "") {
-        nameValue = "คุณลูกค้า";
+        nameValue = "User";
     }
 
-    // 3. บันทึกและเปลี่ยนหน้า
-    try {
-        localStorage.setItem("isLoggedIn", "yes");
-        localStorage.setItem("userName", nameValue);
-        
-        updateNavToMember(nameValue);
-        closeLogin();
-        // alert("✅ เข้าสู่ระบบสำเร็จ! (ชื่อ: " + nameValue + ")");
-    } catch (e) {
-        alert("❌ ERROR ในการเปลี่ยน Navbar: " + e.message);
+    // บันทึกและเปลี่ยนหน้า
+    localStorage.setItem("isLoggedIn", "yes");
+    localStorage.setItem("userName", nameValue);
+    
+    updateNavToMember(nameValue);
+    closeLogin();
+}
+
+// --- 5. ระบบ Dropdown Menu และ Logout ---
+function toggleDropdown() {
+    let dropdown = document.getElementById("userDropdown");
+    if(dropdown) {
+        dropdown.classList.toggle("show");
     }
 }
+
+function logout() {
+    if(confirm("ต้องการออกจากระบบใช่หรือไม่?")) {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userName");
+
+        // เช็คว่าอยู่หน้าไหน แล้วเด้งกลับให้ถูก
+        if (window.location.pathname.includes("history")) {
+            // ถ้าอยู่หน้าประวัติ ให้ถอยกลับไป index หน้าบ้าน
+            window.location.href = "../home/index.html"; 
+        } else {
+            // ถ้าอยู่หน้าแรกอยู่แล้ว ให้รีเฟรช
+            location.reload();
+        }
+    }
+}
+
+// --- 6. รวมตัวดักจับการคลิก (Window Click) ไว้ที่เดียว (แก้ปัญหาคำสั่งตีกัน) ---
+window.onclick = function(event) {
+    let loginModal = document.getElementById("loginModal");
+    let registerModal = document.getElementById("registerModal");
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+
+    // 1. คลิกพื้นหลังเพื่อปิด Login
+    if (event.target == loginModal) {
+        loginModal.style.display = "none";
+    }
     
-    
+    // 2. คลิกพื้นหลังเพื่อปิด Register
+    if (event.target == registerModal) {
+        registerModal.style.display = "none";
+    }
+
+    // 3. คลิกที่อื่นเพื่อปิด Dropdown เมนู
+    if (!event.target.closest('.menu-icon')) {
+        for (let i = 0; i < dropdowns.length; i++) {
+            let openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+   
