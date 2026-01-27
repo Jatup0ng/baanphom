@@ -59,7 +59,7 @@
         }
 
 
-        .menu-icon {
+        .menu-icons {
             /* border:solid 1px;  */
             font-size: 14px;
             color: #5A3E25;
@@ -68,6 +68,64 @@
             text-decoration: none;
             
         }
+        
+        .menu-icon {
+            text-decoration: none;     /* เอาขีดเส้นใต้ออก */
+            color: #442f1c;               /* สีดำเทาๆ (แก้ตามใจชอบ) */
+            font-size: 16px;
+            padding: 10px 15px;        /* เว้นระยะห่างรอบๆ ให้คลิกง่าย */
+            transition: all 0.3s ease; /* หัวใจสำคัญ! สั่งให้ทุกการเปลี่ยนแปลงใช้เวลา 0.3 วิ */
+    
+            /* แก้ปัญหาตัวอักษรขยับ (optional) */
+            display: inline-block; 
+        }
+
+        
+        .menu-icon:hover {
+            /* เทคนิค: ใช้เงาซ้อนกันเบาๆ ให้ดูเหมือนตัวหนา */
+            text-shadow: 0 0 1px #442f1c, 0 0 1px #442f1c; 
+            
+            
+            
+            /* (แถม) ขยับลอยขึ้นนิดนึงให้ดูมีมิติ */
+            transform: translateY(-1px); 
+        }
+            
+        /* กล่องเมนูย่อย (ปกติจะซ่อนไว้) */
+.dropdown-content {
+    display: none;           /* ซ่อนไว้ก่อน */
+    position: absolute;      /* ลอยอยู่เหนือเนื้อหาอื่น */
+    right: 0;                /* ชิดขวาให้ตรงกับชื่อ */
+    top: 40px;               /* เว้นระยะลงมาจากชื่อนิดหน่อย */
+    background-color: #fff;  /* พื้นหลังสีขาว */
+    min-width: 150px;        /* ความกว้างขั้นต่ำ */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* เงาให้ดูมีมิติ */
+    z-index: 100;            /* ให้ลอยทับทุกอย่าง */
+    border-radius: 5px;      /* มุมมน */
+    overflow: hidden;
+}
+
+/* ลิงก์ข้างในเมนู */
+.dropdown-content a {
+    color: #333 !important;  /* สีตัวหนังสือ */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: red !important;   /* ชี้แล้วเปลี่ยนเป็นสีแดง */
+}
+
+/* คลาสสำหรับสั่งให้โชว์ (จะใช้ JS เติมคลาสนี้) */
+.show {
+    display: block;
+}
+    
 
         /* --- 2. Hero Section (ภาพปก) --- */
         .hero {
@@ -279,6 +337,18 @@
     animation: fadeIn 0.3s; /* ใส่เอฟเฟกต์ตอนโผล่ */
 }
 
+.registermodal-content {
+    background-color: #FAF7F2; /* สีครีมตามรูป */
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px; /* กว้างไม่เกิน 400px */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s; /* ใส่เอฟเฟกต์ตอนโผล่ */
+}
+
 /* ปุ่มปิด (X) มุมขวา */
 .close-btn {
     position: absolute;
@@ -304,11 +374,12 @@
 }
 
 .form-input {
+    font-family: 'Sarabun', sans-serif;
     width: 100%;
     padding: 10px;
     border: 1px solid #8B5E3C;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     background: white;
 }
 
