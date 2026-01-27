@@ -128,7 +128,7 @@ function logout() {
         // เช็คว่าอยู่หน้าไหน แล้วเด้งกลับให้ถูก
         if (window.location.pathname.includes("history")) {
             // ถ้าอยู่หน้าประวัติ ให้ถอยกลับไป index หน้าบ้าน
-            window.location.href = "../home/index.html"; 
+            window.location.href = "../index.html"; 
         } else {
             // ถ้าอยู่หน้าแรกอยู่แล้ว ให้รีเฟรช
             location.reload();
