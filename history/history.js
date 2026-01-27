@@ -9,7 +9,7 @@
         alert("⛔ กรุณาเข้าสู่ระบบก่อนเข้าใช้งานหน้าประวัติ");
         
         // ดีดกลับไปหน้าแรก (ถอยหลังออกไปหา index.html)
-        window.location.href = "../home/index.html"; 
+        window.location.href = "../index.html"; 
     }
 })();
 
