@@ -125,4 +125,71 @@
 .show {
     display: block;
 }
+        /* --- 2. Booking Box --- */
+.booking-container{
+    flex: 1;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 90%;
+    display: flex;
+    gap: 40px;
+    /* border: 1px solid var(--primary-brown); */
+
+}
+
+.all_block{
+    /* border: 1px solid var(--primary-brown); */
+    height: 400px;
+}
+
+
     
+.boxone{
+    /* border: 1px solid var(--primary-brown); */
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    /* border: 2px solid var(--primary-brown); */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 80%;
+    height: auto;
+}
+.boxtwo{
+    /* border: 1px solid var(--primary-brown); */
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    /* border: 2px solid var(--primary-brown); */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 80%;
+    height: auto;
+    
+}
+
+.box_about{
+    /* border: 1px solid var(--primary-brown); */
+    height: 300px;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.btn-next{
+    width: 100%;
+    padding: 12px;
+    background-color: #5A3E25; /* สีน้ำตาลเข้ม */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
