@@ -26,19 +26,24 @@
 
         </div>
         <div class="menu-icons" >
-            <b><a href="../index.html" class="menu-icon">หน้าแรก</a></b>
+            <a href="../index.html" class="menu-icon">หน้าแรก</a>
             <a href="../booking/book.html" class="menu-icon">จองคิว</a>
             <span id="guest-nav">
                 <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
             </span>
-            <a href="history.html" class="menu-icon">ประวัติ</a>
+            <b><a href="history.html" class="menu-icon">ประวัติ</a></b>
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown()">
-                    <i class="fas fa-user-alt"></i> 
+                    <i class="fas fa-user-circle"></i> 
                     <span id="user-name-display"></span>
-                    <i class="fas fa-caret-down"></i>
+                    
                 </a>
                 <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="#" >
+                            <i class="fas fa-user-circle"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
                     <a href="#" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
                     </a>

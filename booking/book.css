@@ -120,6 +120,11 @@
     background-color: #f1f1f1;
     color: red !important;   /* ชี้แล้วเปลี่ยนเป็นสีแดง */
 }
+.aboutme a:hover {
+    background-color: #f1f1f1;
+    color:  #333 !important;  
+}
+
 
 /* คลาสสำหรับสั่งให้โชว์ (จะใช้ JS เติมคลาสนี้) */
 .show {
@@ -173,13 +178,13 @@
 .box_about{
     /* border: 1px solid var(--primary-brown); */
     height: 300px;
-    max-width: 1000px;
+    /* max-width: 1000px; */
     margin: 30px auto;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: 100%;
+    width: 85%;
 }
 
 .btn-next{

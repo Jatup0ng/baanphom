@@ -118,8 +118,15 @@
 /* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .dropdown-content a:hover {
     background-color: #f1f1f1;
-    color: red !important;   /* ชี้แล้วเปลี่ยนเป็นสีแดง */
+    color: rgb(255, 0, 0) !important;   /* ชี้แล้วเปลี่ยนเป็นสีแดง */
 }
+.aboutme a:hover {
+    background-color: #f1f1f1;
+    color:  #333 !important;  
+}
+
+
+
 
 /* คลาสสำหรับสั่งให้โชว์ (จะใช้ JS เติมคลาสนี้) */
 .show {
