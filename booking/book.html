@@ -63,9 +63,9 @@
                 <h3>เลือกช่างและบริการ</h3><br>
                 <div class="form-group">
                     <label class="form-label">บริการ</label>
-                    <select id="barber-select" class="form-input">
-                        <option value="" disabled selected>เลือกบริการ</option>
-                        <option value="ช่างเอ">ตัด สระ ไดร์</option>
+                    <select id="inputService" class="form-input" onchange="updatePrice()">
+                        <option value="" selected>เลือกบริการ</option>
+                        <option value="ตัด สระ ไดร์">ตัด สระ ไดร์</option>
                     </select>
                 </div>
 
@@ -74,15 +74,14 @@
                     <label class="form-label">ช่างตัดผม</label>
                     <select id="barber-select" class="form-input">
                         <option value="" disabled selected>เลือกช่าง</option>
-                        <option value="ช่างเอ">ช่างเอ</option>
-                        <option value="ช่างบี">ช่างบี</option>
-                        <option value="ช่างซี">ช่างซี</option>
+                        <option value="ช่างA">ช่างA</option>
+                        
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">ราคา</label>
-                    <input type="text" class="form-input" placeholder="ราคา 150 บาท" readonly>  
+                    <input type="text" id="priceInput" class="form-input" placeholder="ราคา - บาท" readonly>  
                 </div>
 
 
@@ -92,24 +91,24 @@
                     <h3>เลือกวันและเวลา</h3><br>
                     <div class="form-group ">
                         <label class="form-label">วันที่ต้องการจอง</label>
-                        <input type="date" class="form-input"> 
+                        <input type="date" class="form-input" id="inputDate"> 
                     </div> 
 
                     <div class="form-group">
                         <label class="form-label">เวลาที่ต้องการจอง</label>
-                        <select id="time-select" class="form-input">
+                        <select id="inputTime" class="form-input">
                             <option value="" disabled selected>เลือกเวลา</option>
-                            <option value="11.00">11.00 - 12.00</option>
-                            <option value="12.00">12.00</option>
-                            <option value="13.00">13.00</option>
-                            <option value="14.00">14.00</option>
-                            <option value="15.00">15.00</option>
-                            <option value="16.00">16.00</option>
-                            <option value="17.00">17.00</option>
-                            <option value="18.00">18.00</option>
-                            <option value="19.00">19.00</option>
-                            <option value="20.00">20.00</option>
-                            <option value="21.00">21.00</option>
+                            <option value="11.00 - 12.00">11.00 - 12.00</option>
+                            <option value="12.00 - 13.00">12.00 - 13.00</option>
+                            <option value="13.00 - 14.00">13.00 - 14.00</option>
+                            <option value="14.00 - 15.00">14.00 - 15.00</option>
+                            <option value="15.00 - 16.00">15.00 - 16.00</option>
+                            <option value="16.00 - 17.00">16.00 - 17.00</option>
+                            <option value="17.00 - 18.00">17.00 - 18.00</option>
+                            <option value="18.00 - 19.00">18.00 - 19.00</option>
+                            <option value="19.00 - 20.00">19.00 - 20.00</option>
+                            <option value="20.00 - 21.00">20.00 - 21.00</option>
+                            
                         </select>
                     </div>
                     
@@ -144,7 +143,7 @@
             </div>
             
         </div>
-            <a href="/payment01/payment.html"><button class="btn-next">
+            <a onclick="saveAndGoNext()"><button class="btn-next">
                 ถัดไป
             </button></a>
         
