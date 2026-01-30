@@ -61,3 +61,27 @@ function updateNavToMember(name) {
     document.getElementById("member-nav").style.display = "inline"; // โชว์ชื่อสมาชิก
     document.getElementById("user-name-display").innerText = "" + name; // แสดงชื่อสมาชิก
 }
+
+function loadBookingDetails() {
+    // 1. ดึงข้อมูลที่ลูกค้าเลือกมาจากหน้าก่อนหน้า (localStorage)
+    // สมมติว่าหน้าก่อนหน้าบันทึกไว้ชื่อ 'tempBooking'
+    let bookingData = JSON.parse(localStorage.getItem('tempBooking'));
+
+    if (bookingData) {
+        // 2. เอาข้อมูลไปหยอดใส่ HTML ตาม ID ที่เราสร้างไว้
+        document.getElementById('').innerText = bookingData.service;
+        
+        // จัดรูปแบบวันเวลาให้สวยงาม
+        let dateParts = bookingData.date.split("-");
+        let thDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+        document.getElementById('').innerText = `${thDate} เวลา ${bookingData.time} น.`;
+        
+        // ใส่ระยะเวลาและราคา
+        document.getElementById('').innerText = bookingData.duration + " นาที";
+        document.getElementById('').innerText = bookingData.price + " บาท";
+    } else {
+        // กรณีไม่มีข้อมูล (เช่น เปิดหน้านี้ขึ้นมาลอยๆ)
+        alert("ไม่พบข้อมูลการจอง กรุณาเลือกบริการก่อน");
+        window.location.href = "../booking/book.html"; // ดีดกลับไปหน้าจอง
+    }
+}
