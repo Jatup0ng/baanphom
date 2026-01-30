@@ -44,3 +44,20 @@ function loadBookingDetails() {
 function goBackToEdit() {
     window.location.href = "../booking/book.html"; // หรือหน้าก่อนหน้านี้
 }
+
+function handlePayment() {
+            // ดึงตัว element ข้อความมาเก็บไว้ในตัวแปร
+            const statusElement = document.getElementById('status-pending');
+
+            // --- ขั้นตอนที่ 1: เปลี่ยนสีและข้อความ ---
+            statusElement.innerText = " *ชำระเงินเสร็จสิ้น"; // เปลี่ยนข้อความ
+            statusElement.classList.remove('status-pending'); // ลบสีแดง
+            statusElement.classList.add('status-success');    // ใส่สีเขียว
+
+            // --- ขั้นตอนที่ 2: รอเวลา แล้วไปหน้าถัดไป ---
+            // setTimeout(ฟังก์ชันที่จะทำ, เวลาเป็นมิลลิวินาที)
+            // 3000 มิลลิวินาที = 3 วินาที
+            setTimeout(function() {
+                window.location.href = "../Queue/q.html"; 
+            }, 4000);
+        }

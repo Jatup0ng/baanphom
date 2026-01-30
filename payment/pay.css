@@ -137,7 +137,18 @@
     max-width: 90%;
     display: flex;
     gap: 40px;
+    /* border: 1px solid var(--primary-brown); */
 }
+.qrpayment-container {
+    flex: 1;
+    margin: 0 auto;
+    padding-top: 10px;
+    max-width: 90%;
+    display: flex;
+    gap: 10%;
+    /* border: 1px solid var(--primary-brown); */
+}
+
 .payment-methods{
      /* border: 1px solid var(--primary-brown); */
     max-width: 700px;
@@ -150,8 +161,26 @@
     width: 100%;
     height: auto;
     justify-items: center;
-    align-items: center;
-    
+    align-items: center;  
+}
+.qrpayment-methods{
+     /* border: 1px solid var(--primary-brown); */
+    max-width:600px;
+    /* margin-left: px; */
+    padding: 20px;
+    background-color: #ffffff;
+    /* border: 2px solid var(--primary-brown); */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    height: 750px;
+    justify-items: center;
+    align-items: center;  
+    margin-bottom: 30px;
+}
+
+.qrpay{
+    width: 560px;
     
 }
 .payment-method {
@@ -188,14 +217,29 @@
     max-width: 600px;
     margin: 10px auto;
     padding: 20px;
-    
     background-color: #ffffff;
     /* border: 2px solid var(--primary-brown); */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     width: 80%;
-    height: auto;
+    height: 250px;
     position: relative;
+    line-height: 30px;
+
+}
+.qrbooking-details-card {
+     /* border: 1px solid var(--primary-brown); */
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    /* border: 2px solid var(--primary-brown); */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 80%;
+    height: 250px;
+    position: relative;
+    line-height: 30px;
 
 }
 
@@ -241,3 +285,73 @@ button#undo {
     
 }
 
+.next-bt{
+    flex: 1;
+    margin: 0 auto;
+    padding-top: 10px;
+    max-width: 90%;
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+button#ok {
+    background-color:rgba(255, 255, 255, 0);
+    color: var(--primary-brown);
+    border:2px solid var(--primary-brown);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 500px;
+    height: 45px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+button#next {
+    background-color: var(--primary-brown);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    height: 45px;
+    font-weight: bold;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* .price span#showPrice:after {
+    content:'    *รอชำระเงิน';
+    color: rgb(255, 0, 0);
+    animation: words 10s forwards;
+}
+
+@keyframes words {
+    0%, 100%{
+        content: '   *ชำระเงินเสร็จสิ้น';
+        color: rgb(0, 166, 66);
+        
+    }
+    
+} */
+/* ตั้งค่า CSS เริ่มต้น */
+    .status-text {
+        font-weight: bold;
+        transition: all 0.5s ease; /* เอฟเฟกต์ตอนเปลี่ยนสีให้นุ่มนวล */
+    }
+
+    /* สถานะ: รอชำระ (สีแดง) */
+    .status-pending {
+        color: rgb(255, 0, 0);
+        font-weight: bold;
+    }
+
+    /* สถานะ: เสร็จสิ้น (สีเขียว) */
+    .status-success {
+        color: rgb(0, 166, 66);
+        font-weight: bold;
+    }
