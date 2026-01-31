@@ -23,19 +23,25 @@ function loadBookingDetails() {
 
     if (bookingData) {
         // 2. เอาข้อมูลไปหยอดใส่ HTML ตาม ID ที่เราสร้างไว้
-        document.getElementById('').innerText = bookingData.service;
+        document.getElementById('showService').innerText = bookingData.service;
         
         // จัดรูปแบบวันเวลาให้สวยงาม
         let dateParts = bookingData.date.split("-");
         let thDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-        document.getElementById('').innerText = `${thDate} เวลา ${bookingData.time} น.`;
+        document.getElementById('showDateTime').innerText = `${thDate} เวลา ${bookingData.time} น.`;
         
         // ใส่ระยะเวลาและราคา
-        document.getElementById('').innerText = bookingData.duration + " นาที";
-        document.getElementById('').innerText = bookingData.price + " บาท";
+        document.getElementById('showDuration').innerText = bookingData.duration + " นาที";
+        document.getElementById('showPrice').innerText = bookingData.price + " บาท";
     } else {
         // กรณีไม่มีข้อมูล (เช่น เปิดหน้านี้ขึ้นมาลอยๆ)
         alert("ไม่พบข้อมูลการจอง กรุณาเลือกบริการก่อน");
         window.location.href = "../booking/book.html"; // ดีดกลับไปหน้าจอง
+    }
+}
+function toggleDropdown() {
+    let dropdown = document.getElementById("userDropdown");
+    if(dropdown) {
+        dropdown.classList.toggle("show");
     }
 }

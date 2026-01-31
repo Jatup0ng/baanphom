@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaanPhom Barber</title>
-    <link rel="stylesheet" href="/Queue/q.css">
+    <link rel="stylesheet" href="q.css">
+    <script src="q.js"></script>
+    <script src="../javaScript.js"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
     </style>
@@ -24,12 +27,32 @@
 
         </div>
         <div class="menu-icons" >
-            <a href="#" class="menu-icon">หน้าแรก</a>
-            <b><a href="#" class="menu-icon">จองคิว</a></b>
-            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
-            <a href="#" class="menu-icon"><i class="fas fa-user-alt">&nbsp;</i>User</a>
+            <a href="../index.html" class="menu-icon">หน้าแรก</a>
+            <b><a href="../booking/book.html" class="menu-icon">จองคิว</a></b>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="../history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-circle"></i> 
+                    <span id="user-name-display"></span>
+                    
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="#" >
+                            <i class="fas fa-user-circle"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
             
         </div>
+    
     </div>
 
     <div class="q_con">
@@ -43,7 +66,7 @@
         
     </div>
 
-            <h3 style="margin-top: 20px; margin-left: 3%;">รายละเอียดการจอง</h3>
+            <h3 style="margin-top: 20px; margin-left: 8%;color: #aa7a50;">รายละเอียดการจอง</h3>
         <div class="column">
             
             <div class="card">
@@ -62,14 +85,13 @@
 
                 <div style="margin-bottom: 15px;">
                     <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
-                    <span id="showPrice" style="margin-left: 10px;">-</span> </div>
+                    <span id="showPrice" style="margin-left: 10px;">-</span> 
+                    <span class="status-pending" id="status-pending" style="margin-left: 10px;color: rgb(0, 166, 66);font-weight: bold;">*ชำระเงินเสร็จสิ้น</span>
+                </div>
 
-            </div>
-            
-        </div>
-               
+            </div> 
 
-            </div>
+            <div>
                 <div class="rebook-container">
                     <button class="btn-rebook" onclick="window.location.href='/Q/q.html'">
                         จองอีกครั้ง
@@ -79,11 +101,11 @@
                     </button>
                     <button class="btn-rebook" onclick="window.location.href='../home/home.html'">
                         กลับหน้าหลัก
-                    </button></div>
-                
-
+                    </button>
+                </div>
+            
+            </div>
         </div>
-
         
     
 
