@@ -11,53 +11,61 @@
         window.location.href = "../index.html"; 
     }
 })();
-// รันฟังก์ชันนี้ทันทีที่เปิดหน้านี้ขึ้นมา
+// --- pay.js ---
+
 document.addEventListener('DOMContentLoaded', function() {
     loadBookingDetails();
 });
 
 function loadBookingDetails() {
-    // 1. ดึงข้อมูลที่ลูกค้าเลือกมาจากหน้าก่อนหน้า (localStorage)
-    // สมมติว่าหน้าก่อนหน้าบันทึกไว้ชื่อ 'tempBooking'
     let bookingData = JSON.parse(localStorage.getItem('tempBooking'));
-
     if (bookingData) {
-        // 2. เอาข้อมูลไปหยอดใส่ HTML ตาม ID ที่เราสร้างไว้
-        document.getElementById('showService').innerText = bookingData.service;
-        
-        // จัดรูปแบบวันเวลาให้สวยงาม
-        let dateParts = bookingData.date.split("-");
-        let thDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-        document.getElementById('showDateTime').innerText = `${thDate} เวลา ${bookingData.time} น.`;
-        
-        // ใส่ระยะเวลาและราคา
-        document.getElementById('showDuration').innerText = bookingData.duration + " นาที";
-        document.getElementById('showPrice').innerText = bookingData.price + " บาท";
-    } else {
-        // กรณีไม่มีข้อมูล (เช่น เปิดหน้านี้ขึ้นมาลอยๆ)
-        alert("ไม่พบข้อมูลการจอง กรุณาเลือกบริการก่อน");
-        window.location.href = "../booking/book.html"; // ดีดกลับไปหน้าจอง
+        // แสดงข้อมูลหน้าจ่ายเงิน
+        if(document.getElementById('showService')) document.getElementById('showService').innerText = bookingData.service;
+        if(document.getElementById('showPrice')) document.getElementById('showPrice').innerText = bookingData.price + " บาท";
+        if(document.getElementById('showDuration')) document.getElementById('showDuration').innerText = bookingData.duration + " นาที";
+        if(document.getElementById('showDateTime')) {
+            let d = bookingData.date.split("-");
+            document.getElementById('showDateTime').innerText = `${d[2]}/${d[1]}/${d[0]} เวลา ${bookingData.time} น.`;
+        }
     }
 }
 
-// ฟังก์ชันสำหรับปุ่มดินสอ (ย้อนกลับไปแก้ไข)
-function goBackToEdit() {
-    window.location.href = "../booking/book.html"; // หรือหน้าก่อนหน้านี้
+function handlePayment() {
+    // 1. เปลี่ยนสถานะปุ่ม (Effect เดิมของคุณ)
+    const statusElement = document.getElementById('status-pending');
+    if(statusElement) {
+        statusElement.innerText = " *ชำระเงินเสร็จสิ้น";
+        statusElement.classList.remove('status-pending');
+        statusElement.classList.add('status-success');
+    }
+
+    // 2. ⭐ บันทึกข้อมูล (ระบบหลังบ้าน)
+    saveToHistory();
+
+    // 3. เปลี่ยนหน้า
+    setTimeout(function() {
+        window.location.href = "../Queue/q.html"; 
+    }, 1500);
 }
 
-function handlePayment() {
-            // ดึงตัว element ข้อความมาเก็บไว้ในตัวแปร
-            const statusElement = document.getElementById('status-pending');
+function saveToHistory() {
+    let currentData = JSON.parse(localStorage.getItem('tempBooking'));
+    if (!currentData) return;
 
-            // --- ขั้นตอนที่ 1: เปลี่ยนสีและข้อความ ---
-            statusElement.innerText = " *ชำระเงินเสร็จสิ้น"; // เปลี่ยนข้อความ
-            statusElement.classList.remove('status-pending'); // ลบสีแดง
-            statusElement.classList.add('status-success');    // ใส่สีเขียว
+    // สุ่มเลขคิว (ถ้ายังไม่มี)
+    if (!currentData.queueID) {
+        currentData.queueID = Math.floor(Math.random() * 20) + 1;
+        // อัปเดตกลับลง tempBooking เพื่อให้หน้า q.html ใช้
+        localStorage.setItem('tempBooking', JSON.stringify(currentData));
+    }
 
-            // --- ขั้นตอนที่ 2: รอเวลา แล้วไปหน้าถัดไป ---
-            // setTimeout(ฟังก์ชันที่จะทำ, เวลาเป็นมิลลิวินาที)
-            // 3000 มิลลิวินาที = 3 วินาที
-            setTimeout(function() {
-                window.location.href = "../Queue/q.html"; 
-            }, 4000);
-        }
+    // บันทึกลงประวัติรวม (bookingHistory)
+    let historyList = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+    
+    // สร้าง ID ไม่ซ้ำ
+    currentData.historyID = Date.now();
+    
+    historyList.push(currentData);
+    localStorage.setItem('bookingHistory', JSON.stringify(historyList));
+}

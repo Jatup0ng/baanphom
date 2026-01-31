@@ -1,47 +1,58 @@
- // --- ส่วนที่ 1: ยามเฝ้าประตู (Gatekeeper) ---
-// ต้องเช็กทันที! ก่อนที่จะทำอย่างอื่น
-(function checkAccess() {
-    let status = localStorage.getItem("isLoggedIn");
 
-    // ถ้าไม่ได้ล็อกอิน (ค่าไม่ใช่ yes)
-    if (status !== "yes") {
-        alert("⛔ กรุณาเข้าสู่ระบบ");
-        
-        // ดีดกลับไปหน้าแรก (ถอยหลังออกไปหา index.html)
-        window.location.href = "../index.html"; 
-    }
-})();
-// รันฟังก์ชันนี้ทันทีที่เปิดหน้านี้ขึ้นมา
+// --- q.js ---
+
 document.addEventListener('DOMContentLoaded', function() {
-    loadBookingDetails();
-});
-
-function loadBookingDetails() {
-    // 1. ดึงข้อมูลที่ลูกค้าเลือกมาจากหน้าก่อนหน้า (localStorage)
-    // สมมติว่าหน้าก่อนหน้าบันทึกไว้ชื่อ 'tempBooking'
     let bookingData = JSON.parse(localStorage.getItem('tempBooking'));
 
     if (bookingData) {
-        // 2. เอาข้อมูลไปหยอดใส่ HTML ตาม ID ที่เราสร้างไว้
-        document.getElementById('showService').innerText = bookingData.service;
-        
-        // จัดรูปแบบวันเวลาให้สวยงาม
-        let dateParts = bookingData.date.split("-");
-        let thDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-        document.getElementById('showDateTime').innerText = `${thDate} เวลา ${bookingData.time} น.`;
-        
-        // ใส่ระยะเวลาและราคา
-        document.getElementById('showDuration').innerText = bookingData.duration + " นาที";
-        document.getElementById('showPrice').innerText = bookingData.price + " บาท";
+        // 1. ดึงเลขคิว
+        let qElement = document.getElementById('showQNumber');
+        if (qElement) {
+            // ถ้ามีเลขคิว ให้แสดง ถ้าไม่มีขีดแดช
+            qElement.innerText = bookingData.queueID ? "Q-" + bookingData.queueID : "-";
+        }
+
+        // 2. ข้อมูลอื่น
+        if(document.getElementById('showService')) document.getElementById('showService').innerText = bookingData.service;
+        if(document.getElementById('showPrice')) document.getElementById('showPrice').innerText = bookingData.price + " บาท";
+        if(document.getElementById('showDuration')) document.getElementById('showDuration').innerText = bookingData.duration + " นาที";
+        if(document.getElementById('showDateTime')) {
+            let d = bookingData.date.split("-");
+            document.getElementById('showDateTime').innerText = `${d[2]}/${d[1]}/${d[0]} เวลา ${bookingData.time} น.`;
+        }
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. เช็คของในกล่อง
+    let bookingData = JSON.parse(localStorage.getItem('tempBooking'));
+
+    if (!bookingData) {
+        alert("❌ ไม่พบข้อมูลการจอง! (คุณอาจจะกดรีเฟรชหน้าคิวเล่นๆ ให้กลับไปจองใหม่)");
+        return;
+    }
+
+    if (!bookingData.queueID) {
+        alert("❌ ข้อมูลมาแล้ว แต่ไม่มีเลขคิว! (โค้ดหน้า Pay อาจจะยังไม่บันทึก)");
+        return;
+    }
+
+    // 2. เช็คคนรับของ (สำคัญมาก!)
+    let qElement = document.getElementById('showQNumber');
+    
+    if (!qElement) {
+        alert("❌ หาที่วางเลขไม่เจอ! \nในไฟล์ q.html คุณลืมใส่ id='showQNumber' หรือเปล่า?");
     } else {
-        // กรณีไม่มีข้อมูล (เช่น เปิดหน้านี้ขึ้นมาลอยๆ)
-        alert("ไม่พบข้อมูลการจอง กรุณาเลือกบริการก่อน");
-        window.location.href = "../booking/book.html"; // ดีดกลับไปหน้าจอง
+        // ถ้าเจอทุกอย่างครบ ใส่เลขเลย
+        qElement.innerText = "Q-" + bookingData.queueID;
+        // alert("✅ สำเร็จ! ใส่เลขคิวเรียบร้อย"); // (ถ้าขึ้นอันนี้แสดงว่าปกติ)
     }
-}
-function toggleDropdown() {
-    let dropdown = document.getElementById("userDropdown");
-    if(dropdown) {
-        dropdown.classList.toggle("show");
+
+    // 3. ใส่ข้อมูลอื่นๆ
+    if(document.getElementById('showService')) document.getElementById('showService').innerText = bookingData.service;
+    if(document.getElementById('showPrice')) document.getElementById('showPrice').innerText = bookingData.price + " บาท";
+    if(document.getElementById('showDuration')) document.getElementById('showDuration').innerText = bookingData.duration + " นาที";
+    if(document.getElementById('showDateTime')) {
+        let d = bookingData.date.split("-");
+        document.getElementById('showDateTime').innerText = `${d[2]}/${d[1]}/${d[0]} เวลา ${bookingData.time} น.`;
     }
-}
+});
