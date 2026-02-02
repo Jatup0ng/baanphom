@@ -212,35 +212,9 @@
 /* เอฟเฟกต์ตอนโผล่มา */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-/* --- สไตล์สำหรับหน้าต่างป๊อปอัพ (Modal) --- */
-.modal-overlay {
-    display: none; /* ซ่อนไว้ก่อน */
-    position: fixed; /* ลอยอยู่ติดหน้าจอ */
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5); /* สีดำจางๆ */
-    justify-content: center;
-    align-items: center;
+    to { opacity: 5; transform: translateY(0); }
 }
 
-.modal-content {
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    animation: popUp 0.3s ease-out;
-}
-
-@keyframes popUp {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
 
 /* ปุ่มปิด (X) มุมขวาบน */
 .close-btn {
