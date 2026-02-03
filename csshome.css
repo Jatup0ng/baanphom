@@ -84,13 +84,9 @@
         .menu-icon:hover {
             /* เทคนิค: ใช้เงาซ้อนกันเบาๆ ให้ดูเหมือนตัวหนา */
             text-shadow: 0 0 1px #442f1c, 0 0 1px #442f1c; 
-            
-            
-            
-            /* (แถม) ขยับลอยขึ้นนิดนึงให้ดูมีมิติ */
             transform: translateY(-1px); 
         }
-            
+
         /* กล่องเมนูย่อย (ปกติจะซ่อนไว้) */
 .dropdown-content {
     display: none;           /* ซ่อนไว้ก่อน */
@@ -181,15 +177,27 @@
             background-color: white;
             color: #5A3E25;
             padding: 10px 25px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: bold;
             border: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            font-size: 16px;
+            font-size: 20px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.5s;
+            width: 200px;
+            height: 60px;
+            margin-top: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .book-btn:hover{
+            background-color: #725a44;
+            color: white;
+            transform: translateY(-5px);
         }
 
         /* --- 3. บริการของเรา (Services) --- */
@@ -251,15 +259,23 @@
         .btn-outline {
             background: transparent;
             border: 1px solid white;
-            width: 200px;
-            margin-right: 20px;
+            width: 180px;
+            margin-right: 40px;
             color: white;
             padding: 10px 15px;
             border-radius: 5px;
-            font-size: 12px;
             cursor: pointer;
-
+            transition: background-color 0.5s;
+            font-weight: bold;
+            font-size: 15px;
         }
+        
+        .btn-outline:hover{
+            background-color: #ffffff;
+            color: rgb(88, 58, 37);
+            
+        }
+
 
         /* --- 4. รีวิว (Reviews - Horizontal Scroll) --- */
         .reviews-container {
@@ -282,6 +298,10 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             scroll-snap-align: start;
+            transition: all 0.3s ease;
+        }
+        .review-card:hover{
+            transform:translateY(-5px);
         }
 
         .reviewer {

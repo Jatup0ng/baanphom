@@ -46,7 +46,7 @@ function renderHistoryCards() {
         let d = item.date.split("-");
         let showDate = `${d[2]}/${d[1]}/${d[0]}`; // วัน/เดือน/ปี
         let html = `
-        <div class="booking-card" style="background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <div class="booking-card" style="background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); ">
             
             <div class="card-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div class="info-left">
