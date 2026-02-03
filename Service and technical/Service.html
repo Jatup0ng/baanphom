@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaanPhom Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;500;700&family=Rye&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Service.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-section">
+            <i class="fas fa-cut logo-icon"></i>
+            <div class="logo-text">
+                <span class="brand-en">BAAN PHOM</span>
+                <span class="brand-th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active" id="btn-dashboard">แดชบอร์ด</a>
+            <a href="#" class="nav-item" id="btn-queue">จัดการคิว</a>
+            <a href="#" class="nav-item" id="btn-services">จัดบริการและช่าง</a>
+            <a href="#" class="nav-item" id="btn-schedule">จัดตารางเวลา</a>
+            
+            <div class="admin-dropdown-container">
+                <div class="admin-btn" id="admin-btn">
+                    AdminPhontud <i class="fas fa-caret-down"></i>
+                </div>
+                <div class="dropdown-menu" id="admin-menu">
+                    <a href="#">บัญชีแอดมิน</a>
+                    <a href="#" class="logout">ออกจากระบบ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="page-dashboard" class="page-content">
+            <div class="page-header">
+                <h1>แดชบอร์ด</h1>
+                <p class="date">01/01/26</p>
+            </div>
+            <div class="dashboard-layout">
+                <div class="left-panel">
+                    <div class="stat-card card-light-brown"><h3>คิววันนี้</h3><div class="number">0 คิว</div></div>
+                    <div class="stat-card card-dark-brown"><h3>การจองในเดือนนี้</h3><div class="number">0 คิว</div></div>
+                    <div class="stat-card card-red"><h3>ยกเลิกการจอง</h3><div class="number">0 คิว</div></div>
+                </div>
+                <div class="right-panel">
+                    <h3 class="panel-heading">คิวถัดไป</h3>
+                    <div class="queue-card">
+                        <div class="user-icon"><i class="fas fa-user-circle"></i></div>
+                        <div class="queue-info"><div class="info-row">ไม่มีคิวเร็วๆ นี้</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-queue" class="page-content" style="display: none;">
+            <div class="page-header"><h1>จัดการคิว</h1></div>
+            <div class="brown-box-container">
+                <div class="box-header">กรองข้อมูล</div>
+                <div class="box-body filter-body">
+                    <div class="filter-row">
+                        <div class="filter-item"><label>วันที่</label><input type="date" class="form-control"></div>
+                        <div class="filter-item"><label>ช่าง</label><select class="form-control"><option>ทั้งหมด</option></select></div>
+                        <div class="filter-item"><label>บริการ</label><select class="form-control"><option>ทั้งหมด</option></select></div>
+                        <div class="filter-item"><label>สถานะ</label><select class="form-control"><option>ทั้งหมด</option></select></div>
+                    </div>
+                </div>
+            </div>
+            <div class="brown-box-container mt-20">
+                <div class="box-header">รายการคิว</div>
+                <div class="box-body list-body">
+                    <div class="white-inner-box"><i class="fas fa-exclamation-circle"></i> ยังไม่พบข้อมูลการจอง</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-services" class="page-content" style="display: none;">
+            <div class="page-header"><h1>จัดการบริการและช่าง</h1></div>
+
+            <div class="table-card">
+                <div class="table-header-row">
+                    <div class="table-title">บริการทั้งหมด</div>
+                    <div class="search-box">ค้นหา: <input type="text" class="search-input"></div>
+                </div>
+                <div class="table-content">
+                    <div class="rows-selector">แสดง 10 <i class="fas fa-caret-down"></i> แถว</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="100">รูปภาพ</th>
+                                <th>ชื่อบริการ</th>
+                                <th>ระยะเวลา</th>
+                                <th>ราคา</th>
+                                <th>สถานะ</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://via.placeholder.com/60" class="img-thumb"></td>
+                                <td><div class="item-name">ตัดผมชาย</div><div class="item-desc">ตัด สระ ไดร์</div></td>
+                                <td>60 นาที</td>
+                                <td>150 บาท</td>
+                                <td><button class="status-pill status-on" onclick="toggleStatus(this)">เปิด</button></td>
+                                <td><button class="btn-edit"><i class="fas fa-edit"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer-btn"><button><i class="fas fa-plus-circle"></i> เพิ่มบริการ</button></div>
+            </div>
+
+            <div class="table-card mt-20">
+                <div class="table-header-row">
+                    <div class="table-title">ช่างทั้งหมด</div>
+                    <div class="search-box">ค้นหา: <input type="text" class="search-input"></div>
+                </div>
+                <div class="table-content">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="100">รูปภาพ</th>
+                                <th>ชื่อช่าง</th>
+                                <th>บริการ</th>
+                                <th>ค่าบริการเพิ่ม</th>
+                                <th>สถานะ</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="https://via.placeholder.com/60" class="img-thumb"></td>
+                                <td><div class="item-name">ช่าง A</div><div class="item-desc">ช่างประจำร้าน</div></td>
+                                <td>ตัดผม</td>
+                                <td>0 บาท</td>
+                                <td><button class="status-pill status-on" onclick="toggleStatus(this, 'barber')">พร้อม</button></td>
+                                <td><button class="btn-edit"><i class="fas fa-edit"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer-btn"><button><i class="fas fa-plus-circle"></i> เพิ่มช่าง</button></div>
+            </div>
+        </div>
+        
+        <div id="page-schedule" class="page-content" style="display: none;">
+            <div class="page-header"><h1>จัดตารางเวลา</h1></div>
+            <p>หน้าจัดตารางเวลายังไม่พร้อมใช้งาน</p>
+        </div>
+
+    </div>
+
+    <script src="Service.js"></script>
+</body>
+</html>

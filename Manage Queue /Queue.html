@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaanPhom Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;500;700&family=Rye&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Queue.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-section">
+            <i class="fas fa-cut logo-icon"></i>
+            <div class="logo-text">
+                <span class="brand-en">BAAN PHOM</span>
+                <span class="brand-th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active" id="btn-dashboard">แดชบอร์ด</a>
+            <a href="#" class="nav-item" id="btn-queue">จัดการคิว</a>
+            <a href="#" class="nav-item">จัดบริการและช่าง</a>
+            <a href="#" class="nav-item">จัดตารางเวลา</a>
+            
+            <div class="admin-dropdown-container">
+                <div class="admin-btn" id="admin-btn">
+                    AdminPhontud <i class="fas fa-caret-down"></i>
+                </div>
+                <div class="dropdown-menu" id="admin-menu">
+                    <a href="#">บัญชีแอดมิน</a>
+                    <a href="#" class="logout">ออกจากระบบ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div id="page-dashboard">
+            <div class="page-header">
+                <h1>แดชบอร์ด</h1>
+                <p class="date">01/01/26</p>
+            </div>
+            <div class="dashboard-placeholder">
+                <p style="color:#888;">(เนื้อหาหน้าแดชบอร์ดแสดงผลปกติ)</p>
+            </div>
+        </div>
+
+
+        <div id="page-queue" style="display: none;">
+            <div class="page-header">
+                <h1>จัดการคิว</h1>
+            </div>
+
+            <div class="brown-box-container">
+                <div class="box-header">กรองข้อมูล</div>
+                <div class="box-body filter-body">
+                    <div class="filter-row">
+                        <div class="filter-item">
+                            <label>วันที่</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="filter-item">
+                            <label>ช่าง</label>
+                            <select class="form-control">
+                                <option>ทั้งหมด</option>
+                                <option>ช่างต้น</option>
+                                <option>ช่าง A</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label>บริการ</label>
+                            <select class="form-control">
+                                <option>ทั้งหมด</option>
+                                <option>ตัดผม</option>
+                                <option>สระไดร์</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label>สถานะ</label>
+                            <select class="form-control">
+                                <option>ทั้งหมด</option>
+                                <option>รอตัด</option>
+                                <option>เสร็จสิ้น</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brown-box-container mt-20">
+                <div class="box-header">รายการคิว</div>
+                <div class="box-body list-body">
+                    <div class="white-inner-box">
+                        <i class="fas fa-exclamation-circle"></i> ยังไม่พบข้อมูลการจอง
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="Queue.js"></script>
+</body>
+</html>
