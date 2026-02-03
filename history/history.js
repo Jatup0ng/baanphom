@@ -45,9 +45,6 @@ function renderHistoryCards() {
         // จัดรูปแบบวันที่
         let d = item.date.split("-");
         let showDate = `${d[2]}/${d[1]}/${d[0]}`; // วัน/เดือน/ปี
-
-        // สร้าง HTML ให้เหมือนในรูป Screenshot ของคุณเป๊ะๆ
-        // ใช้ inline style ผสมเพื่อให้มั่นใจว่าหน้าตาจะเหมือนเดิมแน่นอน
         let html = `
         <div class="booking-card" style="background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
             
