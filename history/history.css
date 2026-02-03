@@ -138,7 +138,7 @@
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
-    margin-right: 80px;
+    margin-right: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     transition: 0.3s;
     overflow: hidden; /* สำคัญ! เอาไว้ตัดขอบ */
