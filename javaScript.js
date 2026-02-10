@@ -52,7 +52,7 @@ function checkLoginStatus() {
     }
 }
 
-// --- 2. ฟังก์ชันสลับหน้าตา Navbar (แก้ชื่อ ID ให้ตรง HTML แล้ว) ---
+// --- 2. ฟังก์ชันสลับหน้าตา Navbar  ---
 function updateNavToMember(name) {
     
     let guestNav = document.getElementById("guest-nav");

@@ -32,7 +32,7 @@ function loadBookingDetails() {
 }
 
 function handlePayment() {
-    // 1. เปลี่ยนสถานะปุ่ม (Effect เดิมของคุณ)
+    // 1. เปลี่ยนสถานะปุ่ม 
     const statusElement = document.getElementById('status-pending');
     if(statusElement) {
         statusElement.innerText = " *ชำระเงินเสร็จสิ้น";
@@ -40,7 +40,7 @@ function handlePayment() {
         statusElement.classList.add('status-success');
     }
 
-    // 2. ⭐ บันทึกข้อมูล (ระบบหลังบ้าน)
+    // 2. ⭐ บันทึกข้อมูล 
     saveToHistory();
 
     // 3. เปลี่ยนหน้า
@@ -56,7 +56,7 @@ function saveToHistory() {
     // สุ่มเลขคิว (ถ้ายังไม่มี)
     if (!currentData.queueID) {
         currentData.queueID = Math.floor(Math.random() * 20) + 1;
-        // อัปเดตกลับลง tempBooking เพื่อให้หน้า q.html ใช้
+        // อัปเดตกลับลง tempBooking เพื่อให้หน้า q.html 
         localStorage.setItem('tempBooking', JSON.stringify(currentData));
     }
 
