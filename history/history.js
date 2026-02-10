@@ -9,7 +9,11 @@
         alert("⛔ กรุณาเข้าสู่ระบบก่อนเข้าใช้งานหน้าประวัติ");
         
         // ดีดกลับไปหน้าแรก (ถอยหลังออกไปหา index.html)
+<<<<<<< HEAD
         window.location.href = "../home/index.html"; 
+=======
+        window.location.href = "../index.html"; 
+>>>>>>> 884bd37cc844b69df6e5feabbec042dccb0080f0
     }
 })();
 
