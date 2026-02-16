@@ -27,22 +27,29 @@
         </div>
         <div class="menu-icons" >
             <b><a href="index.html" class="menu-icon">หน้าแรก</a></b>
-            <a href="#" class="menu-icon">จองคิว</a>
+            <a href="booking/book.html" class="menu-icon">จองคิว</a>
             <span id="guest-nav">
                 <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
             </span>
             <a href="history/history.html" class="menu-icon">ประวัติ</a>
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown()">
-                    <i class="fas fa-user-alt"></i> 
+                    <i class="fas fa-user-circle"></i> 
                     <span id="user-name-display"></span>
-                    <i class="fas fa-caret-down"></i>
+                    
                 </a>
                 <div id="userDropdown" class="dropdown-content">
-                    <a href="#" onclick="logout()">
+                    <div class="aboutme">
+                        <a href="#" >
+                            <i class="fas fa-user-circle"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
                         <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
                     </a>
+                    
                 </div>
+                
             </span>
             
         </div>
@@ -56,9 +63,11 @@
                 Classic Cuts<br>
                 <span>Modern Style</span>
             </div>
-            <button class="book-btn">
-                <i class="fas fa-calendar-check"></i> BOOK NOW
-            </button>
+            <a href="booking/book.html">
+                <button class="book-btn">
+                    <i class="fas fa-calendar-check"></i> BOOK NOW
+                </button>
+            </a>
         </div>
     </header>
 
@@ -76,7 +85,10 @@
                 
                 <div class="service-action">
                     <span class="duration"><i class="far fa-clock"></i> 60 นาที</span>
-                    <button class="btn-outline">จองเลย</button>
+                    <a href="booking/book.html">
+                        <button class="btn-outline">จองเลย</button>
+                    </a>
+                    
                 </div>
             </div>
         </div>

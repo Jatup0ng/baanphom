@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BaanPhom Barber</title>
-    <link rel="stylesheet" href="q.css">
-    <script src="q.js"></script>
-    <script src="../javaScript.js"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="pay.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="website icon" href="https://scontent.xx.fbcdn.net/v/t1.15752-9/620571529_26059530513644511_2166490406941772702_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=Xj9cbgfAaXAQ7kNvwFrQOzZ&_nc_oc=AdnTqmRzVXcrasvQdc7lAOkBAn0KOGMTTs5TEMLruRU74gTCCx4hm15L-q4Wgd5Qxrj5EOyuRYv28xfvziI-oJXr&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD4QH_02jEdFXZ37dJ5iTiT27H-UrxrVzFrod97oYSglwouQ&oe=699C2E98">
+    <script src="pay.js"></script>
+    <script src="../javaScript.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -53,26 +52,33 @@
             
         </div>
     
-    </div>
+    </div><br>
 
-    <div class="q_con">
-        <div class="q_text" style="text-align: center;">
-            <h1>การจองคิวสำเร็จ !</h1>
-            <h2 id="showQNumber" style="text-align: center; font-size: 40px; color: #ffffff;">-</h2>
-            <p>ขอบคุณที่ใช้บริการกับบ้านผม บาร์เบอร์</p>
-            <p>‼️รอรับข้อความแจ้งเตือนเมื่อใกล้ถึงคิวของคุณ‼️</p>
+   <a href="../payment/pay.html" style="text-decoration: none;"><h2 style="margin-left: 80px; color: #5A3E25;"><i class="fas fa-angle-left"></i>&nbsp;สแกนเพื่อชำระเงิน </h2><br></a>
+   <div style="display: flex; color: #aa7a50; justify-content:right; ">
+        <h3 style="margin-right:35%;">รายละเอียดการจอง</h3>
+    </div>
+   
+   
+    <div class="qrpayment-container">
+        <div class="qrpayment-methods">
+            <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/599522693_774603158383442_7518024844061670756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_ohc=cxrwtFA_CcAQ7kNvwH3xAY6&_nc_oc=AdkbZ9b0VIYRwD5EaSRCcmreYVbXj8jpq_h8VIqs071o232MVGhaoCI79q49dQfL-Lw&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4gEMtvI1ibwTOSc8MwkrW-3godecd7w8MW7VWTezMwfRCw&oe=69A3E6A9" alt="qr" class="qrpay">
+            <h2 style="color: #704c30; font-size: 30px;">150 bath</h2><br>
+            <h2 style="color: #704c30; font-size: 20px;">ชื่อบัญชี : บ้านผมบาร์เบอร์ช็อป </h2>
+            <div class="next-bt">
+                <button type="button" id="ok" style="display: flex;">บันทึก QR</button>
+                <button type="button" id="next" style="display: flex;" onclick="handlePayment()">ชำระเงิน</button>
+            </div>
+
         </div>
         
-        
-    </div>
+        <div class="qrbooking-details-card" >
+    
+            <button  id="undo" onclick="goBackToEdit()">
+                <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+            </button>
 
-        
-    <div class="detail">
-
-            <h3 style="margin-top: 20px; margin-left: 8%;color: #aa7a50;">รายละเอียดการจอง</h3>
-        <div class="column">
-            
-            <div class="card">
+            <div class="detail">
 
                 <div style="margin-bottom: 15px;">
                     <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
@@ -86,29 +92,21 @@
                     <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
                     <span id="showDuration" style="margin-left: 10px;">-</span> </div>
 
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 15px;" class="price">
                     <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
-                    <span id="showPrice" style="margin-left: 10px;">-</span> 
-                    <span class="status-pending" id="status-pending" style="margin-left: 10px;color: rgb(0, 166, 66);font-weight: bold;">*ชำระเงินเสร็จสิ้น</span>
+                    <span id="showPrice" style="margin-left: 10px;">-</span>
+                    <span class="status-pending" id="status-pending" style="margin-left: 10px;">*รอชำระเงิน</span>
+                    
                 </div>
 
-            </div> 
-
-            <div>
-                <div class="rebook-container">
-                    <button class="btn-rebook" onclick="window.location.href='/Q/q.html'">
-                        จองอีกครั้ง
-                    </button>
-                    <button class="btn-rebook" onclick="window.location.href='/history/history.html'">
-                        ประวัติการจอง
-                    </button>
-                    <button class="btn-rebook" onclick="window.location.href='../home/home.html'">
-                        กลับหน้าหลัก
-                    </button>
-                </div>
-            
             </div>
+            
         </div>
-    
 
+
+
+
+        
+    </div>
+    
 </body>

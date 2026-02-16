@@ -54,7 +54,7 @@ function checkLoginStatus() {
 
 // --- 2. ฟังก์ชันสลับหน้าตา Navbar (แก้ชื่อ ID ให้ตรง HTML แล้ว) ---
 function updateNavToMember(name) {
-    // ใช้ getElementById("member") ให้ตรงกับ index.html
+    
     let guestNav = document.getElementById("guest-nav");
     let memberNav = document.getElementById("member-nav");
     let nameDisplay = document.getElementById("user-name-display");
