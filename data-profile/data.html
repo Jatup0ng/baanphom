@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บัญชีของฉัน - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/data.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="data-container">
+            <h1 class="page-title">บัญชีของฉัน</h1>
+            <h2 class="sub-title">ข้อมูลส่วนตัว</h2>
+
+            <div class="profile-card">
+                <div class="form-group">
+                    <label>ชื่อ*</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="profile-name" class="form-control" readonly>
+                        <a href="javascript:void(0)" id="btn-edit-name" class="edit-action">
+                            <i class="fas fa-edit"></i> <span id="text-edit-name">แก้ไข</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>เบอร์โทร*</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="profile-phone" class="form-control" value="064-191-1122" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>อีเมล</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="profile-email" class="form-control" value="phomtud@gmail.com" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>รหัสผ่าน</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="profile-pass" class="form-control" value="12345678" readonly>
+                        <a href="javascript:void(0)" id="btn-edit-pass" class="edit-action">
+                            <i class="fas fa-edit"></i> <span id="text-edit-pass">แก้ไข</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+    <script src="/js/data.js"></script>
+</body>
+
+</html>

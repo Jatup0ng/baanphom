@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บัญชีแอดมิน - BAAN PHOM ADMIN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/admin_layout.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <style>
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1.page-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4A2E16;
+        }
+
+        h2.sub-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #aa7a50;
+        }
+
+        .profile-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 1px solid #8B5E3C;
+            border-radius: 10px;
+            box-sizing: border-box;
+            color: #333;
+            outline: none;
+            font-family: 'Sarabun', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .edit-action {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            text-decoration: none;
+            color: #5D3A1A;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .edit-action i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body style="background-color: var(--bg-cream);">
+
+    <!-- Admin Navbar -->
+    <div class="admin-navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/admin/adminhome.html" class="menu-icon">แดชบอร์ด</a>
+            <a href="/admin/queue.html" class="menu-icon">จัดการคิว</a>
+            <a href="/admin/service.html" class="menu-icon">จัดบริการและช่าง</a>
+            <a href="/admin/time.html" class="menu-icon">จัดตารางเวลา</a>
+
+            <span id="admin-nav" style="position: relative;">
+                <a href="#" class="menu-icon active" id="admin-dropdown-trigger">
+                    <i class="fas fa-user-shield"></i>&nbsp;
+                    <span id="admin-name-display">AdminPhontud</span>
+                </a>
+                <div class="dropdown-content" id="admin-dropdown-menu">
+                    <div class="aboutme">
+                        <a href="/admin/profile.html">
+                            <i class="fas fa-user-tie"></i> บัญชีแอดมิน
+                        </a>
+                    </div>
+                    <a href="#" id="admin-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-30">
+        <h1 class="page-title">บัญชีแอดมิน</h1>
+        <h2 class="sub-title">ข้อมูลส่วนตัว</h2>
+
+        <div class="profile-card">
+            <div class="form-group">
+                <label>ชื่อผู้ดูแลระบบ*</label>
+                <div class="input-wrapper">
+                    <input type="text" id="profile-name" class="form-control" readonly>
+                    <a href="javascript:void(0)" id="btn-edit-name" class="edit-action">
+                        <i class="fas fa-edit"></i> <span id="text-edit-name">แก้ไข</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ระดับสิทธิ์*</label>
+                <div class="input-wrapper">
+                    <input type="text" class="form-control" value="ผู้ดูแลระบบสูงสุด (Super Admin)" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>รหัสผ่านแอดมิน</label>
+                <div class="input-wrapper">
+                    <input type="password" id="profile-pass" class="form-control" readonly>
+                    <a href="javascript:void(0)" id="btn-edit-pass" class="edit-action">
+                        <i class="fas fa-edit"></i> <span id="text-edit-pass">แก้ไข</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/admin_layout.js"></script>
+    <script src="/js/adminprofile.js"></script>
+</body>
+
+</html>

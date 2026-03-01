@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAAN PHOM - บ้านผม บาร์เบอร์</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/csshome.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin(event)">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown(event)">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout(event)" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content Slot (Index Vue content) -->
+    <main>
+        <header class="hero" style="background-image: url('/images/background01.jpg');">
+            <div class="hero-content">
+                <div class="hero-title">
+                    Classic Cuts<br>
+                    <span>Modern Style</span>
+                </div>
+                <a href="/booking/book.html">
+                    <button class="book-btn">
+                        <i class="fas fa-calendar-check"></i> BOOK NOW
+                    </button>
+                </a>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">บริการของเรา</h2>
+            <div class="service-card">
+                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/621157830_1432653738395100_1949126408221735019_n.png?_nc_cat=106&ccb=1-7&_nc_sid=fc17b8&efg=eyJxZV9ncm91cHMiOlsiaWdkX2Jlc3RfZWZmb3J0X2ltYWdlOmNvbnRyb2wiXX0%3D&_nc_ohc=-E-1dmraQ0UQ7kNvwELqQdn&_nc_oc=AdlSMawBksKepo2SZD3S5gqpo0IFXWAOL4gIM3cKDNCHTd7tIDNwoRRsvEoPyGRuxT2sQrWgsUOGMcNvk3ySVW-k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD4QEyoxIUzElK2-sHp8d7LyE2w9dxmOPXmj5Huh7J7hHZJQ&oe=699C1A9C"
+                    alt="ตัดผมชาย" class="service-img">
+                <div class="service-info" style="flex: 1;">
+                    <h3>ตัดผมชาย</h3>
+                    <p class="service-desc">ตัดผมพร้อมบริการสระและไดร์ หล่อพร้อมเที่ยว ในราคาเดียว</p>
+                    <div class="service-price">ราคา 150 บาท</div>
+                    <div class="service-action">
+                        <span class="duration"><i class="far fa-clock"></i> 60 นาที</span>
+                        <a href="/booking/book.html">
+                            <button class="btn-outline">จองเลย</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">รีวิว</h2>
+            <div class="reviews-container">
+                <div class="review-card">
+                    <div class="reviewer">
+                        <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/615793269_946552197768704_4234719763029757796_n.png?_nc_cat=105&ccb=1-7&_nc_sid=fc17b8&efg=eyJxZV9ncm91cHMiOlsiaWdkX2Jlc3RfZWZmb3J0X2ltYWdlOmNvbnRyb2wiXX0%3D&_nc_ohc=j98Nnqv4ebwQ7kNvwE-bar3&_nc_oc=AdlLzw3lMnIHown2x4qNA6GvG1aoZ-cHM4g_pxuNLZ7QvYnuMHKVAsdSaNfEpdMHL2Y&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4QGfnXL29fKvUwsVF2N9TuOucHUB6DSy_7mfLZtWvtRgJQ&oe=699C294C"
+                            alt="User" class="avatar">
+                        <div class="reviewer-info">
+                            <h4>snack007</h4>
+                            <div class="stars">★★★★★ 2 วันที่แล้ว</div>
+                        </div>
+                    </div>
+                    <p class="review-text">บริการดีมากครับ ช่างตัดละเอียด ตรงตามบรีฟ แนะนำเลยครับ</p>
+                </div>
+                <!-- Other reviews -->
+                <div class="review-card">
+                    <div class="reviewer">
+                        <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/616235027_860735463446775_422928689241598845_n.png?_nc_cat=109&ccb=1-7&_nc_sid=fc17b8&efg=eyJxZV9ncm91cHMiOlsiaWdkX2Jlc3RfZWZmb3J0X2ltYWdlOmNvbnRyb2wiXX0%3D&_nc_ohc=59w17VtN5rAQ7kNvwG4FY4J&_nc_oc=Adl9rAZd0NthxHOk2ZZIPlfrId9k3mdxV7OuCnHWkJ6eq82act0Xfpl5lONMt6oi6bs&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4QHQHeiYq7hgbn5twnhaHN-nWFMkVbCECsMQ39hqXbm9Ag&oe=699C26C1"
+                            alt="User" class="avatar">
+                        <div class="reviewer-info">
+                            <h4>C lnwza</h4>
+                            <div class="stars">★★★★★ 1 สัปดาห์</div>
+                        </div>
+                    </div>
+                    <p class="review-text">ร้านสะอาด บรรยากาศดีครับ ระบบจองคิวสะดวกไม่ต้องรอนาน</p>
+                </div>
+                <div class="review-card">
+                    <div class="reviewer">
+                        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/619190345_3254859248029202_6607263092285736235_n.png?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=VvUp4ci2ZVsQ7kNvwFARKlB&_nc_oc=AdkPSPLukrtFEIxAf74FjOy8VHF6SnWvR_XuvZMMRXF0UXKPmSHPWEqAfZ7d2SbnVw2bIEJWpbf-pXdnb-GzXbd_&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD4QGL0Lbvw7kZxU-gpzcB8PmAg9dRE9AjeRnuZ1rVtMmchg&oe=699C05ED"
+                            alt="User" class="avatar">
+                        <div class="reviewer-info">
+                            <h4>moterzaza</h4>
+                            <div class="stars">★★★★★ 2 สัปดาห์</div>
+                        </div>
+                    </div>
+                    <p class="review-text">ตัดทรงวินเทจสวยครับ ราคาไม่แพง คุ้มค่ามาก</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals (Placeholders from index.html) -->
+    <div id="loginModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeLogin()">x</span>
+            <h2 style="color: #5A3E25; margin-bottom: 5px;">ยินดีต้อนรับสู่ BAAN PHOM</h2>
+            <h3 style="color: #5A3E25; margin-bottom: 20px;">เข้าสู่ระบบสมาชิก</h3>
+            <div class="form-group">
+                <label class="form-label">ชื่อผู้ใช้</label>
+                <input type="text" id="username-input" class="form-input" placeholder="ชื่อผู้ใช้">
+            </div>
+            <div class="form-group">
+                <label class="form-label">รหัสผ่าน</label>
+                <input type="password" id="password-input" class="form-input" placeholder="รหัสผ่าน">
+            </div>
+            <button class="login-btn" onclick="performLogin()">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+            <div class="divider"><span>หรือ</span></div>
+            <p style="font-size: 14px; margin-top: 10px;">
+                <a href="#" style="color: #d9534f; text-decoration: none;">ลืมรหัสผ่าน</a>
+            </p>
+            <p style="font-size: 14px; margin-top: 5px;">
+                ยังไม่มีบัญชี? <a href="#" style="color: #8B5E3C; font-weight: bold;"
+                    onclick="openRegister();closeLogin(event)">สมัครสมาชิกใหม่</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal-overlay" style="display: none;">
+        <div class="registermodal-content">
+            <span class="close-btn" onclick="closeRegister()">x</span>
+            <h2 style="color: #4c341f; margin-bottom: 5px;">สมัครสมาชิก</h2>
+            <div class="form-group" style="display: flex; margin-top: 20px; gap: 20px;">
+                <div style="flex: 1;">
+                    <label class="form-label">ชื่อ*</label>
+                    <input type="text" class="form-input" placeholder="ชื่อ">
+                </div>
+                <div style="flex: 1;">
+                    <label class="form-label">นามสกุล*</label>
+                    <input type="text" class="form-input" placeholder="นามสกุล">
+                </div>
+            </div>
+            <div class="form-group" style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label class="form-label">เบอร์โทร*</label>
+                    <input type="text" class="form-input" placeholder="เบอร์โทร">
+                </div>
+                <div style="flex: 1;">
+                    <label class="form-label">อีเมล*</label>
+                    <input type="text" class="form-input" placeholder="อีเมล">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">รหัสผ่าน</label>
+                <input type="password" class="form-input" placeholder="รหัสผ่าน">
+                <p style="font-size: 12px; margin-top: 5px;">รหัสผ่านต้องมี อักขระอย่างน้อย 8
+                    ตัวต้องประกอบด้วยพิมพ์ใหม่หนึ่งตัว</p>
+            </div>
+            <div class="form-group">
+                <label class="form-label">ยืนยันรหัสผ่าน</label>
+                <input type="password" class="form-input" placeholder="กรอกรหัสผ่านอีกครั้ง">
+            </div>
+            <button class="login-btn">สมัครสมาชิก</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+</body>
+
+</html>

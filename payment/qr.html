@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สแกนชำระเงิน - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <!-- Make sure to copy pay.css and other dependencies -->
+    <link rel="stylesheet" href="/css/payment/pay.css">
+    <style>
+        .status-pending {
+            color: red;
+        }
+
+        .status-success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <!-- ... Same navbar code ... -->
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <a href="/payment/pay.html" style="text-decoration: none;">
+            <h2 style="margin-left: 80px; color: #5A3E25;font-size: 30px; font-weight: bold;">
+                <i class="fas fa-angle-left"></i>&nbsp;สแกนเพื่อชำระเงิน
+            </h2>
+        </a><br>
+
+        <div style="display: flex; color: #aa7a50; justify-content:right; ">
+            <h3 style="margin-right:35%; font-size: 20px; font-weight: bold;">รายละเอียดการจอง</h3>
+        </div>
+
+        <div class="qrpayment-container">
+            <div class="qrpayment-methods">
+                <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/599522693_774603158383442_7518024844061670756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_ohc=cxrwtFA_CcAQ7kNvwH3xAY6&_nc_oc=AdkbZ9b0VIYRwD5EaSRCcmreYVbXj8jpq_h8VIqs071o232MVGhaoCI79q49dQfL-Lw&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4gEMtvI1ibwTOSc8MwkrW-3godecd7w8MW7VWTezMwfRCw&oe=69A3E6A9"
+                    alt="qr" class="qrpay">
+                <h2 style="color: #704c30; font-size: 30px;" id="qr-amount">150 บาท</h2><br>
+                <h2 style="color: #704c30; font-size: 20px;">ชื่อบัญชี : บ้านผมบาร์เบอร์ช็อป </h2>
+                <div class="next-bt">
+                    <button type="button" id="ok" style="display: flex;">บันทึก QR</button>
+                    <button type="button" id="next" style="display: flex;">ชำระเงิน</button>
+                </div>
+            </div>
+
+            <div class="qrbooking-details-card">
+                <a href="/booking/book.html" style="text-decoration: none;">
+                    <button id="undo"
+                        style="border: none; background: #c71e1e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                        <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                    </button>
+                </a>
+                <div class="detail" style="clear: both; padding-top: 10px;">
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                        <span style="margin-left: 10px;" id="qr-service">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                        <span style="margin-left: 10px;" id="qr-datetime">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                        <span style="margin-left: 10px;" id="qr-duration">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;" class="price">
+                        <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                        <span style="margin-left: 10px;" id="qr-price">-</span>
+                        <span id="qr-payment-status" class="status-pending"
+                            style="margin-left: 10px;">*รอชำระเงิน</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <!-- include useBooking functions globally for handlePayment -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/qr.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชำระเงิน - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <!-- Make sure to copy pay.css and other dependencies -->
+    <link rel="stylesheet" href="/css/payment/pay.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <!-- ... Same navbar code ... -->
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <h2 style="margin-left: 80px; color: #5A3E25; font-size: 30px; font-weight: bold;">ชำระเงิน</h2><br>
+        <div style="display: flex; color: #aa7a50; justify-content: space-between; ">
+            <h3 style="margin-left: 80px; font-size: 20px; font-weight: bold;">วิธีการชำระเงิน</h3>
+            <h3 style="margin-right: 35%; font-size: 20px; font-weight: bold;">รายละเอียดการจอง</h3>
+        </div>
+
+        <div class="payment-container">
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="qr-scan" name="payment" value="qr" checked
+                            style="margin-right: 10px; cursor: pointer;">
+                        <label for="qr-scan"
+                            style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">สแกนคิวอาร์โค้ด</label>
+                    </div>
+                    <img src="/images/payment.png" alt="PromptPay" style="height: 75px;">
+                </div>
+
+                <div class="payment-method">
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="tnk" name="payment" value="qr"
+                            style="margin-right: 10px; cursor: pointer;">
+                        <label for="tnk"
+                            style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">โอนเงินผ่านเลขบัญชี</label>
+                    </div>
+                    <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/620002964_1915001529408252_5897832893303710817_n.png?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_ohc=gB2qtCinS_sQ7kNvwEKZW01&_nc_oc=AdnyofWu3-X1Lcz192rPX2qHEZAbnMWa97eBK-_F34SXzKiARDNyioDM0bytX8-ES00&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4QEvBCx-dvqWYWxjIwTZUkRYucITrUa2NkHmvJc3JFow5w&oe=69A3415E"
+                        alt="รูปธนาคาร" style="height: 65px;">
+                </div>
+
+                <div style="margin-top:20px">
+                    <a href="/payment/qr.html"><button type="button" id="pay">ชำระเงิน</button></a>
+                </div>
+
+                <div class="warning" style="color: rgb(201, 4, 4); margin-top: 10px; font-size: 14px; ">
+                    <b>
+                        <p>*** คำเตือน การยกเลิกการจองจะไม่สามารถขอเงินคืนได้ ***</p>
+                    </b>
+                </div>
+            </div>
+
+            <div class="booking-details-card">
+                <a href="/booking/book.html" style="text-decoration: none;">
+                    <button id="undo"
+                        style="border: none; background: #c71e1e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                        <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                    </button>
+                </a>
+                <div class="detail" style="clear: both; padding-top: 10px;">
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                        <span style="margin-left: 10px;" id="pay-service">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                        <span style="margin-left: 10px;" id="pay-datetime">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                        <span style="margin-left: 10px;" id="pay-duration">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                        <span style="margin-left: 10px;" id="pay-price">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+    <script src="/js/pay.js"></script>
+</body>
+
+</html>

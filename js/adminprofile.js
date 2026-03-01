@@ -1,0 +1,81 @@
+document.addEventListener("DOMContentLoaded", () => {
+    // DOM Elements
+    const nameInput = document.getElementById("profile-name");
+    const passInput = document.getElementById("profile-pass");
+
+    const btnEditName = document.getElementById("btn-edit-name");
+    const iconEditName = btnEditName.querySelector("i");
+    const textEditName = document.getElementById("text-edit-name");
+
+    const btnEditPass = document.getElementById("btn-edit-pass");
+    const iconEditPass = btnEditPass.querySelector("i");
+    const textEditPass = document.getElementById("text-edit-pass");
+
+    // State Variables
+    let isEditingName = false;
+    let isEditingPass = false;
+
+    // Load Initial Data
+    nameInput.value = localStorage.getItem("adminName") || "AdminPhontud";
+    passInput.value = localStorage.getItem("adminPass") || "12345678";
+
+    // Edit Name Logic
+    btnEditName.addEventListener("click", () => {
+        if (!isEditingName) {
+            isEditingName = true;
+            nameInput.readOnly = false;
+            nameInput.style.borderColor = "#007bff";
+            btnEditName.style.color = "#28a745";
+            iconEditName.className = "fas fa-save";
+            textEditName.innerText = "บันทึก";
+            nameInput.focus();
+        } else {
+            if (nameInput.value.trim() === "") {
+                alert("กรุณากรอกชื่อ");
+                return;
+            }
+
+            localStorage.setItem("adminName", nameInput.value);
+
+            isEditingName = false;
+            nameInput.readOnly = true;
+            nameInput.style.borderColor = "#8B5E3C";
+            btnEditName.style.color = "#5D3A1A";
+            iconEditName.className = "fas fa-edit";
+            textEditName.innerText = "แก้ไข";
+
+            alert("บันทึกชื่อเรียบร้อยแล้ว! (หากต้องการให้ชื่อมุมขวาบนเปลี่ยน ให้รีเฟรชหน้าเว็บ)");
+        }
+    });
+
+    // Edit Password Logic
+    btnEditPass.addEventListener("click", () => {
+        if (!isEditingPass) {
+            isEditingPass = true;
+            passInput.readOnly = false;
+            passInput.type = "text";
+            passInput.style.borderColor = "#007bff";
+            btnEditPass.style.color = "#28a745";
+            iconEditPass.className = "fas fa-save";
+            textEditPass.innerText = "บันทึก";
+            passInput.focus();
+        } else {
+            if (passInput.value.trim() === "") {
+                alert("รหัสผ่านห้ามว่างเปล่า");
+                return;
+            }
+
+            localStorage.setItem("adminPass", passInput.value);
+
+            isEditingPass = false;
+            passInput.readOnly = true;
+            passInput.type = "password";
+            passInput.style.borderColor = "#8B5E3C";
+            btnEditPass.style.color = "#5D3A1A";
+            iconEditPass.className = "fas fa-edit";
+            textEditPass.innerText = "แก้ไข";
+
+            alert("บันทึกรหัสผ่านเรียบร้อยแล้ว! (จำรหัสผ่านใหม่ให้ดีสำหรับการเข้าระบบครั้งถัดไป)");
+        }
+    });
+});
