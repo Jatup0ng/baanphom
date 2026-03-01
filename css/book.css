@@ -1,0 +1,130 @@
+.date-strip {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.date-box {
+    min-width: 60px;
+    padding: 10px 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s;
+}
+
+.date-box:hover:not(.unavailable) {
+    border-color: #aa7a50;
+}
+
+.date-box.selected {
+    background-color: #aa7a50;
+    color: white;
+    border-color: #aa7a50;
+}
+
+.date-box.unavailable {
+    background-color: #ffeeee;
+    color: #cc0000;
+    border-color: #ffcccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.day-name {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.day-number {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time-slot {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.time-slot:hover:not(.disabled) {
+    border-color: #aa7a50;
+}
+
+.time-slot.selected {
+    background-color: #aa7a50;
+    color: white;
+    border-color: #aa7a50;
+}
+
+.time-slot.disabled {
+    background-color: #f5f5f5;
+    color: #aaa;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+/* Base styling imported from global CSS */
+.all_block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 80px;
+}
+
+.booking-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.boxone,
+.boxtwo {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.box_about {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 80px 40px;
+}
+
+.btn-next {
+    background-color: #5A3E25;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    margin: 20px auto 0;
+    transition: background 0.3s;
+}
+
+.btn-next:hover {
+    background-color: #442f1c;
+}

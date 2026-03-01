@@ -1,127 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BaanPhom Barber</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="pay.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
-    </style>
-    <link rel="website icon" href="https://scontent.xx.fbcdn.net/v/t1.15752-9/620571529_26059530513644511_2166490406941772702_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=Xj9cbgfAaXAQ7kNvwFrQOzZ&_nc_oc=AdnTqmRzVXcrasvQdc7lAOkBAn0KOGMTTs5TEMLruRU74gTCCx4hm15L-q4Wgd5Qxrj5EOyuRYv28xfvziI-oJXr&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD4QH_02jEdFXZ37dJ5iTiT27H-UrxrVzFrod97oYSglwouQ&oe=699C2E98">
-    <script src="pay.js"></script>
-    <script src="../javaScript.js"></script>
+    <title>ชำระเงิน - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <!-- Make sure to copy pay.css and other dependencies -->
+    <link rel="stylesheet" href="/css/payment/pay.css">
 </head>
+
 <body>
+
+    <!-- Navbar -->
     <div class="navbar">
+        <!-- ... Same navbar code ... -->
         <div class="logo">
             <i class="fas fa-cut"></i>
             <div class="text">
                 <span class="en">BAAN PHOM</span>
                 <span class="th">บ้านผม บาร์เบอร์</span>
             </div>
-            
-
         </div>
-        <div class="menu-icons" >
-            <a href="../index.html" class="menu-icon">หน้าแรก</a>
-            <b><a href="../booking/book.html" class="menu-icon">จองคิว</a></b>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
             <span id="guest-nav">
                 <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
             </span>
-            <a href="../history/history.html" class="menu-icon">ประวัติ</a>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown()">
-                    <i class="fas fa-user-circle"></i> 
+                    <i class="fas fa-user-tie"></i>&nbsp;
                     <span id="user-name-display"></span>
-                    
                 </a>
                 <div id="userDropdown" class="dropdown-content">
                     <div class="aboutme">
-                        <a href="#" >
-                            <i class="fas fa-user-circle"></i> ข้อมูลส่วนตัว
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
                         </a>
                     </div>
-                    <a href="#" onclick="logout()">
+                    <a href="#" onclick="logout()" id="logoutword">
                         <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
                     </a>
                 </div>
             </span>
-            
         </div>
-    
-    </div><br>
-
-   <h2 style="margin-left: 80px; color: #5A3E25;">ชำระเงิน</h2><br>
-   <div style="display: flex; color: #aa7a50; justify-content: space-between; ">
-        <h3 style="margin-left: 80px;">วิธีการชำระเงิน</h3>
-        <h3 style="margin-right: 35%;">รายละเอียดการจอง</h3>
     </div>
-   
-   
-    <div class="payment-container">
-        <div class="payment-methods">
-            
-            <div class="payment-method">
-                <div style="display: flex; align-items: center;"> 
-                    <input type="radio" id="qr-scan" name="payment" value="qr" checked style="margin-right: 10px; cursor: pointer;">
-                        <label for="qr-scan" style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">
-                            สแกนคิวอาร์โค้ด
-                        </label>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <h2 style="margin-left: 80px; color: #5A3E25; font-size: 30px; font-weight: bold;">ชำระเงิน</h2><br>
+        <div style="display: flex; color: #aa7a50; justify-content: space-between; ">
+            <h3 style="margin-left: 80px; font-size: 20px; font-weight: bold;">วิธีการชำระเงิน</h3>
+            <h3 style="margin-right: 35%; font-size: 20px; font-weight: bold;">รายละเอียดการจอง</h3>
+        </div>
+
+        <div class="payment-container">
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="qr-scan" name="payment" value="qr" checked
+                            style="margin-right: 10px; cursor: pointer;">
+                        <label for="qr-scan"
+                            style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">สแกนคิวอาร์โค้ด</label>
+                    </div>
+                    <img src="/images/payment.png" alt="PromptPay" style="height: 75px;">
                 </div>
 
-                <img src="data:image/png;base64,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" alt="PromptPay" style="height: 75px;"> 
-            </div>
-            <div class="payment-method">
-                <div style="display: flex; align-items: center;"> 
-                    <input type="radio" id="tnk" name="payment" value="qr"  style="margin-right: 10px; cursor: pointer;">
-                    <label for="tnk" style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">
-                        โอนเงินผ่านเลขบัญชี
-                    </label>
+                <div class="payment-method">
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="tnk" name="payment" value="qr"
+                            style="margin-right: 10px; cursor: pointer;">
+                        <label for="tnk"
+                            style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">โอนเงินผ่านเลขบัญชี</label>
+                    </div>
+                    <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/620002964_1915001529408252_5897832893303710817_n.png?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_ohc=gB2qtCinS_sQ7kNvwEKZW01&_nc_oc=AdnyofWu3-X1Lcz192rPX2qHEZAbnMWa97eBK-_F34SXzKiARDNyioDM0bytX8-ES00&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4QEvBCx-dvqWYWxjIwTZUkRYucITrUa2NkHmvJc3JFow5w&oe=69A3415E"
+                        alt="รูปธนาคาร" style="height: 65px;">
                 </div>
 
-                <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/620002964_1915001529408252_5897832893303710817_n.png?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_ohc=gB2qtCinS_sQ7kNvwEKZW01&_nc_oc=AdnyofWu3-X1Lcz192rPX2qHEZAbnMWa97eBK-_F34SXzKiARDNyioDM0bytX8-ES00&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4QEvBCx-dvqWYWxjIwTZUkRYucITrUa2NkHmvJc3JFow5w&oe=69A3415E" alt="รูปธนาคาร" style="height: 65px;"> 
+                <div style="margin-top:20px">
+                    <a href="/payment/qr.html"><button type="button" id="pay">ชำระเงิน</button></a>
+                </div>
+
+                <div class="warning" style="color: rgb(201, 4, 4); margin-top: 10px; font-size: 14px; ">
+                    <b>
+                        <p>*** คำเตือน การยกเลิกการจองจะไม่สามารถขอเงินคืนได้ ***</p>
+                    </b>
+                </div>
             </div>
-            <a href="qr.html"><button type="button" id="pay">ชำระเงิน</button></a>
-            <div class="warning" style="color: rgb(201, 4, 4); margin-top: 10px; font-size: 14px; ">
-                <b><p>*** คำเตือน การยกเลิกการจองจะไม่สามารถขอเงินคืนได้ ***</p></b>
+
+            <div class="booking-details-card">
+                <a href="/booking/book.html" style="text-decoration: none;">
+                    <button id="undo"
+                        style="border: none; background: #c71e1e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                        <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                    </button>
+                </a>
+                <div class="detail" style="clear: both; padding-top: 10px;">
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                        <span style="margin-left: 10px;" id="pay-service">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                        <span style="margin-left: 10px;" id="pay-datetime">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                        <span style="margin-left: 10px;" id="pay-duration">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                        <span style="margin-left: 10px;" id="pay-price">-</span>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="booking-details-card" >
-    
-            <button  id="undo" onclick="goBackToEdit()">
-                <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
-            </button>
+    </main>
 
-            <div class="detail">
-
-                <div style="margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
-                    <span id="showService" style="margin-left: 10px;" >-</span> </div>
-
-                <div style="margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
-                    <span id="showDateTime" style="margin-left: 10px;">-</span> </div>
-
-                <div style="margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
-                    <span id="showDuration" style="margin-left: 10px;">-</span> </div>
-
-                <div style="margin-bottom: 15px;">
-                    <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
-                    <span id="showPrice" style="margin-left: 10px;">-</span> </div>
-
-            </div>
-            
-        </div>
-
-
-
-
-        
-    </div>
-    
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+    <script src="/js/pay.js"></script>
 </body>
+
+</html>

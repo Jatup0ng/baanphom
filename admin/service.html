@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการบริการและช่าง - BAAN PHOM ADMIN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/admin_layout.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <style>
+        .status-pill {
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+        }
+
+        .status-on {
+            background-color: #4CAF50;
+        }
+
+        .status-off {
+            background-color: #F44336;
+        }
+
+        .text-center {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body style="background-color: var(--bg-cream);">
+
+    <!-- Admin Navbar -->
+    <div class="admin-navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/admin/adminhome.html" class="menu-icon">แดชบอร์ด</a>
+            <a href="/admin/queue.html" class="menu-icon">จัดการคิว</a>
+            <a href="/admin/service.html" class="menu-icon active">จัดบริการและช่าง</a>
+            <a href="/admin/time.html" class="menu-icon">จัดตารางเวลา</a>
+
+            <span id="admin-nav" style="position: relative;">
+                <a href="#" class="menu-icon" id="admin-dropdown-trigger">
+                    <i class="fas fa-user-shield"></i>&nbsp;
+                    <span id="admin-name-display">AdminPhontud</span>
+                </a>
+                <div class="dropdown-content" id="admin-dropdown-menu">
+                    <div class="aboutme">
+                        <a href="/admin/profile.html">
+                            <i class="fas fa-user-tie"></i> บัญชีแอดมิน
+                        </a>
+                    </div>
+                    <a href="#" id="admin-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-container">
+        <div id="page-services">
+            <div class="page-header">
+                <h1>จัดการบริการและช่าง</h1>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header-row">
+                    <div class="table-title">บริการทั้งหมด</div>
+                    <div class="search-box">ค้นหา: <input type="text" class="search-input"></div>
+                </div>
+                <div class="table-content">
+                    <div class="rows-selector">แสดง 10 <i class="fas fa-caret-down"></i> แถว</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="100">รูปภาพ</th>
+                                <th>ชื่อบริการ</th>
+                                <th>ระยะเวลา</th>
+                                <th>ราคา</th>
+                                <th>สถานะ</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-tbody">
+                            <!-- Services injected here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer-btn">
+                    <button id="btn-add-service"><i class="fas fa-plus-circle"></i> เพิ่มบริการ</button>
+                </div>
+            </div>
+
+            <div class="table-card mt-20">
+                <div class="table-header-row">
+                    <div class="table-title">ช่างทั้งหมด</div>
+                    <div class="search-box">ค้นหา: <input type="text" class="search-input"></div>
+                </div>
+                <div class="table-content">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th width="100">รูปภาพ</th>
+                                <th>ชื่อช่าง</th>
+                                <th>บริการ</th>
+                                <th>ค่าบริการเพิ่ม</th>
+                                <th>สถานะ</th>
+                                <th>จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="barbers-tbody">
+                            <!-- Barbers injected here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer-btn">
+                    <button id="btn-add-barber"><i class="fas fa-plus-circle"></i> เพิ่มช่าง</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/admin_layout.js"></script>
+    <script src="/js/adminservice.js"></script>
+</body>
+
+</html>
