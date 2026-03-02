@@ -34,6 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
         qrDuration.innerText = `${data.duration || '-'} นาที`;
         qrPrice.innerText = `${data.price || '-'} บาท`;
         qrAmount.innerText = `${data.price || '-'} บาท`;
+
+        // Generate QR code dynamically
+        const qrImg = document.getElementById('dynamic-qr');
+        const price = parseFloat(data.price) || 0;
+        if (qrImg && price > 0) {
+           
+            const promptpayID = "0948104265";
+            qrImg.src = `https://promptpay.io/${promptpayID}/${price}.png`;
+        }
     }
 
     // Payment Logic

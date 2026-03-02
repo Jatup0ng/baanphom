@@ -123,9 +123,7 @@
     display: block;
     margin: 20px auto 0;
     transition: background 0.3s;
-    width: 100%;
 }
-
 
 .btn-next:hover {
     background-color: #442f1c;
