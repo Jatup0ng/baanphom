@@ -175,7 +175,7 @@
             <div class="form-group" style="display: flex; gap: 20px;">
                 <div style="flex: 1;">
                     <label class="form-label">เบอร์โทร*</label>
-                    <input type="text" id="reg-phone" class="form-input" placeholder="เบอร์โทร">
+                    <input type="tel" id="reg-phone" class="form-input" placeholder="เบอร์โทร" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div style="flex: 1;">
                     <label class="form-label">อีเมล*</label>
