@@ -17,15 +17,22 @@
     <style>
         .q_con {
             background-color: #5A3E25;
-            padding: 40px;
+            padding: 60px;
             color: white;
             text-align: center;
+            width: 90%;
+            margin: auto;
+            border-radius: 30px;
+            margin-top: 20px;
+            
         }
 
         .detail {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 90%;
+            margin-left: 60px ;
             padding: 20px;
+            /* border: solid 1px; */
+        
         }
 
         .card {
@@ -34,10 +41,15 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
+            width: 600px;
+            height: 200px;
+            
+
+            
         }
 
         .btn-rebook {
-            background-color: #5A3E25;
+            background-color: #60462e;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -46,6 +58,7 @@
             margin-right: 10px;
             font-size: 16px;
             transition: 0.3s;
+            width: 100%;
         }
 
         .btn-rebook:hover {
@@ -53,9 +66,12 @@
         }
 
         .rebook-container {
-            display: flex;
+            display: grid;
             gap: 10px;
             margin-top: 20px;
+            width: 50%;
+            /* border: solid 1px; */
+            
         }
     </style>
 </head>
@@ -102,7 +118,7 @@
             <div class="q_con">
                 <div class="q_text" style="text-align: center;">
                     <h1>การจองคิวสำเร็จ !</h1>
-                    <h2 id="showQNumber" style="text-align: center; font-size: 40px; color: #ffffff;">-</h2>
+                    <h2 id="showQNumber" style="text-align: center; font-size: 40px; color: #ffffff; margin-bottom: 10px;">-</h2>
                     <p>ขอบคุณที่ใช้บริการกับบ้านผม บาร์เบอร์</p>
                     <p>‼️รอรับข้อความแจ้งเตือนเมื่อใกล้ถึงคิวของคุณ‼️</p>
                 </div>
@@ -110,7 +126,7 @@
 
             <div class="detail">
                 <h3 style="margin-top: 20px; color: #aa7a50; font-weight: bold; font-size: 20px;">รายละเอียดการจอง</h3>
-                <div class="column">
+                <div class="column" style="display: flex; gap: 80px;">
                     <div class="card">
                         <div style="margin-bottom: 15px;">
                             <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
@@ -133,9 +149,9 @@
                     </div>
 
                     <div class="rebook-container">
-                        <a href="/booking/book.html"><button class="btn-rebook">จองอีกครั้ง</button></a>
-                        <a href="/history/history.html"><button class="btn-rebook">ประวัติการจอง</button></a>
-                        <a href="/index.html"><button class="btn-rebook">กลับหน้าหลัก</button></a>
+                        <a href="/booking/book.html"><button class="btn-rebook" style="width: 100%; margin-top: 5px;">จองอีกครั้ง</button></a>
+                        <a href="/history/history.html"><button class="btn-rebook" style="width: 100%;">ประวัติการจอง</button></a>
+                        <a href="/index.html"><button class="btn-rebook" style="width: 100%;">กลับหน้าหลัก</button></a>
                     </div>
                 </div>
             </div>
