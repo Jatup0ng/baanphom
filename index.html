@@ -184,12 +184,24 @@
             </div>
             <div class="form-group">
                 <label class="form-label">รหัสผ่าน</label>
-                <input type="password" id="reg-password" class="form-input" placeholder="รหัสผ่าน">
+                <div style="position: relative;">
+                    <input type="password" id="reg-password" class="form-input" placeholder="รหัสผ่าน"
+                        style="padding-right: 42px;">
+                    <button type="button" onclick="togglePassword('reg-password', this)"
+                        style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#8B5E3C;font-size:16px;padding:0;"><i
+                            class="fas fa-eye"></i></button>
+                </div>
                 <p style="font-size: 12px; margin-top: 5px;">รหัสผ่านต้องมีอักขระอย่างน้อย 8 ตัว</p>
             </div>
             <div class="form-group">
                 <label class="form-label">ยืนยันรหัสผ่าน</label>
-                <input type="password" id="reg-confirm-password" class="form-input" placeholder="กรอกรหัสผ่านอีกครั้ง">
+                <div style="position: relative;">
+                    <input type="password" id="reg-confirm-password" class="form-input"
+                        placeholder="กรอกรหัสผ่านอีกครั้ง" style="padding-right: 42px;">
+                    <button type="button" onclick="togglePassword('reg-confirm-password', this)"
+                        style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#8B5E3C;font-size:16px;padding:0;"><i
+                            class="fas fa-eye"></i></button>
+                </div>
             </div>
             <button class="login-btn" onclick="performRegister()">สมัครสมาชิก</button>
             <p style="font-size: 14px; margin-top: 10px;">
@@ -203,7 +215,7 @@
     <div id="forgotPasswordModal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <span class="close-btn" onclick="closeForgotPassword() , openLogin(event)"
-                style="font-size: 30px; font-weight: bold; color: #5A3E25; cursor: pointer;margin-right: 10px;" >></span>
+                style="font-size: 30px; font-weight: bold; color: #5A3E25; cursor: pointer;margin-right: 10px;">></span>
             <h2 style="color: #5A3E25; margin-bottom: 5px;">ลืมรหัสผ่าน?</h2>
             <p style="font-size: 14px; margin-bottom: 20px;">ระบุอีเมลเพื่อรับรหัสยืนยัน</p>
 
@@ -233,11 +245,21 @@
             <h2 style="color: #5A3E25; margin-bottom: 20px;">สร้างรหัสผ่านใหม่</h2>
             <div class="form-group">
                 <label class="form-label">รหัสผ่านใหม่</label>
-                <input type="password" id="new-password" class="form-input">
+                <div style="position: relative;">
+                    <input type="password" id="new-password" class="form-input" style="padding-right: 42px;">
+                    <button type="button" onclick="togglePassword('new-password', this)"
+                        style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#8B5E3C;font-size:16px;padding:0;"><i
+                            class="fas fa-eye"></i></button>
+                </div>
             </div>
             <div class="form-group">
                 <label class="form-label">ยืนยันรหัสผ่านใหม่</label>
-                <input type="password" id="confirm-new-password" class="form-input">
+                <div style="position: relative;">
+                    <input type="password" id="confirm-new-password" class="form-input" style="padding-right: 42px;">
+                    <button type="button" onclick="togglePassword('confirm-new-password', this)"
+                        style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#8B5E3C;font-size:16px;padding:0;"><i
+                            class="fas fa-eye"></i></button>
+                </div>
             </div>
             <button class="login-btn" onclick="handleUpdatePassword()">สร้างรหัสผ่าน</button>
         </div>
@@ -247,6 +269,21 @@
     <!-- Scripts -->
     <script src="/js/layout.js"></script>
     <script src="/js/otp.js"></script>
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 
 </html>
