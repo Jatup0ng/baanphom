@@ -15,20 +15,24 @@ document.addEventListener("DOMContentLoaded", () => {
         "20.00 - 21.00"
     ];
 
-    // Gatekeeper
-    const status = localStorage.getItem("isLoggedIn");
-    const name = localStorage.getItem("userName");
+    // Gatekeeper: must be logged in
+    const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-    if (status !== "yes") {
+    if (isLoggedIn !== "yes" || !currentUser) {
         alert("⛔ กรุณาเข้าสู่ระบบก่อนเข้าจองคิว");
         window.location.href = '/index.html';
-        return; // Don't run the rest of the script
+        return;
     }
 
-    if (name) {
-        userName = name;
-        document.getElementById('userNameInput').value = userName;
-    }
+    // Auto-fill booker info
+    userName = currentUser.firstName + " " + currentUser.lastName;
+    const nameInput = document.getElementById('userNameInput');
+    const phoneInput = document.getElementById('bookingPhone');
+    const emailInput = document.getElementById('bookingEmail');
+    if (nameInput) nameInput.value = userName;
+    if (phoneInput) phoneInput.value = currentUser.phone || "";
+    if (emailInput) emailInput.value = currentUser.email || "";
 
     // Load data from useBooking
     barbersList = window.useBooking.getBarbers().filter(b => b.active);
@@ -195,7 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
             price: price,
             duration: duration,
             barber: selectedBarber,
-            barberName: barberName
+            barberName: barberName,
+            userName: userName,
+            userPhone: currentUser.phone || "",
+            userEmail: currentUser.email || ""
         };
 
         localStorage.setItem("tempBooking", JSON.stringify(bookingData));

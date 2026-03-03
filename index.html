@@ -148,7 +148,8 @@
             </button>
             <div class="divider"><span>หรือ</span></div>
             <p style="font-size: 14px; margin-top: 10px;">
-                <a href="#" style="color: #d9534f; text-decoration: none;" onclick="openForgotPassword();closeLogin(event)">ลืมรหัสผ่าน</a>
+                <a href="#" style="color: #d9534f; text-decoration: none;"
+                    onclick="openForgotPassword();closeLogin(event)">ลืมรหัสผ่าน</a>
             </p>
             <p style="font-size: 14px; margin-top: 5px;">
                 ยังไม่มีบัญชี? <a href="#" style="color: #8B5E3C; font-weight: bold;"
@@ -164,76 +165,83 @@
             <div class="form-group" style="display: flex; margin-top: 20px; gap: 20px;">
                 <div style="flex: 1;">
                     <label class="form-label">ชื่อ*</label>
-                    <input type="text" class="form-input" placeholder="ชื่อ">
+                    <input type="text" id="reg-firstname" class="form-input" placeholder="ชื่อ">
                 </div>
                 <div style="flex: 1;">
                     <label class="form-label">นามสกุล*</label>
-                    <input type="text" class="form-input" placeholder="นามสกุล">
+                    <input type="text" id="reg-lastname" class="form-input" placeholder="นามสกุล">
                 </div>
             </div>
             <div class="form-group" style="display: flex; gap: 20px;">
                 <div style="flex: 1;">
                     <label class="form-label">เบอร์โทร*</label>
-                    <input type="text" class="form-input" placeholder="เบอร์โทร">
+                    <input type="text" id="reg-phone" class="form-input" placeholder="เบอร์โทร">
                 </div>
                 <div style="flex: 1;">
                     <label class="form-label">อีเมล*</label>
-                    <input type="text" class="form-input" placeholder="อีเมล">
+                    <input type="email" id="reg-email" class="form-input" placeholder="อีเมล">
                 </div>
             </div>
             <div class="form-group">
                 <label class="form-label">รหัสผ่าน</label>
-                <input type="password" class="form-input" placeholder="รหัสผ่าน">
-                <p style="font-size: 12px; margin-top: 5px;">รหัสผ่านต้องมี อักขระอย่างน้อย 8
-                    ตัวต้องประกอบด้วยพิมพ์ใหม่หนึ่งตัว</p>
+                <input type="password" id="reg-password" class="form-input" placeholder="รหัสผ่าน">
+                <p style="font-size: 12px; margin-top: 5px;">รหัสผ่านต้องมีอักขระอย่างน้อย 8 ตัว</p>
             </div>
             <div class="form-group">
                 <label class="form-label">ยืนยันรหัสผ่าน</label>
-                <input type="password" class="form-input" placeholder="กรอกรหัสผ่านอีกครั้ง">
+                <input type="password" id="reg-confirm-password" class="form-input" placeholder="กรอกรหัสผ่านอีกครั้ง">
             </div>
-            <button class="login-btn">สมัครสมาชิก</button>
+            <button class="login-btn" onclick="performRegister()">สมัครสมาชิก</button>
+            <p style="font-size: 14px; margin-top: 10px;">
+                มีบัญชีแล้ว? <a href="#" style="color: #8B5E3C; font-weight: bold;"
+                    onclick="closeRegister();openLogin(event)">เข้าสู่ระบบ</a>
+            </p>
         </div>
     </div>
 
-        <!-- ลืมรหัสผ่าน -->
-<div id="forgotPasswordModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeForgotPassword()" style="font-size: 30px; font-weight: bold; color: #5A3E25;">></span>
-        <h2 style="color: #5A3E25; margin-bottom: 5px;">ลืมรหัสผ่าน?</h2>
-        <p style="font-size: 14px; margin-bottom: 20px;">ระบุอีเมลเพื่อรับรหัสยืนยัน</p>
+    <!-- ลืมรหัสผ่าน -->
+    <div id="forgotPasswordModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeForgotPassword() , openLogin(event)"
+                style="font-size: 30px; font-weight: bold; color: #5A3E25; cursor: pointer;margin-right: 10px;" >></span>
+            <h2 style="color: #5A3E25; margin-bottom: 5px;">ลืมรหัสผ่าน?</h2>
+            <p style="font-size: 14px; margin-bottom: 20px;">ระบุอีเมลเพื่อรับรหัสยืนยัน</p>
 
-        <div class="form-group">
-            <label class="form-label">อีเมล*</label>
-            <div style="display: flex; gap: 10px;">
-                <input type="email" id="forgot-email" class="form-input" placeholder="example@mail.com">
-                <button type="button" class="login-btn" style="width: auto; margin-top: 0; padding: 0 15px; font-size: 12px;" onclick="handleSendOTP()">รับรหัส OTP</button>
+            <div class="form-group">
+                <label class="form-label">อีเมล*</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="email" id="forgot-email" class="form-input" placeholder="example@mail.com">
+                    <button type="button" class="login-btn"
+                        style="width: auto; margin-top: 0; padding: 0 15px; font-size: 12px;"
+                        onclick="handleSendOTP()">รับรหัส OTP</button>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label class="form-label">OTP*</label>
-            <input type="text" id="otp-input" class="form-input" placeholder="กรอกรหัส 6 หลัก">
-        </div>
+            <div class="form-group">
+                <label class="form-label">OTP*</label>
+                <input type="text" id="otp-input" class="form-input" placeholder="กรอกรหัส 6 หลัก">
+            </div>
 
-        <button class="login-btn" onclick="openResetPassword()">รีเซ็ตรหัสผ่าน</button>
+            <button class="login-btn" onclick="openResetPassword()">รีเซ็ตรหัสผ่าน</button>
+        </div>
     </div>
-</div>
 
-<div id="resetPasswordModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeResetPassword()">x</span>
-        <h2 style="color: #5A3E25; margin-bottom: 20px;">สร้างรหัสผ่านใหม่</h2>
-        <div class="form-group">
-            <label class="form-label">รหัสผ่านใหม่</label>
-            <input type="password" id="new-password" class="form-input">
+    <div id="resetPasswordModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeResetPassword() , openForgotPassword(event)"
+                style="font-size: 30px; font-weight: bold; color: #5A3E25; cursor: pointer;margin-right: 10px;">></span>
+            <h2 style="color: #5A3E25; margin-bottom: 20px;">สร้างรหัสผ่านใหม่</h2>
+            <div class="form-group">
+                <label class="form-label">รหัสผ่านใหม่</label>
+                <input type="password" id="new-password" class="form-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">ยืนยันรหัสผ่านใหม่</label>
+                <input type="password" id="confirm-new-password" class="form-input">
+            </div>
+            <button class="login-btn" onclick="handleUpdatePassword()">สร้างรหัสผ่าน</button>
         </div>
-        <div class="form-group">
-            <label class="form-label">ยืนยันรหัสผ่านใหม่</label>
-            <input type="password" id="confirm-new-password" class="form-input">
-        </div>
-        <button class="login-btn" onclick="handleUpdatePassword()">สร้างรหัสผ่าน</button>
     </div>
-</div>
 
 
     <!-- Scripts -->

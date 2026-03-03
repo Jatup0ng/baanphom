@@ -1,7 +1,22 @@
-// --- 7. ระบบลืมรหัสผ่าน (Forgot Password) ---
+// ==========================================
+// BAAN PHOM — OTP & Forgot Password (otp.js)
+// ==========================================
 
-function openForgotPassword() {
+const FIXED_OTP = "676869";
+let _forgotEmail = ""; // เก็บ email ที่ใช้ reset
+
+// ---- Modal Open/Close ----
+
+function openForgotPassword(e) {
+    if (e) e.preventDefault();
+    closeLogin();
     document.getElementById("forgotPasswordModal").style.display = "flex";
+    // clear fields
+    const emailEl = document.getElementById("forgot-email");
+    const otpEl = document.getElementById("otp-input");
+    if (emailEl) emailEl.value = "";
+    if (otpEl) otpEl.value = "";
+    _forgotEmail = "";
 }
 
 function closeForgotPassword() {
@@ -9,13 +24,35 @@ function closeForgotPassword() {
 }
 
 function openResetPassword() {
-    let otp = document.getElementById("otp-input").value;
-    if(otp.length === 6) { // ตรวจสอบเบื้องต้นว่ากรอกครบ 6 หลัก
-        closeForgotPassword();
-        document.getElementById("resetPasswordModal").style.display = "flex";
-    } else {
-        alert("กรุณากรอกรหัส OTP 6 หลักให้ถูกต้อง");
+    const otp = document.getElementById("otp-input").value.trim();
+    const email = document.getElementById("forgot-email").value.trim();
+
+    if (!email.includes("@")) {
+        alert("กรุณากรอกอีเมลก่อนกด รับรหัส OTP");
+        return;
     }
+
+    if (otp !== FIXED_OTP) {
+        alert("รหัส OTP ไม่ถูกต้อง! (รหัสคือ " + FIXED_OTP + ")");
+        return;
+    }
+
+    // Check email exists in users
+    const users = (typeof getUsers === "function") ? getUsers() : JSON.parse(localStorage.getItem("bp_users") || "[]");
+    const user = users.find(u => u.email === email);
+    if (!user) {
+        alert("ไม่พบบัญชีที่ใช้อีเมลนี้ กรุณาตรวจสอบอีกครั้ง");
+        return;
+    }
+
+    _forgotEmail = email;
+    closeForgotPassword();
+    document.getElementById("resetPasswordModal").style.display = "flex";
+    // clear new password fields
+    const np = document.getElementById("new-password");
+    const cp = document.getElementById("confirm-new-password");
+    if (np) np.value = "";
+    if (cp) cp.value = "";
 }
 
 function closeResetPassword() {
@@ -23,87 +60,59 @@ function closeResetPassword() {
 }
 
 function handleSendOTP() {
-    let email = document.getElementById("forgot-email").value;
-    if(email.includes("@")) {
-        alert("ระบบได้ส่งรหัส OTP ไปที่อีเมล " + email + " แล้ว");
-    } else {
+    const email = document.getElementById("forgot-email").value.trim();
+    if (!email.includes("@")) {
         alert("กรุณากรอกรูปแบบอีเมลให้ถูกต้อง");
+        return;
     }
+    alert("ระบบได้ส่งรหัส OTP ไปที่อีเมล " + email + " แล้ว\n(รหัส OTP: " + FIXED_OTP + ")");
 }
 
 function handleUpdatePassword() {
-    let p1 = document.getElementById("new-password").value;
-    let p2 = document.getElementById("confirm-new-password").value;
+    const p1 = document.getElementById("new-password").value;
+    const p2 = document.getElementById("confirm-new-password").value;
 
-    if(p1 === p2 && p1.length >= 8) {
-        alert("เปลี่ยนรหัสผ่านสำเร็จ! กรุณาล็อกอินด้วยรหัสผ่านใหม่");
-        closeResetPassword();
-        openLogin();
-    } else {
-        alert("รหัสผ่านไม่ตรงกัน หรือสั้นกว่า 8 ตัวอักษร");
+    if (p1.length < 8) {
+        alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+        return;
     }
-}
-// --- 5. ระบบ Forgot Password & OTP (กำหนดรหัสฟิก 123456) ---
-const FIXED_OTP = "676869"; 
-
-function handleSendOTP() {
-    let email = document.getElementById("forgot-email").value;
-    if(email.includes("@")) {
-        alert("ระบบได้ส่งรหัส OTP ไปที่อีเมล " + email + " แล้ว\n(รหัสOTP: " + FIXED_OTP + ")");
-    } else {
-        alert("กรุณากรอกรูปแบบอีเมลให้ถูกต้อง");
-    }
-}
-
-function openResetPassword() {
-    let otp = document.getElementById("otp-input").value;
-    if(otp === FIXED_OTP) { // ตรวจสอบกับรหัสที่ฟิกไว้
-        closeForgotPassword();
-        document.getElementById("resetPasswordModal").style.display = "flex";
-    } else {
-        alert("รหัส OTP ไม่ถูกต้อง! (รหัสคือ " + FIXED_OTP + ")");
-    }
-}
-
-function handleUpdatePassword() {
-    let p1 = document.getElementById("new-password").value;
-    let p2 = document.getElementById("confirm-new-password").value;
-
-    if(p1 === p2 && p1.length >= 8) {
-        alert("เปลี่ยนรหัสผ่านสำเร็จ! กรุณาล็อกอินด้วยรหัสผ่านใหม่");
-        closeResetPassword();
-        openLogin();
-    } else {
-        alert("รหัสผ่านไม่ตรงกัน หรือสั้นกว่า 8 ตัวอักษร");
-    }
-}
-
-
-// --- 6. รวมตัวดักจับการคลิก (Window Click) ไว้ที่เดียว (แก้ปัญหาคำสั่งตีกัน) ---
-window.onclick = function(event) {
-    let loginModal = document.getElementById("loginModal");
-    let registerModal = document.getElementById("registerModal");
-    let dropdowns = document.getElementsByClassName("dropdown-content");
-    let forgotModal = document.getElementById("forgotPasswordModal");
-
-    // 1. คลิกพื้นหลังเพื่อปิด Login
-    if (event.target == loginModal) {
-        loginModal.style.display = "none";
-    }
-    
-    // 2. คลิกพื้นหลังเพื่อปิด Register
-    if (event.target == registerModal) {
-        registerModal.style.display = "none";
+    if (p1 !== p2) {
+        alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
+        return;
     }
 
-    // 3. คลิกที่อื่นเพื่อปิด Dropdown เมนู
-    if (!event.target.closest('.menu-icon')) {
-        for (let i = 0; i < dropdowns.length; i++) {
-            let openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+    // Update password in users array
+    const users = (typeof getUsers === "function") ? getUsers() : JSON.parse(localStorage.getItem("bp_users") || "[]");
+    const idx = users.findIndex(u => u.email === _forgotEmail);
+    if (idx === -1) {
+        alert("ไม่พบบัญชีนี้ในระบบ");
+        return;
+    }
+
+    users[idx].password = p1;
+    const saveUsers = (typeof window.saveUsers === "function") ? window.saveUsers : (arr) => localStorage.setItem("bp_users", JSON.stringify(arr));
+    saveUsers(users);
+
+    // If this is the currently logged-in user, update session too
+    const currentUserRaw = localStorage.getItem("bp_currentUser");
+    if (currentUserRaw) {
+        const current = JSON.parse(currentUserRaw);
+        if (current.email === _forgotEmail) {
+            current.password = p1;
+            localStorage.setItem("bp_currentUser", JSON.stringify(current));
         }
     }
 
+    alert("เปลี่ยนรหัสผ่านสำเร็จ! กรุณาล็อกอินด้วยรหัสผ่านใหม่");
+    closeResetPassword();
+    _forgotEmail = "";
+    openLogin();
 }
+
+// ---- Global Export ----
+window.openForgotPassword = openForgotPassword;
+window.closeForgotPassword = closeForgotPassword;
+window.openResetPassword = openResetPassword;
+window.closeResetPassword = closeResetPassword;
+window.handleSendOTP = handleSendOTP;
+window.handleUpdatePassword = handleUpdatePassword;
