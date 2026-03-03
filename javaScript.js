@@ -181,6 +181,40 @@ function handleUpdatePassword() {
         alert("รหัสผ่านไม่ตรงกัน หรือสั้นกว่า 8 ตัวอักษร");
     }
 }
+// --- 5. ระบบ Forgot Password & OTP (กำหนดรหัสฟิก 123456) ---
+const FIXED_OTP = "676869"; 
+
+function handleSendOTP() {
+    let email = document.getElementById("forgot-email").value;
+    if(email.includes("@")) {
+        alert("ระบบได้ส่งรหัส OTP ไปที่อีเมล " + email + " แล้ว\n(รหัสOTP: " + FIXED_OTP + ")");
+    } else {
+        alert("กรุณากรอกรูปแบบอีเมลให้ถูกต้อง");
+    }
+}
+
+function openResetPassword() {
+    let otp = document.getElementById("otp-input").value;
+    if(otp === FIXED_OTP) { // ตรวจสอบกับรหัสที่ฟิกไว้
+        closeForgotPassword();
+        document.getElementById("resetPasswordModal").style.display = "flex";
+    } else {
+        alert("รหัส OTP ไม่ถูกต้อง! (รหัสคือ " + FIXED_OTP + ")");
+    }
+}
+
+function handleUpdatePassword() {
+    let p1 = document.getElementById("new-password").value;
+    let p2 = document.getElementById("confirm-new-password").value;
+
+    if(p1 === p2 && p1.length >= 8) {
+        alert("เปลี่ยนรหัสผ่านสำเร็จ! กรุณาล็อกอินด้วยรหัสผ่านใหม่");
+        closeResetPassword();
+        openLogin();
+    } else {
+        alert("รหัสผ่านไม่ตรงกัน หรือสั้นกว่า 8 ตัวอักษร");
+    }
+}
 
 
 // --- 6. รวมตัวดักจับการคลิก (Window Click) ไว้ที่เดียว (แก้ปัญหาคำสั่งตีกัน) ---
