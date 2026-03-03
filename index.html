@@ -148,7 +148,7 @@
             </button>
             <div class="divider"><span>หรือ</span></div>
             <p style="font-size: 14px; margin-top: 10px;">
-                <a href="#" style="color: #d9534f; text-decoration: none;">ลืมรหัสผ่าน</a>
+                <a href="#" style="color: #d9534f; text-decoration: none;" onclick="openForgotPassword();closeLogin(event)">ลืมรหัสผ่าน</a>
             </p>
             <p style="font-size: 14px; margin-top: 5px;">
                 ยังไม่มีบัญชี? <a href="#" style="color: #8B5E3C; font-weight: bold;"
@@ -195,8 +195,50 @@
         </div>
     </div>
 
+        <!-- ลืมรหัสผ่าน -->
+<div id="forgotPasswordModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeForgotPassword()" style="font-size: 30px; font-weight: bold; color: #5A3E25;">></span>
+        <h2 style="color: #5A3E25; margin-bottom: 5px;">ลืมรหัสผ่าน?</h2>
+        <p style="font-size: 14px; margin-bottom: 20px;">ระบุอีเมลเพื่อรับรหัสยืนยัน</p>
+
+        <div class="form-group">
+            <label class="form-label">อีเมล*</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="email" id="forgot-email" class="form-input" placeholder="example@mail.com">
+                <button type="button" class="login-btn" style="width: auto; margin-top: 0; padding: 0 15px; font-size: 12px;" onclick="handleSendOTP()">รับรหัส OTP</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">OTP*</label>
+            <input type="text" id="otp-input" class="form-input" placeholder="กรอกรหัส 6 หลัก">
+        </div>
+
+        <button class="login-btn" onclick="openResetPassword()">รีเซ็ตรหัสผ่าน</button>
+    </div>
+</div>
+
+<div id="resetPasswordModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeResetPassword()">x</span>
+        <h2 style="color: #5A3E25; margin-bottom: 20px;">สร้างรหัสผ่านใหม่</h2>
+        <div class="form-group">
+            <label class="form-label">รหัสผ่านใหม่</label>
+            <input type="password" id="new-password" class="form-input">
+        </div>
+        <div class="form-group">
+            <label class="form-label">ยืนยันรหัสผ่านใหม่</label>
+            <input type="password" id="confirm-new-password" class="form-input">
+        </div>
+        <button class="login-btn" onclick="handleUpdatePassword()">สร้างรหัสผ่าน</button>
+    </div>
+</div>
+
+
     <!-- Scripts -->
     <script src="/js/layout.js"></script>
+    <script src="/js/otp.js"></script>
 </body>
 
 </html>
