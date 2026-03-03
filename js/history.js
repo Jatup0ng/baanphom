@@ -49,9 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
             header.className = 'card-header';
             header.innerHTML = `
                 <div class="header-info">
-                    <h3 style="color: #5A3E25; margin-bottom: 10px; font-size: 20px; font-weight: bold;">ID: Q-${item.queueID || 'Unknown'}</h3>
-                    <p><strong>บริการ:</strong> ${item.service}</p>
-                    <p><strong>วัน เวลา:</strong> ${formatDate(item.date)} เวลา ${item.time} น.</p>
+                    <h3 style="color: #5A3E25; margin-bottom: 10px; font-size: 30px; font-weight: bold;">ID: Q-${item.queueID || 'Unknown'}</h3>
+                    <p style="margin-bottom: 5px;"><strong>บริการ:</strong> ${item.service}</p>
+                    <p style="margin-bottom: 5px;"><strong>วัน เวลา:</strong> ${formatDate(item.date)} เวลา ${item.time} น.</p>
                 </div>
                 <button class="toggle-btn" data-id="${item.id}">
                     <i class="fas fa-angle-down"></i>
@@ -63,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const body = document.createElement('div');
                 body.className = 'card-body mt-3';
                 body.innerHTML = `
-                    <h4 style="color: #5A3E25; margin-bottom: 10px; font-size: 20px; font-weight: bold;">รายละเอียดการจอง</h4>
+                    <h5 style="color: #5A3E25; font-size: 30px; margin-top: 10px;letter-spacing: 8px; text-align: center;">---------------------------------------------</h5>
+                    <h4 style="color: #5A3E25; margin-bottom: 10px; font-size: 20px; font-weight: bold; margin-top: 10px;">รายละเอียดการจอง</h4>
                     <div class="detail-row">
                         <p><strong>วัน เวลา:</strong> ${formatDate(item.date)} เวลา ${item.time}</p>
                     </div>
