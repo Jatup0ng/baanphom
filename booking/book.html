@@ -66,7 +66,7 @@
                         <select id="inputService" class="form-input">
                             <option value="" selected>เลือกบริการ</option>
                             <option value="ตัด สระ ไดร์">ตัด สระ ไดร์</option>
-                            
+
                         </select>
                     </div>
 
@@ -112,20 +112,20 @@
                 </div>
                 <div style="flex: 1;">
                     <label class="form-label">เบอร์โทร</label>
-                    <input type="text" class="form-input" value="064-191-1122" readonly>
+                    <input type="text" id="bookingPhone" class="form-input" placeholder="-" readonly>
                 </div>
             </div>
             <div class="form-group" style="display: flex; margin-top: 20px; gap: 20px;">
                 <div style="flex: 1;">
                     <label class="form-label">Email</label>
-                    <input type="text" class="form-input" placeholder="-" readonly>
+                    <input type="text" id="bookingEmail" class="form-input" placeholder="-" readonly>
                 </div>
                 <div style="flex: 1;">
                     <label class="form-label">หมายเหตุ</label>
-                    <input type="text" class="form-input" placeholder="-" readonly>
+                    <input type="text" id="bookingNote" class="form-input" placeholder="-">
                 </div>
             </div>
-            <button id="btnNext" class="btn-next">ถัดไป</button>
+            <button id="btnNext" class="btn-next" style="width: 100%;">ถัดไป</button>
         </div>
     </main>
 

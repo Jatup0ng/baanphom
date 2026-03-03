@@ -79,7 +79,8 @@
 
         <div class="qrpayment-container">
             <div class="qrpayment-methods">
-                <img src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/599522693_774603158383442_7518024844061670756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_ohc=cxrwtFA_CcAQ7kNvwH3xAY6&_nc_oc=AdkbZ9b0VIYRwD5EaSRCcmreYVbXj8jpq_h8VIqs071o232MVGhaoCI79q49dQfL-Lw&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4gEMtvI1ibwTOSc8MwkrW-3godecd7w8MW7VWTezMwfRCw&oe=69A3E6A9"
+                <img id="dynamic-qr"
+                    src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t1.15752-9/599522693_774603158383442_7518024844061670756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_ohc=cxrwtFA_CcAQ7kNvwH3xAY6&_nc_oc=AdkbZ9b0VIYRwD5EaSRCcmreYVbXj8jpq_h8VIqs071o232MVGhaoCI79q49dQfL-Lw&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&oh=03_Q7cD4gEMtvI1ibwTOSc8MwkrW-3godecd7w8MW7VWTezMwfRCw&oe=69A3E6A9"
                     alt="qr" class="qrpay">
                 <h2 style="color: #704c30; font-size: 30px;" id="qr-amount">150 บาท</h2><br>
                 <h2 style="color: #704c30; font-size: 20px;">ชื่อบัญชี : บ้านผมบาร์เบอร์ช็อป </h2>
@@ -90,13 +91,14 @@
             </div>
 
             <div class="qrbooking-details-card">
-                <a href="/booking/book.html" style="text-decoration: none;">
-                    <button id="undo"
-                        style="border: none; background: #c71e1e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
-                        <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
-                    </button>
-                </a>
-                <div class="detail" style="clear: both; padding-top: 10px;">
+                <div class="detail" style="clear: both; padding: 5px;">
+                    <a href="/booking/book.html" style="text-decoration: none;">
+                        <button id="undo"
+                            style="border: none; background: #60301e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                            <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                        </button>
+                    </a>
+                
                     <div style="margin-bottom: 15px;">
                         <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
                         <span style="margin-left: 10px;" id="qr-service">-</span>

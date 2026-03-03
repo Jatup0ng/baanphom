@@ -180,8 +180,11 @@
 }
 
 .qrpay{
-    width: 560px;
-    
+    width: 450px;
+    margin-left: 55px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+   
 }
 
 
