@@ -170,7 +170,7 @@ function getServices() {
             {
                 id: '1',
                 image: 'https://via.placeholder.com/60',
-                name: 'ตัดผมชาย',
+                name: 'ตัด สระ ไดร์',
                 desc: 'ตัด สระ ไดร์',
                 duration: '60 นาที',
                 price: '150 บาท',
