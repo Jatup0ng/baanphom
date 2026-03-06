@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const statusText = service.active ? 'เปิด' : 'ปิด';
 
             tr.innerHTML = `
-                <td><img src="${service.image}" class="img-thumb"></td>
+                <td><img src="/images/s.png" class="img-thumb"></td>
                 <td><div class="item-name">${service.name}</div><div class="item-desc">${service.desc}</div></td>
                 <td>${service.duration}</td>
                 <td>${service.price}</td>
