@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const qrImg = document.getElementById('dynamic-qr');
         const price = parseFloat(data.price) || 0;
         if (qrImg && price > 0) {
-           
+
             const promptpayID = "0948104265";
             qrImg.src = `https://promptpay.io/${promptpayID}/${price}.png`;
         }
@@ -53,33 +53,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!data) return;
 
-        // Generate Queue ID
-        if (!data.queueID) {
-            let nextQ = 1;
-            if (window.useBooking) {
-                const dayBookings = window.useBooking.getBookings().filter(b => b.date === data.date);
-                if (dayBookings.length > 0) {
-                    const maxQ = Math.max(...dayBookings.map(b => parseInt(b.queueID) || 0));
-                    nextQ = maxQ + 1;
-                }
-            }
-            data.queueID = nextQ;
-            localStorage.setItem('tempBooking', JSON.stringify(data));
-        }
-
-        // Save History
-        let historyList = JSON.parse(localStorage.getItem('bookingHistory')) || [];
         data.id = Date.now().toString();
         data.status = 'รอตัด';
         data.name = localStorage.getItem('userName') || 'ลูกค้าทั่วไป';
 
+        // Store user's email for reliable notification matching
+        const currentUser = JSON.parse(localStorage.getItem('bp_currentUser') || 'null');
+        if (currentUser && currentUser.email) {
+            data.userEmail = currentUser.email;
+        }
+
+        // Save History (without queueID initially)
+        let historyList = JSON.parse(localStorage.getItem('bookingHistory')) || [];
         historyList.push(data);
         localStorage.setItem('bookingHistory', JSON.stringify(historyList));
 
-        // Save to Admin
+        // Save to Admin (this calculates queueID and syncs to historyList)
         if (window.useBooking) {
             window.useBooking.addBooking(data);
         }
+
+        // Update tempBooking with the newly assigned queueID
+        localStorage.setItem('tempBooking', JSON.stringify(data));
 
         // Redirect
         setTimeout(() => {

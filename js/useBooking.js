@@ -18,8 +18,64 @@ function addBooking(booking) {
     if (!booking.createdAt) {
         booking.createdAt = new Date().toISOString();
     }
-    bookings.push(booking);
+
+    // Update if exists, otherwise push
+    const existsIndex = bookings.findIndex(b => b.id === booking.id);
+    if (existsIndex !== -1) {
+        bookings[existsIndex] = booking;
+    } else {
+        bookings.push(booking);
+    }
+
+    // Sort all bookings by Date and Time
+    bookings.sort((a, b) => {
+        // time format is e.g. "11.00 - 12.00", convert "11.00" to "11:00"
+        const timeA = a.time ? a.time.substring(0, 5).replace('.', ':') : '00:00';
+        const timeB = b.time ? b.time.substring(0, 5).replace('.', ':') : '00:00';
+        const dateTimeA = new Date(`${a.date}T${timeA}`).getTime();
+        const dateTimeB = new Date(`${b.date}T${timeB}`).getTime();
+        return dateTimeA - dateTimeB; // Earliest first
+    });
+
+    const timeSlotMap = {
+        "11.00 - 12.00": 1,
+        "12.00 - 13.00": 2,
+        "13.00 - 14.00": 3,
+        "14.00 - 15.00": 4,
+        "15.00 - 16.00": 5,
+        "16.00 - 17.00": 6,
+        "17.00 - 18.00": 7,
+        "18.00 - 19.00": 8,
+        "19.00 - 20.00": 9,
+        "20.00 - 21.00": 10
+    };
+
+    // Calculate queue numbers directly from time slot map
+    bookings.forEach(b => {
+        b.queueID = timeSlotMap[b.time] || 0;
+    });
+
     saveBookings(bookings);
+
+    // Sync queueIDs to bookingHistory if it exists
+    const historyStored = localStorage.getItem('bookingHistory');
+    if (historyStored) {
+        let historyList = JSON.parse(historyStored);
+        historyList = historyList.map(hItem => {
+            const match = bookings.find(b => b.id === hItem.id);
+            if (match) hItem.queueID = match.queueID;
+            return hItem;
+        });
+        localStorage.setItem('bookingHistory', JSON.stringify(historyList));
+    }
+
+    // Also update the passed-in booking object's queueID
+    const updatedBooking = bookings.find(b => b.id === booking.id);
+    if (updatedBooking) {
+        booking.queueID = updatedBooking.queueID;
+    }
+
+    return booking;
 }
 
 // Update booking status
@@ -170,7 +226,7 @@ function getServices() {
             {
                 id: '1',
                 image: 'https://via.placeholder.com/60',
-                name: 'ตัดผมชาย',
+                name: 'ตัด สระ ไดร์',
                 desc: 'ตัด สระ ไดร์',
                 duration: '60 นาที',
                 price: '150 บาท',

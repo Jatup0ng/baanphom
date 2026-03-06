@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="header-info">
                     <h3 style="color: #5A3E25; margin-bottom: 10px; font-size: 30px; font-weight: bold;">ID: Q-${item.queueID || 'Unknown'}</h3>
                     <p style="margin-bottom: 5px;"><strong>บริการ:</strong> ${item.service}</p>
+                    <p style="margin-bottom: 5px;"><strong>ช่างตัดผม:</strong> ${item.barberName || 'ระบุไม่ได้'}</p>
                     <p style="margin-bottom: 5px;"><strong>วัน เวลา:</strong> ${formatDate(item.date)} เวลา ${item.time} น.</p>
                 </div>
                 <button class="toggle-btn" data-id="${item.id}">
