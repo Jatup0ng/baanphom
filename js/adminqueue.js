@@ -49,6 +49,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function handleCall(id) {
+        if (confirm("แจ้งเตือนลูกค้าท่านนี้ใช่หรือไม่?")) {
+            const booking = allBookings.find(b => b.id === id);
+            if (booking && booking.name) {
+                const title = "การแจ้งเตือน";
+                const message = `ใกล้ถึงคิวของคุณแล้ว\nคุณ ${booking.name} อีก 1 คิวโปรดเตรียมตัวและเตรียมผมให้พร้อม!`;
+
+                // Create Notification
+                const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
+                allNotifs.push({
+                    id: Date.now().toString(),
+                    targetUser: booking.name,
+                    targetEmail: booking.userEmail || '',
+                    title: title,
+                    message: message,
+                    timestamp: Date.now(),
+                    read: false
+                });
+                localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
+                alert("ส่งการแจ้งเตือนสำเร็จ ✅");
+            } else {
+                alert("ไม่พบข้อมูลลูกค้า");
+            }
+        }
+    }
+
     function renderTable() {
         listContainer.innerHTML = '';
 
@@ -112,6 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="q-col">
                     <div style="display:flex; gap:5px; flex-wrap: wrap;">
+                        <button class="btn-call" data-id="${booking.id}" style="cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#8B5E3C; color:white;">
+                            <i class="fas fa-bell"></i> โทร
+                        </button>
                         <button class="btn-toggle-status" data-id="${booking.id}" style="cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#fff;">
                             เปลี่ยนสถานะ
                         </button>
@@ -130,6 +159,11 @@ document.addEventListener("DOMContentLoaded", () => {
         listContainer.appendChild(dataBox);
 
         // Attach events
+        document.querySelectorAll('.btn-call').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                handleCall(e.currentTarget.getAttribute('data-id'));
+            });
+        });
         document.querySelectorAll('.btn-toggle-status').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 toggleStatus(e.currentTarget.getAttribute('data-id'));

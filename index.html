@@ -35,6 +35,16 @@
                 <a href="#" class="menu-icon" onclick="openLogin(event)">เข้าสู่ระบบ</a>
             </span>
             <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+
+            <!-- Notification Bell -->
+            <span id="notification-nav" style="display: none; position: relative;">
+                <a href="/notification/notification.html" class="menu-icon">
+                    <i class="fas fa-bell"></i>
+                    <span id="notif-badge" class="notif-badge"
+                        style="display: none; position: absolute; top: -5px; right: -8px; width: 10px; height: 10px; background-color: red; border-radius: 50%;"></span>
+                </a>
+            </span>
+
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown(event)">
                     <i class="fas fa-user-tie"></i>&nbsp;
@@ -73,8 +83,7 @@
         <section>
             <h2 class="section-title">บริการของเรา</h2>
             <div class="service-card">
-                <img src="/images/s.png"
-                    alt="ตัดผมชาย" class="service-img">
+                <img src="/images/s.png" alt="ตัดผมชาย" class="service-img">
                 <div class="service-info" style="flex: 1;">
                     <h3>ตัดผมชาย</h3>
                     <p class="service-desc">ตัดผมพร้อมบริการสระและไดร์ หล่อพร้อมเที่ยว ในราคาเดียว</p>
@@ -94,7 +103,7 @@
             <div class="reviews-container">
                 <div class="review-card">
                     <div class="reviewer">
-                        <img src="/images/nack.png"alt="User" class="avatar">
+                        <img src="/images/nack.png" alt="User" class="avatar">
                         <div class="reviewer-info">
                             <h4>snack007</h4>
                             <div class="stars">★★★★★ 2 วันที่แล้ว</div>
@@ -105,8 +114,7 @@
                 <!-- Other reviews -->
                 <div class="review-card">
                     <div class="reviewer">
-                        <img src="/images/c.png"
-                            alt="User" class="avatar">
+                        <img src="/images/c.png" alt="User" class="avatar">
                         <div class="reviewer-info">
                             <h4>C lnwza</h4>
                             <div class="stars">★★★★★ 1 สัปดาห์</div>
@@ -116,8 +124,7 @@
                 </div>
                 <div class="review-card">
                     <div class="reviewer">
-                        <img src="/images/moter.png"
-                            alt="User" class="avatar">
+                        <img src="/images/moter.png" alt="User" class="avatar">
                         <div class="reviewer-info">
                             <h4>moterzaza</h4>
                             <div class="stars">★★★★★ 2 สัปดาห์</div>

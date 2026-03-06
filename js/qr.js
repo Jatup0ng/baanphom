@@ -57,6 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
         data.status = 'รอตัด';
         data.name = localStorage.getItem('userName') || 'ลูกค้าทั่วไป';
 
+        // Store user's email for reliable notification matching
+        const currentUser = JSON.parse(localStorage.getItem('bp_currentUser') || 'null');
+        if (currentUser && currentUser.email) {
+            data.userEmail = currentUser.email;
+        }
+
         // Save History (without queueID initially)
         let historyList = JSON.parse(localStorage.getItem('bookingHistory')) || [];
         historyList.push(data);
