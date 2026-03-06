@@ -8,25 +8,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
 
     if (!currentUser) {
-        // Not logged in — redirect to home
         alert("กรุณาเข้าสู่ระบบก่อน");
         window.location.href = "/index.html";
         return;
     }
 
     // ---- DOM Elements ----
-    const nameInput = document.getElementById("profile-name");
+    const firstnameInput = document.getElementById("profile-firstname");
+    const lastnameInput = document.getElementById("profile-lastname");
     const phoneInput = document.getElementById("profile-phone");
     const emailInput = document.getElementById("profile-email");
     const passInput = document.getElementById("profile-pass");
 
-    const btnEditName = document.getElementById("btn-edit-name");
+    const btnEditFirstname = document.getElementById("btn-edit-firstname");
+    const btnEditLastname = document.getElementById("btn-edit-lastname");
     const btnEditPass = document.getElementById("btn-edit-pass");
-    const textEditName = document.getElementById("text-edit-name");
+    const textEditFirstname = document.getElementById("text-edit-firstname");
+    const textEditLastname = document.getElementById("text-edit-lastname");
     const textEditPass = document.getElementById("text-edit-pass");
 
     // ---- Populate fields ----
-    if (nameInput) nameInput.value = currentUser.firstName + " " + currentUser.lastName;
+    if (firstnameInput) firstnameInput.value = currentUser.firstName || "";
+    if (lastnameInput) lastnameInput.value = currentUser.lastName || "";
     if (phoneInput) phoneInput.value = currentUser.phone || "";
     if (emailInput) emailInput.value = currentUser.email || "";
     if (passInput) passInput.value = currentUser.password || "";
@@ -41,45 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         currentUser[field] = value;
         localStorage.setItem("bp_currentUser", JSON.stringify(currentUser));
-        // Also update nav display name if name changed
-        localStorage.setItem("userName", currentUser.firstName + " " + currentUser.lastName);
+        // Update nav display: show only firstName
+        localStorage.setItem("userName", currentUser.firstName);
     }
 
-    // ---- Edit Name ----
-    let isEditingName = false;
-    if (btnEditName) {
-        btnEditName.addEventListener("click", () => {
-            if (!isEditingName) {
-                isEditingName = true;
-                nameInput.readOnly = false;
-                nameInput.style.borderColor = "#007bff";
-                btnEditName.style.color = "#28a745";
-                btnEditName.querySelector("i").className = "fas fa-save";
-                textEditName.innerText = "บันทึก";
-                nameInput.focus();
-            } else {
-                const fullName = nameInput.value.trim();
-                if (!fullName) { alert("กรุณากรอกชื่อ"); return; }
-                const parts = fullName.split(" ");
-                const firstName = parts[0];
-                const lastName = parts.slice(1).join(" ") || currentUser.lastName;
-                saveField("firstName", firstName);
-                saveField("lastName", lastName);
+    // ---- Edit First Name ----
+    setupInlineEdit("profile-firstname", "firstName", "btn-edit-firstname", "text-edit-firstname", {
+        validate: (val) => {
+            if (!val) { alert("กรุณากรอกชื่อ"); return false; }
+            return true;
+        },
+        onSave: () => {
+            const navDisplay = document.getElementById("user-name-display");
+            if (navDisplay) navDisplay.innerText = currentUser.firstName;
+        }
+    });
 
-                // Update nav
-                const navDisplay = document.getElementById("user-name-display");
-                if (navDisplay) navDisplay.innerText = firstName + " " + lastName;
-
-                isEditingName = false;
-                nameInput.readOnly = true;
-                nameInput.style.borderColor = "#8B5E3C";
-                btnEditName.style.color = "#5D3A1A";
-                btnEditName.querySelector("i").className = "fas fa-edit";
-                textEditName.innerText = "แก้ไข";
-                alert("บันทึกชื่อเรียบร้อยแล้ว!");
-            }
-        });
-    }
+    // ---- Edit Last Name ----
+    setupInlineEdit("profile-lastname", "lastName", "btn-edit-lastname", "text-edit-lastname");
 
     // ---- Edit Password ----
     let isEditingPass = false;
@@ -96,8 +78,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 passInput.focus();
             } else {
                 const newPass = passInput.value;
+                if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(newPass)) {
+                    alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+                    return;
+                }
                 if (newPass.length < 8) {
                     alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+                    return;
+                }
+                if (!/[A-Z]/.test(newPass)) {
+                    alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
                     return;
                 }
                 saveField("password", newPass);
@@ -120,7 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Edit Email (with inline toggle) ----
     setupInlineEdit("profile-email", "email", "btn-edit-email", "text-edit-email");
 
-    function setupInlineEdit(inputId, fieldKey, btnId, textId) {
+    // ---- Generic inline edit helper ----
+    function setupInlineEdit(inputId, fieldKey, btnId, textId, options = {}) {
         const inp = document.getElementById(inputId);
         const btn = document.getElementById(btnId);
         const txt = document.getElementById(textId);
@@ -137,8 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 inp.focus();
             } else {
                 const val = inp.value.trim();
-                if (!val) { alert("กรุณากรอกข้อมูล"); return; }
+                if (options.validate) {
+                    if (!options.validate(val)) return;
+                } else {
+                    if (!val && fieldKey !== "lastName") { alert("กรุณากรอกข้อมูล"); return; }
+                }
                 saveField(fieldKey, val);
+                if (options.onSave) options.onSave();
                 editing = false;
                 inp.readOnly = true;
                 inp.style.borderColor = "#8B5E3C";

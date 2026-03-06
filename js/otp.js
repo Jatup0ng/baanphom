@@ -72,8 +72,16 @@ function handleUpdatePassword() {
     const p1 = document.getElementById("new-password").value;
     const p2 = document.getElementById("confirm-new-password").value;
 
+    if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(p1)) {
+        alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+        return;
+    }
     if (p1.length < 8) {
         alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+        return;
+    }
+    if (!/[A-Z]/.test(p1)) {
+        alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
         return;
     }
     if (p1 !== p2) {

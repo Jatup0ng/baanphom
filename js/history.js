@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Gatekeeper
     const status = localStorage.getItem("isLoggedIn");
-    if (status !== "yes") {
+    const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
+    if (status !== "yes" || !currentUser) {
         alert("⛔ กรุณาเข้าสู่ระบบก่อนเข้าใช้งานหน้าประวัติ");
         window.location.href = '/index.html';
         return;
     }
+    // Per-user history key
+    const historyKey = 'bookingHistory_' + currentUser.email;
 
     const container = document.getElementById('history-container');
     let historyList = [];
@@ -20,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function removeHistory(id) {
         if (confirm("ยืนยันการยกเลิกการจอง?")) {
             historyList = historyList.filter(item => String(item.id) !== String(id));
-            localStorage.setItem('bookingHistory', JSON.stringify(historyList));
+            localStorage.setItem(historyKey, JSON.stringify(historyList));
             renderHistory();
         }
     }
@@ -105,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function loadHistory() {
-        const stored = localStorage.getItem('bookingHistory');
+        const stored = localStorage.getItem(historyKey);
         if (stored) {
             historyList = JSON.parse(stored).map(item => ({
                 ...item,

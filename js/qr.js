@@ -1,11 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Check Login
     const status = localStorage.getItem("isLoggedIn");
-    if (status !== "yes") {
+    const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
+    if (status !== "yes" || !currentUser) {
         alert("⛔ กรุณาเข้าสู่ระบบ");
         window.location.href = "/index.html";
         return;
     }
+    // Per-user history key
+    const historyKey = 'bookingHistory_' + currentUser.email;
 
     // DOM Elements
     const qrService = document.getElementById('qr-service');
@@ -57,10 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
         data.status = 'รอตัด';
         data.name = localStorage.getItem('userName') || 'ลูกค้าทั่วไป';
 
-        // Save History (without queueID initially)
-        let historyList = JSON.parse(localStorage.getItem('bookingHistory')) || [];
+        // Save History (per user account)
+        let historyList = JSON.parse(localStorage.getItem(historyKey)) || [];
         historyList.push(data);
-        localStorage.setItem('bookingHistory', JSON.stringify(historyList));
+        localStorage.setItem(historyKey, JSON.stringify(historyList));
 
         // Save to Admin (this calculates queueID and syncs to historyList)
         if (window.useBooking) {

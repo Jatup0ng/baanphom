@@ -20,7 +20,7 @@ function getCurrentUser() {
 function saveCurrentUser(user) {
     localStorage.setItem("bp_currentUser", JSON.stringify(user));
     localStorage.setItem("isLoggedIn", "yes");
-    localStorage.setItem("userName", user.firstName + " " + user.lastName);
+    localStorage.setItem("userName", user.firstName);
 }
 
 function clearSession() {
@@ -86,7 +86,7 @@ function updateNavToGuest() {
 function checkLoginStatus() {
     const user = getCurrentUser();
     if (user) {
-        updateNavToMember(user.firstName + " " + user.lastName);
+        updateNavToMember(user.firstName);
     } else {
         updateNavToGuest();
     }
@@ -112,16 +112,25 @@ function performRegister() {
     const confirm = confirmEl.value;
 
     // Validation
-    if (!firstName || !lastName || !phone || !email || !password || !confirm) {
-        alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+    if (!firstName || !phone || !email || !password || !confirm) {
+        alert("กรุณากรอกข้อมูลให้ครบ (ชื่อ, เบอร์โทร, อีเมล, รหัสผ่าน)");
         return;
     }
     if (!email.includes("@")) {
         alert("กรุณากรอกอีเมลให้ถูกต้อง");
         return;
     }
+    // Password: English only, min 8 chars, at least 1 uppercase
+    if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
+        alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+        return;
+    }
     if (password.length < 8) {
         alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+        return;
+    }
+    if (!/[A-Z]/.test(password)) {
+        alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
         return;
     }
     if (password !== confirm) {
@@ -143,7 +152,7 @@ function performRegister() {
     // Auto login after register
     saveCurrentUser(newUser);
     closeRegister();
-    updateNavToMember(firstName + " " + lastName);
+    updateNavToMember(firstName);
     alert("สมัครสมาชิกสำเร็จ! ยินดีต้อนรับ " + firstName + " 🎉");
 }
 
@@ -184,7 +193,7 @@ function performLogin() {
 
     saveCurrentUser(user);
     closeLogin();
-    updateNavToMember(user.firstName + " " + user.lastName);
+    updateNavToMember(user.firstName);
 }
 
 // ---- Dropdown ----

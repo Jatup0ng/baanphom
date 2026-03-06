@@ -31,10 +31,11 @@
         <div class="menu-icons">
             <a href="/index.html" class="menu-icon">หน้าแรก</a>
             <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+
             <span id="guest-nav">
                 <a href="#" class="menu-icon" onclick="openLogin(event)">เข้าสู่ระบบ</a>
             </span>
-            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown(event)">
                     <i class="fas fa-user-tie"></i>&nbsp;
@@ -73,8 +74,7 @@
         <section>
             <h2 class="section-title">บริการของเรา</h2>
             <div class="service-card">
-                <img src="/images/s.png"
-                    alt="ตัดผมชาย" class="service-img">
+                <img src="/images/s.png" alt="ตัดผมชาย" class="service-img">
                 <div class="service-info" style="flex: 1;">
                     <h3>ตัดผมชาย</h3>
                     <p class="service-desc">ตัดผมพร้อมบริการสระและไดร์ หล่อพร้อมเที่ยว ในราคาเดียว</p>
@@ -94,7 +94,7 @@
             <div class="reviews-container">
                 <div class="review-card">
                     <div class="reviewer">
-                        <img src="/images/nack.png"alt="User" class="avatar">
+                        <img src="/images/nack.png" alt="User" class="avatar">
                         <div class="reviewer-info">
                             <h4>snack007</h4>
                             <div class="stars">★★★★★ 2 วันที่แล้ว</div>
@@ -105,8 +105,7 @@
                 <!-- Other reviews -->
                 <div class="review-card">
                     <div class="reviewer">
-                        <img src="/images/c.png"
-                            alt="User" class="avatar">
+                        <img src="/images/c.png" alt="User" class="avatar">
                         <div class="reviewer-info">
                             <h4>C lnwza</h4>
                             <div class="stars">★★★★★ 1 สัปดาห์</div>
@@ -116,8 +115,7 @@
                 </div>
                 <div class="review-card">
                     <div class="reviewer">
-                        <img src="/images/moter.png"
-                            alt="User" class="avatar">
+                        <img src="/images/moter.png" alt="User" class="avatar">
                         <div class="reviewer-info">
                             <h4>moterzaza</h4>
                             <div class="stars">★★★★★ 2 สัปดาห์</div>
@@ -168,8 +166,9 @@
                     <input type="text" id="reg-firstname" class="form-input" placeholder="ชื่อ">
                 </div>
                 <div style="flex: 1;">
-                    <label class="form-label">นามสกุล*</label>
-                    <input type="text" id="reg-lastname" class="form-input" placeholder="นามสกุล">
+                    <label class="form-label">นามสกุล <span
+                            style="font-size:11px;color:#999;">(ไม่บังคับ)</span></label>
+                    <input type="text" id="reg-lastname" class="form-input" placeholder="นามสกุล (ถ้ามี)">
                 </div>
             </div>
             <div class="form-group" style="display: flex; gap: 20px;">
@@ -192,7 +191,8 @@
                         style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#8B5E3C;font-size:16px;padding:0;"><i
                             class="fas fa-eye"></i></button>
                 </div>
-                <p style="font-size: 12px; margin-top: 5px;">รหัสผ่านต้องมีอักขระอย่างน้อย 8 ตัว</p>
+                <p style="font-size: 12px; margin-top: 5px; color: #666;">รหัสผ่านต้องเป็นภาษาอังกฤษ อย่างน้อย 8 ตัว
+                    และมีตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว</p>
             </div>
             <div class="form-group">
                 <label class="form-label">ยืนยันรหัสผ่าน</label>
