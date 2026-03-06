@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/admin_layout.css">
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
     <style>
         .schedule-dropdown {
             padding: 10px;
@@ -125,7 +126,7 @@
                     <!-- Barber options injected by JS -->
                 </select>
 
-                <div class="instruction-bar" id="instruction-bar">
+                <div class="instruction-bar" id="instruction-bar" style="color: #fff;">
                     กรุณาเลือกช่างเพื่อจัดการวันหยุด
                 </div>
             </div>
@@ -157,8 +158,8 @@
                             </table>
                         </div>
                         <div style="margin-top: 15px; text-align: right;">
-                            <button class="status-pill status-on" id="btn-save-schedule"
-                                style="padding: 10px 20px;">บันทึกตารางเวลา</button>
+                            <button id="btn-save-schedule"
+                                style="padding: 10px 25px; background-color:#5A3E25; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer; font-size:16px;">บันทึกตารางเวลา</button>
                         </div>
                     </div>
                 </div>
@@ -168,18 +169,24 @@
                         <div class="box-header">เพิ่มวันหยุด (ปิดรับจอง)</div>
                         <div class="box-body holiday-body">
                             <div class="form-group">
-                                <label>วันที่หยุด</label>
-                                <input type="date" class="form-control" id="new-holiday-date">
+                                <label
+                                    style="display:block; margin-bottom:5px; color:#ffffff; font-weight:bold; margin-bottom: 10px;">วันที่หยุด</label>
+                                <input type="date" class="form-control" id="new-holiday-date"
+                                    style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; margin-bottom:10px; outline:none; transition:border 0.3s;">
                             </div>
-                            
+
                             <div class="form-group">
-                                <label>เหตุผล</label>
+                                <label style="display:block; margin-bottom:5px; color:#ffffff; font-weight:bold;margin-bottom: 10px;">เหตุผล
+                                    </label>
                                 <input type="text" class="form-control" id="new-holiday-reason"
-                                    placeholder="เช่น ลากิจ, ปิดร้าน">
+                                    placeholder="เช่น ลากิจ, วันหยุดนักขัตฤกษ์"
+                                    style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; margin-bottom:15px; outline:none; transition:border 0.3s;">
                             </div>
                             <div class="form-group" style="margin-top: 15px;">
-                                <button class="status-pill status-on" id="btn-save-holiday"
-                                    style="width: 100%; padding: 10px;">บักทึกวันหยุด</button>
+                                <button id="btn-save-holiday"
+                                    style="width: 100%; padding: 12px; background-color:#5A3E25; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer; font-size:16px; transition: background-color 0.3s;">
+                                    บันทึกวันหยุด
+                                </button>
                             </div>
                         </div>
                     </div>
