@@ -82,7 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="cancel-btn" data-cancel-id="${item.id}">
                             ยกเลิกการจอง
                         </button>
-                        <p style="color: red; font-size: 12px; margin-top: 8px;">***คำเตือน หากยกเลิกการจองจะไม่สามารถขอเงินคืนได้***</p>
+                        <p style="color: red; font-size: 12px; margin-top: 8px;">***คำเตือน หากยกเลิกการจองหลัง 1 ชั่วโมงจะไม่สามารถขอเงินคืนได้***</p>
+                        <p style="color: red; font-size: 12px; margin-top: 8px;">ติดต่อขอคืนเงินได้ที่Facebook</p>
                     </div>
                 `;
                 card.appendChild(body);
