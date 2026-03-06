@@ -391,8 +391,9 @@ body {
     padding: 20px;
     min-height: 100px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
 .empty-state {
@@ -460,6 +461,52 @@ body {
     font-weight: 600;
     font-size: 14px;
 }
+
+/* --- Queue List layout --- */
+/* กล่องหัวข้อ: มีกรอบ border แยกชัดเจน */
+.q-header-row {
+    display: grid;
+    grid-template-columns: 20% 25% 15% 10% 10% 20%;
+    background-color: #f4f4f4;
+    padding: 14px 20px;
+    border-radius: 8px;
+    /* border: 2px solid #c5aa98; */
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--text-brown);
+    align-items: center;
+}
+
+/* กล่องข้อมูล: กรอบ border แยกอยู่ข้างล่าง */
+.q-data-container {
+    background-color: var(--white);
+    border-radius: 8px;
+    /* border: 2px solid #c5aa98; */
+    padding: 5px 0;
+    width: 100%;
+}
+
+/* แต่ละแถวข้อมูล คั่นด้วยเส้นประ */
+.q-data-line {
+    display: grid;
+    grid-template-columns: 20% 25% 15% 10% 10% 20%;
+    padding: 14px 20px;
+    align-items: center;
+    border-bottom: 2px dashed #d1c4b9;
+    color: var(--text-brown);
+}
+
+.q-data-line:last-child {
+    border-bottom: none;
+}
+
+/* cell ทั่วไป */
+.q-col {
+    padding: 0 8px;
+    word-break: break-word;
+}
+
+
 
 /* ================== CSS จาก Service.css ================== */
 

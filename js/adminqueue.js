@@ -79,40 +79,39 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const table = document.createElement('table');
-        table.style.width = '100%';
-        table.style.borderCollapse = 'collapse';
-
-        const thead = document.createElement('thead');
-        thead.innerHTML = `
-            <tr style="background:#f4f4f4; text-align:left;">
-                <th style="padding:10px;">เวลา</th>
-                <th style="padding:10px;">ชื่อ</th>
-                <th style="padding:10px;">บริการ</th>
-                <th style="padding:10px;">ช่าง</th>
-                <th style="padding:10px;">สถานะ</th>
-                <th style="padding:10px;">จัดการ</th>
-            </tr>
+        // 1. หัวข้อ อยู่นอกกรอบขาว แยกเป็นกล่องตัวเอง
+        const headerRow = document.createElement('div');
+        headerRow.className = 'q-header-row';
+        headerRow.innerHTML = `
+            <div class="q-col">เวลา</div>
+            <div class="q-col">ชื่อ</div>
+            <div class="q-col">บริการ</div>
+            <div class="q-col">ช่าง</div>
+            <div class="q-col">สถานะ</div>
+            <div class="q-col">จัดการ</div>
         `;
-        table.appendChild(thead);
+        listContainer.appendChild(headerRow);
 
-        const tbody = document.createElement('tbody');
+        // 2. กรอบขาวแยก สำหรับข้อมูล
+        const dataBox = document.createElement('div');
+        dataBox.className = 'q-data-container';
+
         filtered.forEach(booking => {
-            const tr = document.createElement('tr');
-            tr.style.borderBottom = '1px solid #eee';
+            const dataRow = document.createElement('div');
+            dataRow.className = 'q-data-line';
 
             const statusColor = booking.status === 'เสร็จสิ้น' ? 'green' : 'orange';
 
-            tr.innerHTML = `
-                <td style="padding:10px;">${booking.date || ''} ${booking.time || ''}</td>
-                <td style="padding:10px;">${booking.name || '-'}</td>
-                <td style="padding:10px;">${booking.service || '-'}</td>
-                <td style="padding:10px;">${booking.barberName || booking.barber || '-'}</td>
-                <td style="padding:10px;">
-                    <span style="color: ${statusColor}">${booking.status || 'รอตัด'}</span>
-                </td>
-                <td style="padding:10px;">
-                    <div style="display:flex; gap:5px;">
+            dataRow.innerHTML = `
+                <div class="q-col">${booking.date || ''} <br> ${booking.time || ''}</div>
+                <div class="q-col">${booking.name || '-'}</div>
+                <div class="q-col">${booking.service || '-'}</div>
+                <div class="q-col">${booking.barberName || booking.barber || '-'}</div>
+                <div class="q-col">
+                    <span style="color: ${statusColor}; font-weight: bold;">${booking.status || 'รอตัด'}</span>
+                </div>
+                <div class="q-col">
+                    <div style="display:flex; gap:5px; flex-wrap: wrap;">
                         <button class="btn-toggle-status" data-id="${booking.id}" style="cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#fff;">
                             เปลี่ยนสถานะ
                         </button>
@@ -123,17 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
-                </td>
+                </div>
             `;
-            tbody.appendChild(tr);
+            dataBox.appendChild(dataRow);
         });
 
-        table.appendChild(tbody);
-
-        const outerDiv = document.createElement('div');
-        outerDiv.style.width = '100%';
-        outerDiv.appendChild(table);
-        listContainer.appendChild(outerDiv);
+        listContainer.appendChild(dataBox);
 
         // Attach events
         document.querySelectorAll('.btn-toggle-status').forEach(btn => {

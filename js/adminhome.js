@@ -81,21 +81,35 @@ document.addEventListener("DOMContentLoaded", () => {
             const row = document.createElement('div');
             row.className = 'time-row';
 
-            // Note: users book slots like "11.00 - 12.00". Need to check if it starts with 'slot'
-            const bookingAtSlot = todayBookings.find(b => b.time && b.time.startsWith(slot) && b.status !== 'ยกเลิก');
+            // Find ALL bookings at this timeslot
+            const bookingsAtSlot = todayBookings.filter(b => b.time && b.time.startsWith(slot) && b.status !== 'ยกเลิก');
 
-            let slotContent = `ว่าง <i class="fas fa-plus-circle"></i>`;
-            let boxStyle = "";
-            let boxClass = "slot-box";
+            let slotContentHtml = '';
 
-            if (bookingAtSlot) {
-                slotContent = `<span>${bookingAtSlot.name || 'ลูกค้า'}</span> <span><i class="fas fa-edit"></i></span>`;
-                boxStyle = "background-color: #5D4037; color: white; border: none; flex-grow: 1; border-radius: 6px; padding: 8px 15px; font-size: 14px; display: flex; justify-content: space-between; align-items: center;";
+            if (bookingsAtSlot.length > 0) {
+                // If there are bookings, loop and display each
+                bookingsAtSlot.forEach(booking => {
+                    const barberText = booking.barberName ? ` (ช่าง: ${booking.barberName})` : '';
+                    slotContentHtml += `
+                        <div class="slot-box" style="background-color: #5D4037; color: white; border: none; flex-grow: 1; border-radius: 6px; padding: 8px 15px; font-size: 14px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                            <span>${booking.name || 'ลูกค้า'} ${barberText}</span> <span><i class="fas fa-edit"></i></span>
+                        </div>
+                    `;
+                });
+            } else {
+                // If completely empty
+                slotContentHtml = `
+                    <div class="slot-box" style="margin-bottom: 5px;">
+                        ว่าง <i class="fas fa-plus-circle"></i>
+                    </div>
+                `;
             }
 
             row.innerHTML = `
                 <span class="time-text">${slot} น.-</span>
-                <div class="${boxClass}" style="${boxStyle}">${slotContent}</div>
+                <div style="display: flex; flex-direction: column; flex-grow: 1;">
+                    ${slotContentHtml}
+                </div>
             `;
             list.appendChild(row);
         });
