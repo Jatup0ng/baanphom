@@ -186,15 +186,15 @@ document.addEventListener("DOMContentLoaded", () => {
             item.style.justifyContent = 'space-between';
             item.style.alignItems = 'center';
 
-            let html = `<div style="color:#fff; font-size:16px;"><strong>${h.date}</strong>`;
+            let html = `<div><strong>${h.date}</strong>`;
             if (h.time) {
-                html += ` <span style="font-weight:500;">(เวลา ${h.time} น.)</span>`;
+                html += ` <span>(เวลา ${h.time} น.)</span>`;
             }
             if (h.reason) {
-                html += ` <span style="color:#fff;">- ${h.reason}</span>`;
+                html += ` <span>- ${h.reason}</span>`;
             }
             if (!h.barberId) {
-                html += ` <span class="badge-all" style="background-color:#E53935; padding:3px 8px; font-size:12px;">ปิดทั้งร้าน</span>`;
+                html += ` <span class="badge-all">ปิดทั้งร้าน</span>`;
             }
             html += `</div>`;
 

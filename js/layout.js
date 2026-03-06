@@ -85,56 +85,12 @@ function updateNavToGuest() {
 
 function checkLoginStatus() {
     const user = getCurrentUser();
-
-    // Check notifications regardless of login status first to define the function scope, 
-    // but only actually show it if logged in.
-    updateNotificationBadge();
-
     if (user) {
         updateNavToMember(user.firstName + " " + user.lastName);
-        const notifNav = document.getElementById("notification-nav");
-        if (notifNav) notifNav.style.display = "inline-block";
     } else {
         updateNavToGuest();
-        const notifNav = document.getElementById("notification-nav");
-        if (notifNav) notifNav.style.display = "none";
     }
 }
-
-function updateNotificationBadge() {
-    const badge = document.getElementById("notif-badge");
-    if (!badge) return;
-
-    const user = getCurrentUser();
-    if (!user) {
-        badge.style.display = "none";
-        return;
-    }
-
-    const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-    const userName = (user.firstName + " " + user.lastName).toLowerCase().trim();
-
-    const hasUnread = allNotifs.some(n => {
-        if (n.read) return false;
-        // 1) Match by email (most reliable)
-        if (user.email && n.targetEmail) {
-            return n.targetEmail.toLowerCase() === user.email.toLowerCase();
-        }
-        // 2) Fallback: match by name
-        const target = (n.targetUser || '').toLowerCase().trim();
-        if (!target) return false;
-        return target === userName || userName.includes(target) || target.includes(user.firstName.toLowerCase().trim());
-    });
-
-    if (hasUnread) {
-        badge.style.display = "inline-block";
-    } else {
-        badge.style.display = "none";
-    }
-}
-
-// Listen for updates from other scripts
-window.addEventListener('notificationsUpdated', updateNotificationBadge);
 
 // ---- Register ----
 
@@ -262,20 +218,6 @@ window.getCurrentUser = getCurrentUser;
 window.getUsers = getUsers;
 window.saveUsers = saveUsers;
 window.saveCurrentUser = saveCurrentUser;
-window.updateNotificationBadge = updateNotificationBadge;
-window.triggerNotification = function (targetUser, title, message) {
-    const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-    allNotifs.push({
-        id: Date.now().toString(),
-        targetUser: targetUser,
-        title: title,
-        message: message,
-        timestamp: Date.now(),
-        read: false
-    });
-    localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
-    window.dispatchEvent(new Event('notificationsUpdated'));
-};
 
 // ---- DOM Ready ----
 document.addEventListener("DOMContentLoaded", () => {
