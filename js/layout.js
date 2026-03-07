@@ -164,63 +164,63 @@ function checkLoginStatus() {
 }
 
 // // // ==== Profile Switcher (TEST TOOL) ====
-function initProfileSwitcher() {
-    if (document.getElementById('test-profile-switcher')) return;
+// function initProfileSwitcher() {
+//     if (document.getElementById('test-profile-switcher')) return;
 
-    // Only show if we aren't already admin/don't want to clutter prod, 
-    // but since it's a test tool requested by user, we inject it.
-    const switcher = document.createElement('div');
-    switcher.id = 'test-profile-switcher';
-    switcher.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        background: rgba(0,0,0,0.8);
-        color: white;
-        padding: 10px;
-        border-radius: 8px;
-        z-index: 9999;
-        font-family: Arial, sans-serif;
-        font-size: 12px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    `;
+//     // Only show if we aren't already admin/don't want to clutter prod, 
+//     // but since it's a test tool requested by user, we inject it.
+//     const switcher = document.createElement('div');
+//     switcher.id = 'test-profile-switcher';
+//     switcher.style.cssText = `
+//         position: fixed;
+//         bottom: 20px;
+//         left: 20px;
+//         background: rgba(0,0,0,0.8);
+//         color: white;
+//         padding: 10px;
+//         border-radius: 8px;
+//         z-index: 9999;
+//         font-family: Arial, sans-serif;
+//         font-size: 12px;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 5px;
+//         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+//     `;
 
-    switcher.innerHTML = `
-        <strong style="margin-bottom: 5px;">Profile Switcher</strong>
-        <button id="btn-switch-a" style="cursor:pointer; padding:5px; background:#4CAF50; color:white; border:none; border-radius:3px;">User A</button>
-        <button id="btn-switch-b" style="cursor:pointer; padding:5px; background:#2196F3; color:white; border:none; border-radius:3px;">User B</button>
-        <button id="btn-switch-admin" style="cursor:pointer; padding:5px; background:#E91E63; color:white; border:none; border-radius:3px;">Admin</button>
-    `;
+//     switcher.innerHTML = `
+//         <strong style="margin-bottom: 5px;">Profile Switcher</strong>
+//         <button id="btn-switch-a" style="cursor:pointer; padding:5px; background:#4CAF50; color:white; border:none; border-radius:3px;">User A</button>
+//         <button id="btn-switch-b" style="cursor:pointer; padding:5px; background:#2196F3; color:white; border:none; border-radius:3px;">User B</button>
+//         <button id="btn-switch-admin" style="cursor:pointer; padding:5px; background:#E91E63; color:white; border:none; border-radius:3px;">Admin</button>
+//     `;
 
-    document.body.appendChild(switcher);
+//     document.body.appendChild(switcher);
 
-    document.getElementById('btn-switch-a').onclick = () => {
-        const u = { firstName: 'User', lastName: 'A', phone: '0811111111', email: 'a@mail.com', password: 'Password1' };
-        let users = getUsers();
-        if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
-        localStorage.removeItem('isAdminAuthenticated');
-        saveCurrentUser(u);
-        location.reload();
-    };
+//     document.getElementById('btn-switch-a').onclick = () => {
+//         const u = { firstName: 'User', lastName: 'A', phone: '0811111111', email: 'a@mail.com', password: 'Password1' };
+//         let users = getUsers();
+//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+//         localStorage.removeItem('isAdminAuthenticated');
+//         saveCurrentUser(u);
+//         location.reload();
+//     };
 
-    document.getElementById('btn-switch-b').onclick = () => {
-        const u = { firstName: 'User', lastName: 'B', phone: '0822222222', email: 'b@mail.com', password: 'Password1' };
-        let users = getUsers();
-        if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
-        localStorage.removeItem('isAdminAuthenticated');
-        saveCurrentUser(u);
-        location.reload();
-    };
+//     document.getElementById('btn-switch-b').onclick = () => {
+//         const u = { firstName: 'User', lastName: 'B', phone: '0822222222', email: 'b@mail.com', password: 'Password1' };
+//         let users = getUsers();
+//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+//         localStorage.removeItem('isAdminAuthenticated');
+//         saveCurrentUser(u);
+//         location.reload();
+//     };
 
-    document.getElementById('btn-switch-admin').onclick = () => {
-        clearSession();
-        localStorage.setItem("isAdminAuthenticated", "true");
-        window.location.href = "/admin/adminhome.html";
-    };
-}
+//     document.getElementById('btn-switch-admin').onclick = () => {
+//         clearSession();
+//         localStorage.setItem("isAdminAuthenticated", "true");
+//         window.location.href = "/admin/adminhome.html";
+//     };
+// }
 
 //----------------------------------------------------------------------------------------------------------------------
 
