@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Save notification directly to localStorage since layout.js isn't here
                 const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-                const message = `คุณ ${customerName} อีก 1 คิวโปรดเตรียมตัวและเตรียมผมให้พร้อม!`;
+                const message = `คุณ ${customerName} อีก 1 ชั่วโมง จะถึงคิวแล้วนะครับ เตรียมตัวหล่อได้เลย !!`;
 
                 allNotifs.push({
                     id: Date.now().toString(),
