@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         notifList.innerHTML = '';
 
         if (myNotifs.length === 0) {
-            notifList.innerHTML = `<div class="notif-empty">ไม่มีข้อความแจ้งเตือน</div>`;
+            notifList.innerHTML = `<div class="notif-empty"> --- ไม่มีข้อความแจ้งเตือน ---</div>`;
             return;
         }
 
