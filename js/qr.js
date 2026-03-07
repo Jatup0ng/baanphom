@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/index.html";
         return;
     }
-    // Per-user history key
-    const historyKey = 'bookingHistory_' + currentUser.email;
+
 
     // DOM Elements
     const qrService = document.getElementById('qr-service');
@@ -50,15 +49,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Payment Logic
     nextBtn.addEventListener("click", () => {
+        if (!data) return;
+
+        // จังหวะสุดทาดก่อนชำระเงิน: ตรวจสอบอีกครั้งว่าคิวยังว่างอยู่หรือไม่ (ป้องกันการจองซ้อน)
+        if (window.useBooking) {
+            const isAvailable = window.useBooking.isSlotAvailable(data.date, data.time, data.barber);
+            if (!isAvailable) {
+                alert("❌ ขออภัย คิวเวลานี้เพิ่งถูกจองไปเมื่อสักครู่ กรุณากลับไปเลือกเวลาใหม่น้าา");
+                window.location.href = "/booking/book.html";
+                return;
+            }
+        }
+
         // Update UI
         qrStatus.innerText = " *ชำระเงินเสร็จสิ้น";
         qrStatus.className = "status-success";
 
-        if (!data) return;
-
         data.id = Date.now().toString();
         data.status = 'รอตัด';
-        data.name = localStorage.getItem('userName') || 'ลูกค้าทั่วไป';
+
+        // นำชื่อและนามสกุลมาต่อกันเพื่อให้แอดมินเห็นชื่อเต็ม แต่ตอนล็อกอินยังใช้แค่ชื่อแรก
+        if (currentUser) {
+            data.name = currentUser.lastName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser.firstName;
+        } else {
+            data.name = 'ลูกค้าทั่วไป';
+        }
 
         // Save to Admin (this calculates queueID and saves to master list)
         if (window.useBooking) {

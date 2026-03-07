@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Auto-fill booker info
-    userName = currentUser.firstName + " " + currentUser.lastName;
+    userName = currentUser.firstName;
     const nameInput = document.getElementById('userNameInput');
     const phoneInput = document.getElementById('bookingPhone');
     const emailInput = document.getElementById('bookingEmail');
@@ -201,6 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const barberName = barbersList.find(b => b.id === selectedBarber)?.name || selectedBarber;
 
+        const noteInput = document.getElementById('bookingNote');
+        const bookingNote = noteInput ? noteInput.value.trim() : "";
+
         const bookingData = {
             service: selectedService,
             date: selectedDate,
@@ -211,7 +214,8 @@ document.addEventListener("DOMContentLoaded", () => {
             barberName: barberName,
             userName: userName,
             userPhone: currentUser.phone || "",
-            userEmail: currentUser.email || ""
+            userEmail: currentUser.email || "",
+            bookingNote: bookingNote // Added booking note
         };
 
         localStorage.setItem("tempBooking", JSON.stringify(bookingData));

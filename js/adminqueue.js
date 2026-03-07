@@ -33,13 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const booking = allBookings.find(b => b.id === id);
             if (!booking) return;
 
-            const newTime = prompt("แก้ไขเวลา (เช่น 15.00):", booking.time);
-            if (newTime === null) return;
-
             const newService = prompt("แก้ไขบริการ:", booking.service);
             if (newService === null) return;
 
-            window.useBooking.updateBookingDetails(id, { time: newTime, service: newService });
+            window.useBooking.updateBookingDetails(id, { service: newService });
             loadData();
         }
     }
@@ -68,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     targetEmail: booking.userEmail || '',
                     title: title,
                     message: message,
-                    timestamp: Date.now(),
+                    timestamp: new Date().toISOString(),
                     read: false
                 });
                 localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
@@ -148,7 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             dataRow.innerHTML = `
                 <div class="q-col">${booking.date || ''} <br> ${booking.time || ''}</div>
-                <div class="q-col">${booking.name || '-'}</div>
+                <div class="q-col">
+                    ${booking.name || '-'}
+                    ${booking.bookingNote ? `<br><small style="color: gray;">(${booking.bookingNote})</small>` : ''}
+                </div>
                 <div class="q-col">${booking.service || '-'}</div>
                 <div class="q-col">${booking.barberName || booking.barber || '-'}</div>
                 <div class="q-col">

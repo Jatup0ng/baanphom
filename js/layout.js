@@ -85,28 +85,34 @@ function updateNavToGuest() {
 
 // ---- Notifications ----
 function updateNotificationBadge() {
-    const badge = document.getElementById('notif-badge');
-    if (!badge) return;
+    const badges = document.querySelectorAll('.notif-badge');
+    if (!badges || badges.length === 0) return;
 
     const user = getCurrentUser();
     if (!user) {
-        badge.style.display = 'none';
+        badges.forEach(b => b.style.display = 'none');
         return;
     }
 
     const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
     const unreadCount = allNotifs.filter(n => {
-        const isMine = n.targetEmail
-            ? (user.email && n.targetEmail.toLowerCase() === user.email.toLowerCase())
-            : (n.targetUser && user.firstName && n.targetUser.toLowerCase().includes(user.firstName.toLowerCase()));
+        let isMine = false;
+        if (n.targetEmail && user.email) {
+            isMine = (n.targetEmail.toLowerCase() === user.email.toLowerCase());
+        } else if (n.targetUser && user.firstName) {
+            isMine = n.targetUser.toLowerCase().includes(user.firstName.toLowerCase());
+        }
         return isMine && !n.read;
     }).length;
 
-    if (unreadCount > 0) {
-        badge.style.display = 'block';
-    } else {
-        badge.style.display = 'none';
-    }
+    badges.forEach(badge => {
+        if (unreadCount > 0) {
+            badge.style.display = 'flex';
+            badge.innerText = unreadCount > 99 ? '99+' : unreadCount;
+        } else {
+            badge.style.display = 'none';
+        }
+    });
 }
 
 // Ensure badge updates across tabs/events
@@ -134,10 +140,20 @@ function checkLoginStatus() {
     const user = getCurrentUser();
 
     // Notification Icon visibility
-    const notifContainer = document.querySelector('.notif-icon-container');
-    if (notifContainer) {
-        notifContainer.style.display = user ? 'inline-block' : 'none';
-    }
+    const notifContainers = document.querySelectorAll('.notif-icon-container');
+    notifContainers.forEach(container => {
+        // .notif-menu-bell: visible on desktop, CSS hides it on mobile via media query
+        // Let CSS handle display, only force-hide it when user is not logged in
+        if (container.classList.contains('notif-menu-bell') || container.classList.contains('notif-mobile-bell')) {
+            if (!user) {
+                container.style.display = 'none';
+            } else {
+                container.style.removeProperty('display'); // Let CSS control it
+            }
+        } else {
+            container.style.display = user ? 'inline-block' : 'none';
+        }
+    });
 
     if (user) {
         updateNavToMember(user.firstName);
@@ -148,60 +164,63 @@ function checkLoginStatus() {
 }
 
 // // // ==== Profile Switcher (TEST TOOL) ====
-// function initProfileSwitcher() {
-//     // Only show if we aren't already admin/don't want to clutter prod, 
-//     // but since it's a test tool requested by user, we inject it.
-//     const switcher = document.createElement('div');
-//     switcher.style.cssText = `
-//         position: fixed;
-//         bottom: 20px;
-//         left: 20px;
-//         background: rgba(0,0,0,0.8);
-//         color: white;
-//         padding: 10px;
-//         border-radius: 8px;
-//         z-index: 9999;
-//         font-family: Arial, sans-serif;
-//         font-size: 12px;
-//         display: flex;
-//         flex-direction: column;
-//         gap: 5px;
-//         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-//     `;
+function initProfileSwitcher() {
+    if (document.getElementById('test-profile-switcher')) return;
 
-//     switcher.innerHTML = `
-//         <strong style="margin-bottom: 5px;">Profile Switcher</strong>
-//         <button id="btn-switch-a" style="cursor:pointer; padding:5px; background:#4CAF50; color:white; border:none; border-radius:3px;">User A</button>
-//         <button id="btn-switch-b" style="cursor:pointer; padding:5px; background:#2196F3; color:white; border:none; border-radius:3px;">User B</button>
-//         <button id="btn-switch-admin" style="cursor:pointer; padding:5px; background:#E91E63; color:white; border:none; border-radius:3px;">Admin</button>
-//     `;
+    // Only show if we aren't already admin/don't want to clutter prod, 
+    // but since it's a test tool requested by user, we inject it.
+    const switcher = document.createElement('div');
+    switcher.id = 'test-profile-switcher';
+    switcher.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        z-index: 9999;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    `;
 
-//     document.body.appendChild(switcher);
+    switcher.innerHTML = `
+        <strong style="margin-bottom: 5px;">Profile Switcher</strong>
+        <button id="btn-switch-a" style="cursor:pointer; padding:5px; background:#4CAF50; color:white; border:none; border-radius:3px;">User A</button>
+        <button id="btn-switch-b" style="cursor:pointer; padding:5px; background:#2196F3; color:white; border:none; border-radius:3px;">User B</button>
+        <button id="btn-switch-admin" style="cursor:pointer; padding:5px; background:#E91E63; color:white; border:none; border-radius:3px;">Admin</button>
+    `;
 
-//     document.getElementById('btn-switch-a').onclick = () => {
-//         const u = { firstName: 'User', lastName: 'A', phone: '0811111111', email: 'a@mail.com', password: 'Password1' };
-//         let users = getUsers();
-//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
-//         localStorage.removeItem('isAdminAuthenticated');
-//         saveCurrentUser(u);
-//         location.reload();
-//     };
+    document.body.appendChild(switcher);
 
-//     document.getElementById('btn-switch-b').onclick = () => {
-//         const u = { firstName: 'User', lastName: 'B', phone: '0822222222', email: 'b@mail.com', password: 'Password1' };
-//         let users = getUsers();
-//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
-//         localStorage.removeItem('isAdminAuthenticated');
-//         saveCurrentUser(u);
-//         location.reload();
-//     };
+    document.getElementById('btn-switch-a').onclick = () => {
+        const u = { firstName: 'User', lastName: 'A', phone: '0811111111', email: 'a@mail.com', password: 'Password1' };
+        let users = getUsers();
+        if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+        localStorage.removeItem('isAdminAuthenticated');
+        saveCurrentUser(u);
+        location.reload();
+    };
 
-//     document.getElementById('btn-switch-admin').onclick = () => {
-//         clearSession();
-//         localStorage.setItem("isAdminAuthenticated", "true");
-//         window.location.href = "/admin/adminhome.html";
-//     };
-// }
+    document.getElementById('btn-switch-b').onclick = () => {
+        const u = { firstName: 'User', lastName: 'B', phone: '0822222222', email: 'b@mail.com', password: 'Password1' };
+        let users = getUsers();
+        if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+        localStorage.removeItem('isAdminAuthenticated');
+        saveCurrentUser(u);
+        location.reload();
+    };
+
+    document.getElementById('btn-switch-admin').onclick = () => {
+        clearSession();
+        localStorage.setItem("isAdminAuthenticated", "true");
+        window.location.href = "/admin/adminhome.html";
+    };
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -357,19 +376,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const rightWrap = document.createElement('div');
         rightWrap.className = 'mobile-nav-right';
 
-        // Move the existing notification bell to the rightWrap
-        if (notifIcon) {
-            rightWrap.appendChild(notifIcon);
+        // Clone the existing .notif-menu-bell for mobile display (outside dropdown)
+        const menuBell = document.querySelector('.notif-menu-bell');
+        if (menuBell) {
+            const mobileBell = menuBell.cloneNode(true);
+            mobileBell.classList.add('notif-mobile-bell');
+            mobileBell.classList.remove('notif-menu-bell');
+            rightWrap.appendChild(mobileBell);
         }
 
         // Create the Hamburger Button
         const hamburgerBtn = document.createElement('div');
         hamburgerBtn.className = 'hamburger-btn';
         hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
-
         rightWrap.appendChild(hamburgerBtn);
 
-        // Append at the END of navbar (right side)
+        // Append rightWrap at the END of navbar
         navbar.appendChild(rightWrap);
 
         // Event Listeners for hamburger toggle
@@ -377,6 +399,9 @@ document.addEventListener("DOMContentLoaded", () => {
             e.stopPropagation();
             menuIcons.classList.toggle('active-mobile');
         });
+
+        // Re-run badge update now that mobile bell exists
+        updateNotificationBadge();
     }
 
     initProfileSwitcher();

@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const todayBookings = allBookings.filter(b => b.date === localToday);
 
         document.getElementById('today-queue-count').innerText = `${todayBookings.length} คิว`;
-        document.getElementById('month-queue-count').innerText = `${allBookings.length} คิว`;
+
+        // Filter bookings for current month only
+        const currentMonth = localToday.substring(0, 7); // "YYYY-MM"
+        const monthBookings = allBookings.filter(b => b.date && b.date.startsWith(currentMonth));
+        document.getElementById('month-queue-count').innerText = `${monthBookings.length} คิว`;
 
         // Count cancelled
         const cancelled = allBookings.filter(b => b.status === 'ยกเลิก' || b.status === 'cancelled').length;

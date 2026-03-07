@@ -35,9 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Filter for current user by email (most reliable) or fallback to name
         const myNotifs = allNotifs.filter(n => {
-            return n.targetEmail
-                ? (currentUser.email && n.targetEmail.toLowerCase() === currentUser.email.toLowerCase())
-                : (n.targetUser && currentUser.firstName && n.targetUser.toLowerCase().includes(currentUser.firstName.toLowerCase()));
+            let isMine = false;
+            if (n.targetEmail && currentUser.email) {
+                isMine = (n.targetEmail.toLowerCase() === currentUser.email.toLowerCase());
+            } else if (n.targetUser && currentUser.firstName) {
+                isMine = n.targetUser.toLowerCase().includes(currentUser.firstName.toLowerCase());
+            }
+            return isMine;
         });
 
         // Sort newest first

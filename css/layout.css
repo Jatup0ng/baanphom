@@ -42,6 +42,7 @@ body {
     align-items: center;
     gap: 5px;
     margin-top: -15px;
+    margin-right: auto;
 }
 
 .logo .en {
@@ -229,26 +230,51 @@ body {
 .notif-icon-container {
     position: relative;
     display: inline-block;
+    color: #5A3E25;
+    /* Brown theme color for the bell icon */
+    font-size: 18px;
+}
+
+.notif-icon-container i.fa-bell {
+    color: #5A3E25;
 }
 
 .notif-badge {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
-    border: 2px solid white;
+    top: -2px;
+    right: -5px;
+    min-width: 16px;
+    height: 16px;
+    background-color: #d93025;
+    border-radius: 10px;
+    border: 1px solid white;
     z-index: 2;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+    line-height: 1;
 }
 
 /* --- Mobile Nav Utilities --- */
 .mobile-nav-right {
     display: none;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Hide the desktop bell (inside .menu-icons) on mobile — CSS !important overrides JS inline style */
+@media (max-width: 768px) {
+    .notif-menu-bell {
+        display: none !important;
+    }
 }
 
 .hamburger-btn {
+    display: none;
     font-size: 24px;
     color: #5A3E25;
     cursor: pointer;
@@ -291,6 +317,11 @@ body {
         align-items: center;
     }
 
+    .hamburger-btn {
+        display: block;
+        /* Show hamburger only on mobile */
+    }
+
     .notif-icon-container {
         width: auto !important;
         display: inline-block !important;
@@ -298,6 +329,11 @@ body {
         padding: 5px 10px !important;
         margin-right: 5px;
         font-size: 18px !important;
+    }
+
+    /* Hide desktop bell from mobile dropdown — more specific selector wins */
+    .notif-icon-container.notif-menu-bell {
+        display: none !important;
     }
 
     /* Shop Name (Logo) on the LEFT */

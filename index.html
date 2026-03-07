@@ -14,16 +14,6 @@
     <meta property="og:url" content="https://baanphom.vercel.app/">
     <meta property="og:type" content="website">
 
-    <!-- Twitter Card / Instagram Fallback -->
-    <meta name="instagram:card" content="summary_large_image">
-    <meta name="instagram:title" content="BAAN PHOM - บ้านผม บาร์เบอร์">
-    <meta name="instagram:description" content="ร้านตัดผม บ้านผม บาร์เบอร์ บริการตัดผมสุดพิเศษ จองคิวออนไลน์ง่ายๆ">
-    <meta name="instagram:image" content="https://baanphom.vercel.app/images/icon.jpg">
-
-    <!-- Schema.org / WhatsApp / Generic Fallback -->
-    <meta itemprop="name" content="BAAN PHOM - บ้านผม บาร์เบอร์">
-    <meta itemprop="description" content="ร้านตัดผม บ้านผม บาร์เบอร์ บริการตัดผมสุดพิเศษ จองคิวออนไลน์ง่ายๆ">
-    <meta itemprop="image" content="https://baanphom.vercel.app/images/icon.jpg">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
         rel="stylesheet">
@@ -52,16 +42,17 @@
             <a href="/booking/book.html" class="menu-icon">จองคิว</a>
             <a href="/history/history.html" class="menu-icon">ประวัติ</a>
 
+            <!-- Notification Bell (Desktop: shows in menu. Mobile: hidden here, shown outside menu via JS) -->
+            <a href="/notification/notification.html" class="menu-icon notif-icon-container notif-menu-bell"
+                style="position: relative;">
+                <i class="fas fa-bell"></i>
+                <span class="notif-badge" style="display: none;"></span>
+            </a>
+
             <span id="guest-nav">
                 <a href="#" class="menu-icon" onclick="openLogin(event)">เข้าสู่ระบบ</a>
             </span>
 
-            <!-- Notification Bell -->
-            <a href="/notification/notification.html" class="menu-icon notif-icon-container"
-                style="position: relative;">
-                <i class="fas fa-bell"></i>
-                <span id="notif-badge" class="notif-badge" style="display: none;"></span>
-            </a>
 
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown(event)">

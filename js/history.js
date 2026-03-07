@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = '/index.html';
         return;
     }
-    // Per-user history key
-    const historyKey = 'bookingHistory_' + currentUser.email;
+
 
     const container = document.getElementById('history-container');
     let historyList = [];
@@ -131,6 +130,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="detail-row">
                         <p><strong>ระยะเวลา:</strong> ${item.duration} นาที</p>
                     </div>
+                    ${item.bookingNote ? `
+                    <div class="detail-row">
+                        <p><strong>หมายเหตุ:</strong> ${item.bookingNote}</p>
+                    </div>
+                    ` : ''}
                     <div class="detail-row">
                         <p><strong>ค่าบริการ:</strong> ${item.price} บาท</p> <span style="color: #28a745; font-weight: bold; margin-left: 10px;">ชำระเงินแล้ว</span>
                     </div>

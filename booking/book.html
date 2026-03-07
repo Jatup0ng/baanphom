@@ -13,16 +13,6 @@
     <meta property="og:url" content="https://baanphom.vercel.app/booking/book.html">
     <meta property="og:type" content="website">
 
-    <!-- Twitter Card / Instagram Fallback -->
-    <meta name="instagram:card" content="summary_large_image">
-    <meta name="instagram:title" content="จองคิวร้านตัดผม - BAAN PHOM">
-    <meta name="instagram:description" content="ร้านตัดผม บ้านผม บาร์เบอร์ บริการตัดผมสุดพิเศษ จองคิวออนไลน์ง่ายๆ">
-    <meta name="instagram:image" content="https://baanphom.vercel.app/images/icon.jpg">
-
-    <!-- Schema.org / WhatsApp / Generic Fallback -->
-    <meta itemprop="name" content="จองคิวร้านตัดผม - BAAN PHOM">
-    <meta itemprop="description" content="ร้านตัดผม บ้านผม บาร์เบอร์ บริการตัดผมสุดพิเศษ จองคิวออนไลน์ง่ายๆ">
-    <meta itemprop="image" content="https://baanphom.vercel.app/images/icon.jpg">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
         rel="stylesheet">
@@ -54,11 +44,13 @@
             </span>
             <a href="/history/history.html" class="menu-icon">ประวัติ</a>
 
-            <!-- Notification Bell -->
-            <a href="/notification/notification.html" class="menu-icon notif-icon-container"
+
+
+            <!-- Notification Bell (Desktop: shows in menu. Mobile: hidden here, shown outside menu via JS) -->
+            <a href="/notification/notification.html" class="menu-icon notif-icon-container notif-menu-bell"
                 style="position: relative;">
                 <i class="fas fa-bell"></i>
-                <span id="notif-badge" class="notif-badge" style="display: none;"></span>
+                <span class="notif-badge" style="display: none;"></span>
             </a>
 
             <span id="member-nav" style="display: none; position: relative;">

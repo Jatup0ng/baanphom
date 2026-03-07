@@ -1,113 +1,130 @@
 /* --- ตั้งค่าตัวแปรสี --- */
-        :root {
-            --primary-brown: #8B5E3C; /* สีน้ำตาลเข้มของกรอบบริการ */
-            --bg-cream: #FAF7F2;      /* สีพื้นหลังครีม */
-            --text-gold: #E8DCC4;     /* สีตัวหนังสือทอง */
-            --text-dark: #333333;
-        }
+:root {
+    --primary-brown: #8B5E3C;
+    /* สีน้ำตาลเข้มของกรอบบริการ */
+    --bg-cream: #FAF7F2;
+    /* สีพื้นหลังครีม */
+    --text-gold: #E8DCC4;
+    /* สีตัวหนังสือทอง */
+    --text-dark: #333333;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-cream);
-            color: var(--text-dark);
-        }
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-dark);
+}
 
-        /* --- 1. Navbar --- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
+/* --- 1. Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
 
-        .logo {
-            
-             
-            font-family: "Rye", serif;
-            font-weight: 400;
-            font-style: normal;
-            font-size: 45px;
-            font-weight: bold;
-            color: #5A3E25;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: -15px;
-        }
-
-        .logo .en {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .logo .th {
-            display: block;      
-            font-size: 16px;
-            margin-left: 10px;
-            margin-top: -5px;    
-        }
+.logo {
 
 
-         .menu-icons {
-            /* border:solid 1px;  */
-            font-size: 14px;
-            color: #5A3E25;
-            cursor: pointer;
-            margin-left: 25px;
-            text-decoration: none;
-            
-        } 
+    font-family: "Rye", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+    font-weight: bold;
+    color: #5A3E25;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -15px;
+}
 
-        .menu-icon {
-            text-decoration: none;     /* เอาขีดเส้นใต้ออก */
-            color: #442f1c;               /* สีดำเทาๆ (แก้ตามใจชอบ) */
-            font-size: 16px;
-            padding: 10px 15px;        /* เว้นระยะห่างรอบๆ ให้คลิกง่าย */
-            transition: all 0.3s ease; /* หัวใจสำคัญ! สั่งให้ทุกการเปลี่ยนแปลงใช้เวลา 0.3 วิ */
-    
-            /* แก้ปัญหาตัวอักษรขยับ (optional) */
-            display: inline-block; 
-        }
+.logo .en {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-        
-        .menu-icon:hover {
-            /* เทคนิค: ใช้เงาซ้อนกันเบาๆ ให้ดูเหมือนตัวหนา */
-            text-shadow: 0 0 1px #442f1c, 0 0 1px #442f1c; 
-            
-            
-            
-            /* (แถม) ขยับลอยขึ้นนิดนึงให้ดูมีมิติ */
-            transform: translateY(-1px); 
-        }
+.logo .th {
+    display: block;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: -5px;
+}
 
-         /* กล่องเมนูย่อย (ปกติจะซ่อนไว้) */
+
+.menu-icons {
+    /* border:solid 1px;  */
+    font-size: 14px;
+    color: #5A3E25;
+    cursor: pointer;
+    margin-left: 25px;
+    text-decoration: none;
+
+}
+
+.menu-icon {
+    text-decoration: none;
+    /* เอาขีดเส้นใต้ออก */
+    color: #442f1c;
+    /* สีดำเทาๆ (แก้ตามใจชอบ) */
+    font-size: 16px;
+    padding: 10px 15px;
+    /* เว้นระยะห่างรอบๆ ให้คลิกง่าย */
+    transition: all 0.3s ease;
+    /* หัวใจสำคัญ! สั่งให้ทุกการเปลี่ยนแปลงใช้เวลา 0.3 วิ */
+
+    /* แก้ปัญหาตัวอักษรขยับ (optional) */
+    display: inline-block;
+}
+
+
+.menu-icon:hover {
+    /* เทคนิค: ใช้เงาซ้อนกันเบาๆ ให้ดูเหมือนตัวหนา */
+    text-shadow: 0 0 1px #442f1c, 0 0 1px #442f1c;
+
+
+
+    /* (แถม) ขยับลอยขึ้นนิดนึงให้ดูมีมิติ */
+    transform: translateY(-1px);
+}
+
+/* กล่องเมนูย่อย (ปกติจะซ่อนไว้) */
 .dropdown-content {
-    display: none;           /* ซ่อนไว้ก่อน */
-    position: absolute;      /* ลอยอยู่เหนือเนื้อหาอื่น */
-    right: 0;                /* ชิดขวาให้ตรงกับชื่อ */
-    top: 40px;               /* เว้นระยะลงมาจากชื่อนิดหน่อย */
-    background-color: #fff;  /* พื้นหลังสีขาว */
-    min-width: 150px;        /* ความกว้างขั้นต่ำ */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* เงาให้ดูมีมิติ */
-    z-index: 100;            /* ให้ลอยทับทุกอย่าง */
-    border-radius: 5px;      /* มุมมน */
+    display: none;
+    /* ซ่อนไว้ก่อน */
+    position: absolute;
+    /* ลอยอยู่เหนือเนื้อหาอื่น */
+    right: 0;
+    /* ชิดขวาให้ตรงกับชื่อ */
+    top: 40px;
+    /* เว้นระยะลงมาจากชื่อนิดหน่อย */
+    background-color: #fff;
+    /* พื้นหลังสีขาว */
+    min-width: 150px;
+    /* ความกว้างขั้นต่ำ */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    /* เงาให้ดูมีมิติ */
+    z-index: 100;
+    /* ให้ลอยทับทุกอย่าง */
+    border-radius: 5px;
+    /* มุมมน */
     overflow: hidden;
 }
 
 /* ลิงก์ข้างในเมนู */
 .dropdown-content a {
-    color: #333 !important;  /* สีตัวหนังสือ */
+    color: #333 !important;
+    /* สีตัวหนังสือ */
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -118,11 +135,13 @@
 /* เอฟเฟกต์ตอนเอาเมาส์ชี้ */
 .dropdown-content a:hover {
     background-color: #f1f1f1;
-    color: red !important;   /* ชี้แล้วเปลี่ยนเป็นสีแดง */
+    color: red !important;
+    /* ชี้แล้วเปลี่ยนเป็นสีแดง */
 }
+
 .aboutme a:hover {
     background-color: #f1f1f1;
-    color:  #333 !important;  
+    color: #333 !important;
 }
 
 
@@ -130,6 +149,7 @@
 .show {
     display: block;
 }
+
 .payment-container {
     flex: 1;
     margin: 0 auto;
@@ -137,8 +157,37 @@
     max-width: 90%;
     display: flex;
     gap: 40px;
-    /* border: 1px solid var(--primary-brown); */
 }
+
+.page-header {
+    margin: 20px 5%;
+    color: #5A3E25;
+}
+
+.page-header h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.payment-titles {
+    display: flex;
+    color: #aa7a50;
+    justify-content: space-between;
+    margin: 10px 5%;
+}
+
+.payment-titles h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Make booking details align appropriately */
+.payment-titles .desktop-only {
+    width: 600px;
+    max-width: 50%;
+    
+}
+
 .qrpayment-container {
     flex: 1;
     margin: 0 auto;
@@ -149,60 +198,67 @@
     /* border: 1px solid var(--primary-brown); */
 }
 
-.payment-methods{
-     /* border: 1px solid var(--primary-brown); */
+.payment-methods {
+    /* border: 1px solid var(--primary-brown); */
     max-width: 700px;
     /* margin-left: px; */
     padding: 20px;
     background-color: #ffffff;
     /* border: 2px solid var(--primary-brown); */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     height: auto;
     justify-items: center;
-    align-items: center;  
+    align-items: center;
 }
-.qrpayment-methods{
-     /* border: 1px solid var(--primary-brown); */
-    max-width:600px;
-    /* margin-left: px; */
+
+.qrpayment-methods {
+    max-width: 600px;
     padding: 20px;
     background-color: #ffffff;
-    /* border: 2px solid var(--primary-brown); */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 750px;
-    justify-items: center;
-    align-items: center;  
+    height: auto;
+    text-align: center;
     margin-bottom: 30px;
 }
 
-.qrpay{
-    width: 450px;
-    margin-left: 55px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-   
+.qrpay {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    margin: 10px auto;
+    display: block;
 }
 
 
 .payment-method {
     /* --- ⭐ หัวใจสำคัญ (Flexbox) --- */
-    display: flex;              /* สั่งให้ของข้างในเรียงแนวนอน */
-    justify-content: space-between; /* สั่งให้ชิ้นแรกชิดซ้าย ชิ้นสองชิดขวา */
-    align-items: center;        /* สั่งให้ทุกอย่างอยู่ "กึ่งกลางแนวตั้ง" เป๊ะๆ */
-    
+    display: flex;
+    /* สั่งให้ของข้างในเรียงแนวนอน */
+    justify-content: space-between;
+    /* สั่งให้ชิ้นแรกชิดซ้าย ชิ้นสองชิดขวา */
+    align-items: center;
+    /* สั่งให้ทุกอย่างอยู่ "กึ่งกลางแนวตั้ง" เป๊ะๆ */
+
     /* --- การตกแต่งกล่อง --- */
     width: 100%;
-    height: 80px;               /* กำหนดความสูงตามต้องการ */
-    padding: 0 20px;           /* ซ้ายขวา 20px, บนล่าง 0 (ให้ flex จัดกลางเอง) */
+    height: 80px;
+    /* กำหนดความสูงตามต้องการ */
+    padding: 0 20px;
+    /* ซ้ายขวา 20px, บนล่าง 0 (ให้ flex จัดกลางเอง) */
     margin-bottom: 20px;
     background-color: #ffffff;
-    border: 2px solid #8B5E3C;  /* สีขอบน้ำตาลตามธีม */
-    border-radius: 15px;        /* มุมโค้ง */
-    box-sizing: border-box;     /* เพื่อไม่ให้ padding ดันกล่องบวม */
+    border: 2px solid #8B5E3C;
+    /* สีขอบน้ำตาลตามธีม */
+    border-radius: 15px;
+    /* มุมโค้ง */
+    box-sizing: border-box;
+    /* เพื่อไม่ให้ padding ดันกล่องบวม */
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -218,29 +274,30 @@
 
 
 .booking-details-card {
-     /* border: 1px solid var(--primary-brown); */
+    /* border: 1px solid var(--primary-brown); */
     max-width: 600px;
     margin: 10px auto;
     padding: 20px;
     background-color: #ffffff;
     /* border: 2px solid var(--primary-brown); */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 80%;
     height: 250px;
     position: relative;
     line-height: 30px;
 
 }
+
 .qrbooking-details-card {
-     /* border: 1px solid var(--primary-brown); */
+    /* border: 1px solid var(--primary-brown); */
     max-width: 600px;
     margin: 10px auto;
     padding: 20px;
     background-color: #ffffff;
     /* border: 2px solid var(--primary-brown); */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 80%;
     height: 250px;
     position: relative;
@@ -260,23 +317,25 @@ button#undo {
     width: 15%;
     height: 35px;
     float: right;
-    
-    
+
+
 }
-.detail{
+
+.detail {
     margin-top: 20px;
 }
-.prompt{
+
+.prompt {
 
     width: 150px;
     border: 1px solid red;
     float: right;
-    
+
     height: 70px;
-    
+
 }
 
-.next-bt{
+.next-bt {
     flex: 1;
     margin: 0 auto;
     padding-top: 10px;
@@ -287,9 +346,9 @@ button#undo {
 }
 
 button#ok {
-    background-color:rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
     color: var(--primary-brown);
-    border:2px solid var(--primary-brown);
+    border: 2px solid var(--primary-brown);
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
@@ -298,12 +357,13 @@ button#ok {
     width: 500px;
     height: 45px;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 button#pay {
-    background-color:var(--primary-brown);
+    background-color: var(--primary-brown);
     color: white;
-    border:2px solid var(--primary-brown);
+    border: 2px solid var(--primary-brown);
     padding: 8px;
     border-radius: 8px;
     cursor: pointer;
@@ -312,8 +372,9 @@ button#pay {
     width: 660px;
     height: 45px;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 button#next {
     background-color: var(--primary-brown);
     color: white;
@@ -326,7 +387,7 @@ button#next {
     height: 45px;
     font-weight: bold;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* .price span#showPrice:after {
@@ -344,19 +405,104 @@ button#next {
     
 } */
 /* ตั้งค่า CSS เริ่มต้น */
-    .status-text {
-        font-weight: bold;
-        transition: all 0.5s ease; /* เอฟเฟกต์ตอนเปลี่ยนสีให้นุ่มนวล */
+.status-text {
+    font-weight: bold;
+    transition: all 0.5s ease;
+    /* เอฟเฟกต์ตอนเปลี่ยนสีให้นุ่มนวล */
+}
+
+/* สถานะ: รอชำระ (สีแดง) */
+.status-pending {
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
+
+/* สถานะ: เสร็จสิ้น (สีเขียว) */
+.status-success {
+    color: rgb(0, 166, 66);
+    font-weight: bold;
+}
+
+/* --- Responsive Media Queries --- */
+@media screen and (max-width: 768px) {
+    .payment-container {
+        flex-direction: column;
+        gap: 20px;
     }
 
-    /* สถานะ: รอชำระ (สีแดง) */
-    .status-pending {
-        color: rgb(255, 0, 0);
-        font-weight: bold;
+    .payment-methods {
+        max-width: 100%;
+        padding: 15px;
     }
 
-    /* สถานะ: เสร็จสิ้น (สีเขียว) */
-    .status-success {
-        color: rgb(0, 166, 66);
-        font-weight: bold;
+    .payment-method {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        /* allow icon to wrap if needed */
+        gap: 10px;
     }
+
+    .payment-method img {
+        height: 50px !important;
+    }
+
+    .booking-details-card,
+    .qrbooking-details-card {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        padding: 15px;
+    }
+
+    button#pay {
+        width: 100%;
+    }
+
+    .payment-titles {
+        justify-content: flex-start;
+    }
+
+    .desktop-only {
+        display: none !important;
+        margin-right: 100px;
+        /* Hide right title on mobile as it stacks */
+    }
+
+    .page-header h2,
+    .payment-titles h3 {
+        font-size: 24px;
+    }
+
+    .qrpayment-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .qrpayment-methods {
+        max-width: 100%;
+        height: auto;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .qrpay {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        height: auto;
+        display: block;
+    }
+
+    .next-bt {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    button#ok,
+    button#next {
+        width: 100%;
+        height: 50px;
+    }
+}
