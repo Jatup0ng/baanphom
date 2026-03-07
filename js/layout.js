@@ -83,14 +83,126 @@ function updateNavToGuest() {
     if (memberNav) memberNav.style.display = "none";
 }
 
+// ---- Notifications ----
+function updateNotificationBadge() {
+    const badge = document.getElementById('notif-badge');
+    if (!badge) return;
+
+    const user = getCurrentUser();
+    if (!user) {
+        badge.style.display = 'none';
+        return;
+    }
+
+    const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
+    const unreadCount = allNotifs.filter(n => {
+        const isMine = (n.targetEmail && user.email && n.targetEmail.toLowerCase() === user.email.toLowerCase()) ||
+            (n.targetUser && user.firstName && n.targetUser.toLowerCase().includes(user.firstName.toLowerCase()));
+        return isMine && !n.read;
+    }).length;
+
+    if (unreadCount > 0) {
+        badge.style.display = 'block';
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+// Ensure badge updates across tabs/events
+window.addEventListener('storage', (e) => {
+    if (e.key === 'bp_notifications') updateNotificationBadge();
+});
+window.addEventListener('notificationsUpdated', updateNotificationBadge);
+
+function triggerNotification(targetEmail, targetUser, title, message) {
+    const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
+    allNotifs.push({
+        id: Date.now().toString(),
+        targetEmail: targetEmail,
+        targetUser: targetUser, // fallback
+        title: title,
+        message: message,
+        timestamp: new Date().toISOString(),
+        read: false
+    });
+    localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
+    window.dispatchEvent(new Event('notificationsUpdated'));
+}
+
 function checkLoginStatus() {
     const user = getCurrentUser();
+
+    // Notification Icon visibility
+    const notifContainer = document.querySelector('.notif-icon-container');
+    if (notifContainer) {
+        notifContainer.style.display = user ? 'inline-block' : 'none';
+    }
+
     if (user) {
         updateNavToMember(user.firstName);
+        updateNotificationBadge();
     } else {
         updateNavToGuest();
     }
 }
+
+// // // ==== Profile Switcher (TEST TOOL) ====
+// function initProfileSwitcher() {
+//     // Only show if we aren't already admin/don't want to clutter prod, 
+//     // but since it's a test tool requested by user, we inject it.
+//     const switcher = document.createElement('div');
+//     switcher.style.cssText = `
+//         position: fixed;
+//         bottom: 20px;
+//         left: 20px;
+//         background: rgba(0,0,0,0.8);
+//         color: white;
+//         padding: 10px;
+//         border-radius: 8px;
+//         z-index: 9999;
+//         font-family: Arial, sans-serif;
+//         font-size: 12px;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 5px;
+//         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+//     `;
+
+//     switcher.innerHTML = `
+//         <strong style="margin-bottom: 5px;">Profile Switcher</strong>
+//         <button id="btn-switch-a" style="cursor:pointer; padding:5px; background:#4CAF50; color:white; border:none; border-radius:3px;">User A</button>
+//         <button id="btn-switch-b" style="cursor:pointer; padding:5px; background:#2196F3; color:white; border:none; border-radius:3px;">User B</button>
+//         <button id="btn-switch-admin" style="cursor:pointer; padding:5px; background:#E91E63; color:white; border:none; border-radius:3px;">Admin</button>
+//     `;
+
+//     document.body.appendChild(switcher);
+
+//     document.getElementById('btn-switch-a').onclick = () => {
+//         const u = { firstName: 'User', lastName: 'A', phone: '0811111111', email: 'a@mail.com', password: 'Password1' };
+//         let users = getUsers();
+//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+//         localStorage.removeItem('isAdminAuthenticated');
+//         saveCurrentUser(u);
+//         location.reload();
+//     };
+
+//     document.getElementById('btn-switch-b').onclick = () => {
+//         const u = { firstName: 'User', lastName: 'B', phone: '0822222222', email: 'b@mail.com', password: 'Password1' };
+//         let users = getUsers();
+//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+//         localStorage.removeItem('isAdminAuthenticated');
+//         saveCurrentUser(u);
+//         location.reload();
+//     };
+
+//     document.getElementById('btn-switch-admin').onclick = () => {
+//         clearSession();
+//         localStorage.setItem("isAdminAuthenticated", "true");
+//         window.location.href = "/admin/adminhome.html";
+//     };
+// }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 // ---- Register ----
 
@@ -194,6 +306,7 @@ function performLogin() {
     saveCurrentUser(user);
     closeLogin();
     updateNavToMember(user.firstName);
+    checkLoginStatus(); // Update the bell icon and badge immediately
 }
 
 // ---- Dropdown ----
@@ -227,10 +340,13 @@ window.getCurrentUser = getCurrentUser;
 window.getUsers = getUsers;
 window.saveUsers = saveUsers;
 window.saveCurrentUser = saveCurrentUser;
+window.triggerNotification = triggerNotification;
+window.updateNotificationBadge = updateNotificationBadge;
 
 // ---- DOM Ready ----
 document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
+    initProfileSwitcher();
 
     window.onclick = function (event) {
         const loginModal = document.getElementById("loginModal");

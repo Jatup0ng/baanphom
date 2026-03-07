@@ -1,0 +1,171 @@
+/* Notification Container */
+body {
+    background-color: #fdfaf6;
+    /* Match the off-white background from the image */
+}
+
+.notif-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: transparent;
+}
+
+.notif-title {
+    color: #5A3E25;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.notif-divider {
+    border: none;
+    border-top: 1px solid #d3c4b7;
+    margin-bottom: 20px;
+}
+
+.notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Notification Item - Unread State */
+.notif-item {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    border-left: 5px solid #d3c4b7;
+    /* Default left border */
+    overflow: hidden;
+}
+
+.notif-item.unread {
+    border-left: 5px solid #5A3E25;
+}
+
+/* Red dot indicator for unread */
+.notif-item.unread::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+/* The icon circle */
+.notif-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+    /* Space for the red dot */
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.notif-item.unread .notif-icon {
+    background-color: #5A3E25;
+    color: white;
+}
+
+/* Body and Text */
+.notif-content {
+    flex-grow: 1;
+}
+
+.notif-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.notif-item.unread .notif-header {
+    color: #5A3E25;
+}
+
+.notif-msg {
+    font-size: 14px;
+}
+
+.notif-item.unread .notif-msg {
+    color: #5A3E25;
+}
+
+.notif-time {
+    font-size: 12px;
+    white-space: nowrap;
+    margin-left: 20px;
+    align-self: flex-start;
+}
+
+.notif-item.unread .notif-time {
+    color: #a09083;
+}
+
+/* Notification Item - Read State */
+.notif-item.read {
+    background-color: #e0e0e0;
+    border-left: none;
+    padding-left: 35px;
+    /* Adjust padding since no border/dot */
+}
+
+.notif-item.read .notif-icon {
+    background-color: transparent;
+    border: 2px solid #888;
+    color: #888;
+    margin-left: 0;
+}
+
+.notif-item.read .notif-header,
+.notif-item.read .notif-msg,
+.notif-item.read .notif-time {
+    color: #888;
+}
+
+/* Empty State */
+.notif-empty {
+    background-color: #e0e0e0;
+    color: #888;
+    text-align: center;
+    padding: 40px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Delete Button */
+.notif-delete-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    background-color: transparent;
+    border: 1px solid #ff5252;
+    color: #ff5252;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.notif-delete-btn:hover {
+    background-color: #ff5252;
+    color: white;
+}
+
+/* Hover effect for unread items */
+.notif-item.unread:hover {
+    background-color: #f9f6f2;
+}

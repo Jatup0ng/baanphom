@@ -2,12 +2,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const servicesTbody = document.getElementById('services-tbody');
     const barbersTbody = document.getElementById('barbers-tbody');
     const btnAddBarber = document.getElementById('btn-add-barber');
+    const imageInput = document.getElementById('service-image-input');
 
     let services = [];
 
     let barbers = [];
 
     const btnAddService = document.getElementById('btn-add-service');
+    let currentEditServiceId = null;
+    let currentEditData = null;
+
+    if (imageInput) {
+        imageInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const base64Image = event.target.result;
+                    if (window.useBooking && currentEditServiceId && currentEditData) {
+                        currentEditData.image = base64Image;
+                        window.useBooking.updateService(currentEditServiceId, currentEditData);
+                        loadData();
+                    }
+                    // Reset input
+                    imageInput.value = '';
+                    currentEditServiceId = null;
+                    currentEditData = null;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Reset input
+                this.value = '';
+                currentEditServiceId = null;
+                currentEditData = null;
+            }
+        });
+    }
 
     function loadData() {
         if (window.useBooking) {
@@ -67,11 +97,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 const s = services[idx];
                 const newName = prompt('แก้ไขชื่อบริการ:', s.name);
                 if (newName) {
-                    const newPrice = prompt('แก้ไขราคา (บาท):', s.price);
-                    if (newPrice) {
-                        if (window.useBooking) {
-                            window.useBooking.updateService(s.id, { name: newName, price: newPrice });
-                            loadData();
+                    const newDesc = prompt('แก้ไขรายละเอียดบริการ:', s.desc || '');
+                    if (newDesc !== null) {
+                        const newPrice = prompt('แก้ไขราคา (บาท):', s.price);
+                        if (newPrice) {
+                            if (confirm('คุณต้องการเปลี่ยนรูปภาพบริการด้วยหรือไม่?')) {
+                                if (imageInput) {
+                                    currentEditServiceId = s.id;
+                                    currentEditData = { name: newName, desc: newDesc, price: newPrice };
+                                    imageInput.click();
+                                }
+                            } else {
+                                if (window.useBooking) {
+                                    window.useBooking.updateService(s.id, { name: newName, desc: newDesc, price: newPrice });
+                                    loadData();
+                                }
+                            }
                         }
                     }
                 }
@@ -105,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const statusText = barber.active ? 'พร้อม' : 'ไม่พร้อม';
 
             tr.innerHTML = `
-                <td><img src="https://via.placeholder.com/60" class="img-thumb"></td>
                 <td><div class="item-name">${barber.name}</div><div class="item-desc">ช่างประจำร้าน</div></td>
                 <td>ตัดผม</td>
                 <td>0 บาท</td>
@@ -187,20 +227,23 @@ document.addEventListener("DOMContentLoaded", () => {
         btnAddService.addEventListener('click', () => {
             const name = prompt("กรุณากรอกชื่อบริการใหม่:");
             if (name && name.trim() !== '') {
-                const price = prompt("ราคา (บาท):");
-                if (price) {
-                    const newS = {
-                        id: Date.now().toString(),
-                        image: 'https://via.placeholder.com/60',
-                        name: name.trim(),
-                        desc: 'รายละเอียด',
-                        duration: '60 นาที',
-                        price: price + ' บาท',
-                        active: true
-                    };
-                    if (window.useBooking) {
-                        window.useBooking.addService(newS);
-                        loadData();
+                const desc = prompt("รายละเอียดบริการ:");
+                if (desc !== null) {
+                    const price = prompt("ราคา (บาท):");
+                    if (price) {
+                        const newS = {
+                            id: Date.now().toString(),
+                            image: '/images/s.png',
+                            name: name.trim(),
+                            desc: desc.trim(),
+                            duration: '60 นาที',
+                            price: price + (!price.includes('บาท') ? ' บาท' : ''),
+                            active: true
+                        };
+                        if (window.useBooking) {
+                            window.useBooking.addService(newS);
+                            loadData();
+                        }
                     }
                 }
             }

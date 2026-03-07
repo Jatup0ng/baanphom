@@ -60,12 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data.status = 'รอตัด';
         data.name = localStorage.getItem('userName') || 'ลูกค้าทั่วไป';
 
-        // Save History (per user account)
-        let historyList = JSON.parse(localStorage.getItem(historyKey)) || [];
-        historyList.push(data);
-        localStorage.setItem(historyKey, JSON.stringify(historyList));
-
-        // Save to Admin (this calculates queueID and syncs to historyList)
+        // Save to Admin (this calculates queueID and saves to master list)
         if (window.useBooking) {
             window.useBooking.addBooking(data);
         }
