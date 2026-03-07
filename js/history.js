@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 body.innerHTML = `
-                    <h5 style="color: #5A3E25; font-size: 30px; margin-top: 10px;letter-spacing: 8px; text-align: center;">---------------------------------------------</h5>
+                    <div class="history-divider-line"></div>
                     <h4 style="color: #5A3E25; margin-bottom: 10px; font-size: 20px; font-weight: bold; margin-top: 10px;">รายละเอียดการจอง</h4>
                     <div class="detail-row">
                         <p><strong>วัน เวลา:</strong> ${formatDate(item.date)} เวลา ${item.time}</p>

@@ -96,8 +96,9 @@ function updateNotificationBadge() {
 
     const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
     const unreadCount = allNotifs.filter(n => {
-        const isMine = (n.targetEmail && user.email && n.targetEmail.toLowerCase() === user.email.toLowerCase()) ||
-            (n.targetUser && user.firstName && n.targetUser.toLowerCase().includes(user.firstName.toLowerCase()));
+        const isMine = n.targetEmail
+            ? (user.email && n.targetEmail.toLowerCase() === user.email.toLowerCase())
+            : (n.targetUser && user.firstName && n.targetUser.toLowerCase().includes(user.firstName.toLowerCase()));
         return isMine && !n.read;
     }).length;
 
@@ -346,6 +347,38 @@ window.updateNotificationBadge = updateNotificationBadge;
 // ---- DOM Ready ----
 document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
+
+    // --- Setup Mobile Navbar Dynamically ---
+    const navbar = document.querySelector('.navbar');
+    const menuIcons = document.querySelector('.menu-icons');
+    let notifIcon = document.querySelector('.notif-icon-container');
+
+    if (navbar && menuIcons && !document.querySelector('.mobile-nav-right')) {
+        const rightWrap = document.createElement('div');
+        rightWrap.className = 'mobile-nav-right';
+
+        // Move the existing notification bell to the rightWrap
+        if (notifIcon) {
+            rightWrap.appendChild(notifIcon);
+        }
+
+        // Create the Hamburger Button
+        const hamburgerBtn = document.createElement('div');
+        hamburgerBtn.className = 'hamburger-btn';
+        hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+
+        rightWrap.appendChild(hamburgerBtn);
+
+        // Append at the END of navbar (right side)
+        navbar.appendChild(rightWrap);
+
+        // Event Listeners for hamburger toggle
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuIcons.classList.toggle('active-mobile');
+        });
+    }
+
     initProfileSwitcher();
 
     window.onclick = function (event) {
@@ -366,6 +399,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     dropdowns[i].classList.remove('show');
                 }
             }
+        }
+
+        // Close mobile dropdown if clicking outside
+        const mobileMenuIcons = document.querySelector('.menu-icons');
+        const isHamburger = event.target.closest('.hamburger-btn');
+        const isMenuIcons = event.target.closest('.menu-icons');
+        if (mobileMenuIcons && mobileMenuIcons.classList.contains('active-mobile') && !isHamburger && !isMenuIcons) {
+            mobileMenuIcons.classList.remove('active-mobile');
+            const overlay = document.querySelector('.mobile-nav-overlay');
+            if (overlay) overlay.classList.remove('active');
         }
     };
 });

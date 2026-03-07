@@ -65,16 +65,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---- Edit Password ----
     let isEditingPass = false;
+    const togglePassBtn = document.getElementById("toggle-pass-visibility");
+
+    if (togglePassBtn && passInput) {
+        togglePassBtn.addEventListener("click", () => {
+            if (passInput.type === "password") {
+                passInput.type = "text";
+                togglePassBtn.className = "fas fa-eye";
+                togglePassBtn.title = "ซ่อนรหัสผ่าน";
+            } else {
+                passInput.type = "password";
+                togglePassBtn.className = "fas fa-eye-slash";
+                togglePassBtn.title = "แสดงรหัสผ่าน";
+            }
+        });
+    }
+
     if (btnEditPass) {
         btnEditPass.addEventListener("click", () => {
             if (!isEditingPass) {
                 isEditingPass = true;
                 passInput.readOnly = false;
-                passInput.type = "text";
+                // Keep input type as password initially, let user toggle it
+                passInput.type = "password";
                 passInput.style.borderColor = "#007bff";
                 btnEditPass.style.color = "#28a745";
                 btnEditPass.querySelector("i").className = "fas fa-save";
                 textEditPass.innerText = "บันทึก";
+
+                if (togglePassBtn) {
+                    togglePassBtn.style.display = "block";
+                    togglePassBtn.className = "fas fa-eye-slash";
+                }
+
                 passInput.focus();
             } else {
                 const newPass = passInput.value;
@@ -99,6 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnEditPass.style.color = "#5D3A1A";
                 btnEditPass.querySelector("i").className = "fas fa-edit";
                 textEditPass.innerText = "แก้ไข";
+
+                if (togglePassBtn) togglePassBtn.style.display = "none";
+
                 alert("บันทึกรหัสผ่านเรียบร้อยแล้ว!");
             }
         });

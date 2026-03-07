@@ -543,7 +543,7 @@
      /* Center the button */
      transform: translateX(-50%);
      padding: 10px 30px;
-     background-color:#9e7657;
+     background-color: #9e7657;
      color: white;
      border: none;
      border-radius: 12px 12px 0 0;
@@ -571,5 +571,72 @@
      to {
          opacity: 1;
          transform: translateY(0);
+     }
+ }
+
+ /* =========================================
+   Responsive Design (Mobile & Tablet)
+   ========================================= */
+ @media screen and (max-width: 768px) {
+
+     /* Hero section */
+     .hero {
+         height: 250px;
+     }
+
+     .hero-title {
+         font-size: 36px;
+     }
+
+     .book-btn {
+         width: 160px;
+         height: 50px;
+         font-size: 16px;
+     }
+
+     /* Services */
+     .service-card {
+         flex-direction: column;
+         align-items: center;
+         text-align: center;
+         padding: 15px;
+     }
+
+     .service-img {
+         width: 100%;
+         height: auto;
+         max-height: 200px;
+     }
+
+     .service-action {
+         flex-direction: column;
+         gap: 10px;
+         align-items: center;
+     }
+
+     .btn-outline {
+         width: 100%;
+         margin-right: 0;
+     }
+
+     /* Reviews */
+     .review-card {
+         min-width: 80vw;
+     }
+
+     /* Footer */
+     .footer-content {
+         flex-direction: column;
+         text-align: center;
+         padding: 20px 15px;
+     }
+
+     .toggle-btn {
+         width: 60%;
+         left: 50%;
+         transform: translateX(-50%);
+         font-size: 14px;
+         padding: 10px 15px;
+         top: -40px;
      }
  }

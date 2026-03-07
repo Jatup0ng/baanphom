@@ -136,3 +136,88 @@
 .btn-next:hover {
     background-color: #442f1c;
 }
+
+/* =========================================
+   Responsive Design (Mobile & Tablet)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    .all_block {
+        padding: 10px 10px;
+        gap: 10px;
+    }
+
+    .box_about {
+        margin: 0 10px 20px;
+        padding: 15px;
+    }
+
+    h2[style*="margin-left: 80px"] {
+        margin-left: 15px !important;
+    }
+
+    .booking-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .boxone,
+    .boxtwo {
+        min-width: unset;
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    /* Service/Barber selects fit the screen */
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-input,
+    select.form-input {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+
+    /* Date strip scrolls horizontally */
+    .date-strip {
+        gap: 8px;
+    }
+
+    .date-box {
+        min-width: 48px;
+        padding: 8px 4px;
+        font-size: 13px;
+    }
+
+    .day-name {
+        font-size: 12px;
+    }
+
+    .day-number {
+        font-size: 16px;
+    }
+
+    /* Time grid smaller on mobile */
+    .time-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+    }
+
+    .time-slot {
+        font-size: 12px;
+        padding: 8px 4px;
+    }
+
+    .btn-next {
+        width: 100%;
+        font-size: 16px;
+        padding: 14px;
+    }
+}

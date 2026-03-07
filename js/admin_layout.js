@@ -121,4 +121,41 @@ document.addEventListener("DOMContentLoaded", () => {
             link.classList.add('active');
         }
     });
+
+    // 6. Mobile Hamburger Menu for Admin
+    const adminNavbar = document.querySelector('.admin-navbar');
+    const adminMenuIcons = adminNavbar ? adminNavbar.querySelector('.menu-icons') : null;
+
+    if (adminNavbar && adminMenuIcons && !adminNavbar.querySelector('.admin-mobile-right')) {
+        const rightWrap = document.createElement('div');
+        rightWrap.className = 'admin-mobile-right';
+
+        // Hamburger button
+        const hamburgerBtn = document.createElement('div');
+        hamburgerBtn.className = 'hamburger-btn';
+        hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        rightWrap.appendChild(hamburgerBtn);
+
+        adminNavbar.appendChild(rightWrap);
+
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            adminMenuIcons.classList.toggle('active-mobile');
+        });
+
+        document.addEventListener('click', (event) => {
+            const isHamburger = event.target.closest('.hamburger-btn');
+            const isMenu = event.target.closest('.admin-navbar .menu-icons');
+
+            // Close if clicking outside
+            if (!isHamburger && !isMenu) {
+                adminMenuIcons.classList.remove('active-mobile');
+            }
+
+            // Also close if clicking an actual link inside the menu (but not the dropdown toggle)
+            if (isMenu && event.target.closest('.menu-icon') && !event.target.closest('#admin-dropdown-trigger')) {
+                adminMenuIcons.classList.remove('active-mobile');
+            }
+        });
+    }
 });

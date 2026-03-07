@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.useBooking) {
             const booking = allBookings.find(b => b.id === id);
             if (booking) {
+                if (booking.status === 'cancelled' || booking.status === 'ยกเลิก') {
+                    alert("คิวที่ถูกยกเลิกแล้ว ไม่สามารถเปลี่ยนสถานะได้");
+                    return;
+                }
                 const newStatus = booking.status === 'รอตัด' ? 'เสร็จสิ้น' : 'รอตัด';
                 window.useBooking.updateBookingStatus(id, newStatus);
                 booking.status = newStatus; // optimistic
@@ -128,13 +132,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let statusColor = 'orange';
             let statusText = booking.status || 'รอตัด';
+            let isCancelled = false;
 
             if (booking.status === 'เสร็จสิ้น') {
                 statusColor = 'green';
             } else if (booking.status === 'cancelled' || booking.status === 'ยกเลิก') {
                 statusColor = 'red';
                 statusText = 'ยกเลิกแล้ว';
+                isCancelled = true;
             }
+
+            const toggleBtnStyle = isCancelled
+                ? 'cursor:not-allowed; opacity:0.5; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#e0e0e0;'
+                : 'cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#fff;';
 
             dataRow.innerHTML = `
                 <div class="q-col">${booking.date || ''} <br> ${booking.time || ''}</div>
@@ -149,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="btn-call" data-id="${booking.id}" style="cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#8B5E3C; color:white;">
                             <i class="fas fa-bell"></i> โทร
                         </button>
-                        <button class="btn-toggle-status" data-id="${booking.id}" style="cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#fff;">
+                        <button class="btn-toggle-status" data-id="${booking.id}" style="${toggleBtnStyle}" ${isCancelled ? 'disabled' : ''}>
                             เปลี่ยนสถานะ
                         </button>
                         <button class="btn-edit-booking" data-id="${booking.id}" style="cursor:pointer; padding:5px 10px; border-radius:5px; border:1px solid #ccc; background:#ffa500; color:white;">

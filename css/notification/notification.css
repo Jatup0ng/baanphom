@@ -169,3 +169,34 @@ body {
 .notif-item.unread:hover {
     background-color: #f9f6f2;
 }
+
+/* =========================================
+   Responsive Design (Mobile & Tablet)
+   ========================================= */
+@media screen and (max-width: 768px) {
+    .notif-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .notif-icon {
+        margin: 0 0 10px 0;
+    }
+
+    .notif-item.unread::before {
+        top: 30px;
+        left: 10px;
+    }
+
+    .notif-delete-btn {
+        position: static;
+        margin-top: 15px;
+        align-self: flex-end;
+    }
+
+    .notif-time {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

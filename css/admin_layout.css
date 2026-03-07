@@ -105,3 +105,89 @@
 .admin-container {
     padding: 20px;
 }
+
+/* Hide mobile hamburger on desktop */
+.admin-mobile-right {
+    display: none;
+}
+
+/* =========================================
+   Responsive Design (Mobile & Tablet)
+   ========================================= */
+@media screen and (max-width: 768px) {
+
+    /* Admin Navbar: row layout, logo left, hamburger right */
+    .admin-navbar {
+        flex-direction: row !important;
+        height: 70px;
+        padding: 5px 15px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .admin-navbar .logo {
+        margin-top: 0;
+        font-size: 20px;
+        text-align: left;
+        margin-right: auto;
+    }
+
+    .admin-navbar .logo .th {
+        display: none;
+    }
+
+    /* Hamburger button (admin) */
+    .admin-mobile-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .hamburger-btn {
+        font-size: 22px;
+        color: #5A3E25;
+        cursor: pointer;
+    }
+
+    /* Slide-down dropdown menu */
+    .admin-navbar .menu-icons {
+        position: absolute !important;
+        top: 70px !important;
+        right: 0 !important;
+        width: 230px !important;
+        height: auto !important;
+        background: #fff !important;
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+        margin-left: 0 !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 0 0 10px 10px !important;
+        z-index: 500 !important;
+        display: none !important;
+    }
+
+    .admin-navbar .menu-icons.active-mobile {
+        display: flex !important;
+    }
+
+    .admin-navbar .menu-icon {
+        padding: 14px 20px !important;
+        font-size: 15px !important;
+        border-bottom: 1px solid #f5f0eb !important;
+        text-align: left !important;
+        width: 100% !important;
+        display: block !important;
+    }
+
+    /* Nested user dropdown inside menu */
+    .admin-navbar .dropdown-content {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background-color: #fdfafa !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+}
