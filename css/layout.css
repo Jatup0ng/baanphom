@@ -224,3 +224,21 @@ body {
         transform: translateY(0);
     }
 }
+
+/* --- Notification Badge in Navbar --- */
+.notif-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.notif-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    border: 2px solid white;
+    z-index: 2;
+}

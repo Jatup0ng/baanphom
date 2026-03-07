@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('month-queue-count').innerText = `${allBookings.length} คิว`;
 
         // Count cancelled
-        const cancelled = allBookings.filter(b => b.status === 'ยกเลิก').length;
+        const cancelled = allBookings.filter(b => b.status === 'ยกเลิก' || b.status === 'cancelled').length;
         document.getElementById('cancel-queue-count').innerText = `${cancelled} คิว`;
 
         // Next Queue logic
@@ -67,7 +67,25 @@ document.addEventListener("DOMContentLoaded", () => {
             callBtn.className = 'btn-call';
             callBtn.innerHTML = `<i class="fas fa-phone-alt"></i> โทร`;
             callBtn.onclick = () => {
-                alert(`กำลังเรียกคุณ ${nextQueue.name || 'ลูกค้า'} คิวที่ Q-${nextQueue.queueID}`);
+                const customerName = nextQueue.name || 'ลูกค้า';
+                alert(`กำลังเรียกคุณ ${customerName} คิวที่ Q-${nextQueue.queueID}`);
+
+                // Save notification directly to localStorage since layout.js isn't here
+                const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
+                const message = `คุณ ${customerName} อีก 1 คิวโปรดเตรียมตัวและเตรียมผมให้พร้อม!`;
+
+                allNotifs.push({
+                    id: Date.now().toString(),
+                    targetEmail: nextQueue.userEmail || '',
+                    targetUser: nextQueue.name || '',
+                    title: 'ใกล้ถึงคิวของคุณแล้ว',
+                    message: message,
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+
+                localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
+                window.dispatchEvent(new Event('notificationsUpdated'));
             };
             card.appendChild(callBtn);
         }
@@ -82,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             row.className = 'time-row';
 
             // Find ALL bookings at this timeslot
-            const bookingsAtSlot = todayBookings.filter(b => b.time && b.time.startsWith(slot) && b.status !== 'ยกเลิก');
+            const bookingsAtSlot = todayBookings.filter(b => b.time && b.time.startsWith(slot) && b.status !== 'ยกเลิก' && b.status !== 'cancelled');
 
             let slotContentHtml = '';
 

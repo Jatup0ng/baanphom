@@ -20,7 +20,7 @@ function getCurrentUser() {
 function saveCurrentUser(user) {
     localStorage.setItem("bp_currentUser", JSON.stringify(user));
     localStorage.setItem("isLoggedIn", "yes");
-    localStorage.setItem("userName", user.firstName + " " + user.lastName);
+    localStorage.setItem("userName", user.firstName);
 }
 
 function clearSession() {
@@ -83,58 +83,126 @@ function updateNavToGuest() {
     if (memberNav) memberNav.style.display = "none";
 }
 
-function checkLoginStatus() {
-    const user = getCurrentUser();
-
-    // Check notifications regardless of login status first to define the function scope, 
-    // but only actually show it if logged in.
-    updateNotificationBadge();
-
-    if (user) {
-        updateNavToMember(user.firstName + " " + user.lastName);
-        const notifNav = document.getElementById("notification-nav");
-        if (notifNav) notifNav.style.display = "inline-block";
-    } else {
-        updateNavToGuest();
-        const notifNav = document.getElementById("notification-nav");
-        if (notifNav) notifNav.style.display = "none";
-    }
-}
-
+// ---- Notifications ----
 function updateNotificationBadge() {
-    const badge = document.getElementById("notif-badge");
+    const badge = document.getElementById('notif-badge');
     if (!badge) return;
 
     const user = getCurrentUser();
     if (!user) {
-        badge.style.display = "none";
+        badge.style.display = 'none';
         return;
     }
 
     const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-    const userName = (user.firstName + " " + user.lastName).toLowerCase().trim();
+    const unreadCount = allNotifs.filter(n => {
+        const isMine = (n.targetEmail && user.email && n.targetEmail.toLowerCase() === user.email.toLowerCase()) ||
+            (n.targetUser && user.firstName && n.targetUser.toLowerCase().includes(user.firstName.toLowerCase()));
+        return isMine && !n.read;
+    }).length;
 
-    const hasUnread = allNotifs.some(n => {
-        if (n.read) return false;
-        // 1) Match by email (most reliable)
-        if (user.email && n.targetEmail) {
-            return n.targetEmail.toLowerCase() === user.email.toLowerCase();
-        }
-        // 2) Fallback: match by name
-        const target = (n.targetUser || '').toLowerCase().trim();
-        if (!target) return false;
-        return target === userName || userName.includes(target) || target.includes(user.firstName.toLowerCase().trim());
-    });
-
-    if (hasUnread) {
-        badge.style.display = "inline-block";
+    if (unreadCount > 0) {
+        badge.style.display = 'block';
     } else {
-        badge.style.display = "none";
+        badge.style.display = 'none';
     }
 }
 
-// Listen for updates from other scripts
+// Ensure badge updates across tabs/events
+window.addEventListener('storage', (e) => {
+    if (e.key === 'bp_notifications') updateNotificationBadge();
+});
 window.addEventListener('notificationsUpdated', updateNotificationBadge);
+
+function triggerNotification(targetEmail, targetUser, title, message) {
+    const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
+    allNotifs.push({
+        id: Date.now().toString(),
+        targetEmail: targetEmail,
+        targetUser: targetUser, // fallback
+        title: title,
+        message: message,
+        timestamp: new Date().toISOString(),
+        read: false
+    });
+    localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
+    window.dispatchEvent(new Event('notificationsUpdated'));
+}
+
+function checkLoginStatus() {
+    const user = getCurrentUser();
+
+    // Notification Icon visibility
+    const notifContainer = document.querySelector('.notif-icon-container');
+    if (notifContainer) {
+        notifContainer.style.display = user ? 'inline-block' : 'none';
+    }
+
+    if (user) {
+        updateNavToMember(user.firstName);
+        updateNotificationBadge();
+    } else {
+        updateNavToGuest();
+    }
+}
+
+// // // ==== Profile Switcher (TEST TOOL) ====
+// function initProfileSwitcher() {
+//     // Only show if we aren't already admin/don't want to clutter prod, 
+//     // but since it's a test tool requested by user, we inject it.
+//     const switcher = document.createElement('div');
+//     switcher.style.cssText = `
+//         position: fixed;
+//         bottom: 20px;
+//         left: 20px;
+//         background: rgba(0,0,0,0.8);
+//         color: white;
+//         padding: 10px;
+//         border-radius: 8px;
+//         z-index: 9999;
+//         font-family: Arial, sans-serif;
+//         font-size: 12px;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 5px;
+//         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+//     `;
+
+//     switcher.innerHTML = `
+//         <strong style="margin-bottom: 5px;">Profile Switcher</strong>
+//         <button id="btn-switch-a" style="cursor:pointer; padding:5px; background:#4CAF50; color:white; border:none; border-radius:3px;">User A</button>
+//         <button id="btn-switch-b" style="cursor:pointer; padding:5px; background:#2196F3; color:white; border:none; border-radius:3px;">User B</button>
+//         <button id="btn-switch-admin" style="cursor:pointer; padding:5px; background:#E91E63; color:white; border:none; border-radius:3px;">Admin</button>
+//     `;
+
+//     document.body.appendChild(switcher);
+
+//     document.getElementById('btn-switch-a').onclick = () => {
+//         const u = { firstName: 'User', lastName: 'A', phone: '0811111111', email: 'a@mail.com', password: 'Password1' };
+//         let users = getUsers();
+//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+//         localStorage.removeItem('isAdminAuthenticated');
+//         saveCurrentUser(u);
+//         location.reload();
+//     };
+
+//     document.getElementById('btn-switch-b').onclick = () => {
+//         const u = { firstName: 'User', lastName: 'B', phone: '0822222222', email: 'b@mail.com', password: 'Password1' };
+//         let users = getUsers();
+//         if (!users.find(x => x.email === u.email)) { users.push(u); saveUsers(users); }
+//         localStorage.removeItem('isAdminAuthenticated');
+//         saveCurrentUser(u);
+//         location.reload();
+//     };
+
+//     document.getElementById('btn-switch-admin').onclick = () => {
+//         clearSession();
+//         localStorage.setItem("isAdminAuthenticated", "true");
+//         window.location.href = "/admin/adminhome.html";
+//     };
+// }
+
+//----------------------------------------------------------------------------------------------------------------------
 
 // ---- Register ----
 
@@ -156,16 +224,25 @@ function performRegister() {
     const confirm = confirmEl.value;
 
     // Validation
-    if (!firstName || !lastName || !phone || !email || !password || !confirm) {
-        alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+    if (!firstName || !phone || !email || !password || !confirm) {
+        alert("กรุณากรอกข้อมูลให้ครบ (ชื่อ, เบอร์โทร, อีเมล, รหัสผ่าน)");
         return;
     }
     if (!email.includes("@")) {
         alert("กรุณากรอกอีเมลให้ถูกต้อง");
         return;
     }
+    // Password: English only, min 8 chars, at least 1 uppercase
+    if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
+        alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+        return;
+    }
     if (password.length < 8) {
         alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+        return;
+    }
+    if (!/[A-Z]/.test(password)) {
+        alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
         return;
     }
     if (password !== confirm) {
@@ -187,7 +264,7 @@ function performRegister() {
     // Auto login after register
     saveCurrentUser(newUser);
     closeRegister();
-    updateNavToMember(firstName + " " + lastName);
+    updateNavToMember(firstName);
     alert("สมัครสมาชิกสำเร็จ! ยินดีต้อนรับ " + firstName + " 🎉");
 }
 
@@ -228,7 +305,8 @@ function performLogin() {
 
     saveCurrentUser(user);
     closeLogin();
-    updateNavToMember(user.firstName + " " + user.lastName);
+    updateNavToMember(user.firstName);
+    checkLoginStatus(); // Update the bell icon and badge immediately
 }
 
 // ---- Dropdown ----
@@ -262,24 +340,13 @@ window.getCurrentUser = getCurrentUser;
 window.getUsers = getUsers;
 window.saveUsers = saveUsers;
 window.saveCurrentUser = saveCurrentUser;
+window.triggerNotification = triggerNotification;
 window.updateNotificationBadge = updateNotificationBadge;
-window.triggerNotification = function (targetUser, title, message) {
-    const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-    allNotifs.push({
-        id: Date.now().toString(),
-        targetUser: targetUser,
-        title: title,
-        message: message,
-        timestamp: Date.now(),
-        read: false
-    });
-    localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
-    window.dispatchEvent(new Event('notificationsUpdated'));
-};
 
 // ---- DOM Ready ----
 document.addEventListener("DOMContentLoaded", () => {
     checkLoginStatus();
+    initProfileSwitcher();
 
     window.onclick = function (event) {
         const loginModal = document.getElementById("loginModal");

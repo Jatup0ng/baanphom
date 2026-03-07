@@ -126,7 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const dataRow = document.createElement('div');
             dataRow.className = 'q-data-line';
 
-            const statusColor = booking.status === 'เสร็จสิ้น' ? 'green' : 'orange';
+            let statusColor = 'orange';
+            let statusText = booking.status || 'รอตัด';
+
+            if (booking.status === 'เสร็จสิ้น') {
+                statusColor = 'green';
+            } else if (booking.status === 'cancelled' || booking.status === 'ยกเลิก') {
+                statusColor = 'red';
+                statusText = 'ยกเลิกแล้ว';
+            }
 
             dataRow.innerHTML = `
                 <div class="q-col">${booking.date || ''} <br> ${booking.time || ''}</div>
@@ -134,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="q-col">${booking.service || '-'}</div>
                 <div class="q-col">${booking.barberName || booking.barber || '-'}</div>
                 <div class="q-col">
-                    <span style="color: ${statusColor}; font-weight: bold;">${booking.status || 'รอตัด'}</span>
+                    <span style="color: ${statusColor}; font-weight: bold;">${statusText}</span>
                 </div>
                 <div class="q-col">
                     <div style="display:flex; gap:5px; flex-wrap: wrap;">

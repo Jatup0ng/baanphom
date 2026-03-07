@@ -1,96 +1,110 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. ตรวจสอบการเข้าสู่ระบบ
-    const status = localStorage.getItem("isLoggedIn");
-    if (status !== "yes") {
-        alert("⛔ กรุณาเข้าสู่ระบบก่อนเข้าใช้งานหน้าการแจ้งเตือน");
-        window.location.href = "/index.html";
+    // Check login
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "yes";
+    const currentUser = JSON.parse(localStorage.getItem("bp_currentUser"));
+
+    if (!isLoggedIn || !currentUser) {
+        alert("กรุณาเข้าสู่ระบบก่อนดูการแจ้งเตือน");
+        window.location.href = '/index.html';
         return;
     }
 
-    const currentUser = JSON.parse(localStorage.getItem('bp_currentUser') || 'null');
-    if (!currentUser) {
-        window.location.href = "/index.html";
-        return;
-    }
+    const notifList = document.getElementById('notif-list');
 
-    const listContainer = document.getElementById("notification-list");
-
-    // ฟังก์ชันตรวจสอบว่าการแจ้งเตือนเป็นของผู้ใช้คนนี้หรือไม่
-    function isMyNotification(notif) {
-        // 1) เทียบด้วย email (วิธีที่แม่นยำที่สุด)
-        if (currentUser.email && notif.targetEmail) {
-            return notif.targetEmail.toLowerCase() === currentUser.email.toLowerCase();
-        }
-        // 2) fallback: เทียบด้วยชื่อเต็ม
-        const userName = (currentUser.firstName + " " + currentUser.lastName).toLowerCase().trim();
-        const target = (notif.targetUser || "").toLowerCase().trim();
-        if (!target) return false;
-        return target === userName || userName.includes(target) || target.includes(currentUser.firstName.toLowerCase().trim());
-    }
-
-    function loadNotifications() {
-        const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-        let userNotifs = allNotifs.filter(n => isMyNotification(n));
-
-        // เรียงจากใหม่ไปเก่า
-        userNotifs.sort((a, b) => b.timestamp - a.timestamp);
-
-        renderNotifications(userNotifs);
-
-        // อ่านแล้ว: mark as read หลังจาก 1 วินาที
-        setTimeout(() => markAllAsRead(allNotifs), 1000);
-    }
-
-    function formatTime(timestamp) {
-        const d = new Date(timestamp);
+    function formatTime(isoString) {
+        const date = new Date(isoString);
+        // Format to "วันนี้ HH.MM น." if it's today, otherwise "DD/MM/YYYY HH.MM น."
         const today = new Date();
-        const isToday = d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();
-        const pad = n => n.toString().padStart(2, '0');
-        const timeStr = `${pad(d.getHours())}.${pad(d.getMinutes())} น.`;
-        return isToday ? `วันนี้ ${timeStr}` : `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${timeStr}`;
+        const isToday = date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear();
+
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const timeStr = `${hours}.${minutes} น.`;
+
+        if (isToday) {
+            return `วันนี้ ${timeStr}`;
+        } else {
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${timeStr}`;
+        }
     }
 
-    function renderNotifications(notifs) {
-        if (!listContainer) return;
-        listContainer.innerHTML = '';
+    function renderNotifications() {
+        const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
 
-        if (notifs.length === 0) {
-            listContainer.innerHTML = `<div class="notif-empty">ไม่มีข้อความแจ้งเตือน</div>`;
+        // Filter for current user by email (most reliable) or fallback to name
+        const myNotifs = allNotifs.filter(n => {
+            if (n.targetEmail && currentUser.email) {
+                return n.targetEmail.toLowerCase() === currentUser.email.toLowerCase();
+            }
+            // Fallback to name match
+            return n.targetUser && currentUser.firstName &&
+                n.targetUser.toLowerCase().includes(currentUser.firstName.toLowerCase());
+        });
+
+        // Sort newest first
+        myNotifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        notifList.innerHTML = '';
+
+        if (myNotifs.length === 0) {
+            notifList.innerHTML = `<div class="notif-empty"> --- ไม่มีข้อความแจ้งเตือน ---</div>`;
             return;
         }
 
-        notifs.forEach(notif => {
-            const item = document.createElement("div");
-            item.className = `notif-item ${notif.read ? 'read' : 'unread'}`;
-            const iconClass = notif.read ? 'fas fa-check-circle' : 'fas fa-bell';
+        myNotifs.forEach(n => {
+            const isUnread = !n.read;
+            const stateClass = isUnread ? 'unread' : 'read';
+            const iconHtml = isUnread ? '<i class="far fa-clock"></i>' : '<i class="fas fa-check"></i>';
+
+            const item = document.createElement('div');
+            item.className = `notif-item ${stateClass}`;
+
+            // Delete button for read notifications
+            const deleteBtnHtml = n.read ? `<button class="notif-delete-btn" data-id="${n.id}"><i class="fas fa-trash"></i> ลบ</button>` : '';
 
             item.innerHTML = `
-                <div class="notif-icon">
-                    <i class="${iconClass}"></i>
-                </div>
+                <div class="notif-icon">${iconHtml}</div>
                 <div class="notif-content">
-                    <div class="notif-title">${notif.title || 'การแจ้งเตือน'}</div>
-                    <div class="notif-message">${(notif.message || '').replace(/\n/g, '<br>')}</div>
+                    <div class="notif-header">${n.title || 'การแจ้งเตือน'}</div>
+                    <div class="notif-msg">${n.message.replace(/\n/g, '<br>')}</div>
                 </div>
-                <div class="notif-time">${formatTime(notif.timestamp)}</div>
+                <div class="notif-time">${formatTime(n.timestamp)}</div>
+                ${deleteBtnHtml}
             `;
-            listContainer.appendChild(item);
-        });
-    }
 
-    function markAllAsRead(allNotifs) {
-        let changed = false;
-        allNotifs.forEach(n => {
-            if (isMyNotification(n) && !n.read) {
-                n.read = true;
-                changed = true;
+            // Click to mark as read
+            if (isUnread) {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', () => {
+                    const updatedAll = allNotifs.map(notif => {
+                        if (notif.id === n.id) {
+                            notif.read = true;
+                        }
+                        return notif;
+                    });
+                    localStorage.setItem('bp_notifications', JSON.stringify(updatedAll));
+                    window.dispatchEvent(new Event('notificationsUpdated'));
+                    renderNotifications();
+                });
             }
+
+            notifList.appendChild(item);
         });
-        if (changed) {
-            localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
-            window.dispatchEvent(new Event('notificationsUpdated'));
-        }
+
+        // Bind delete buttons
+        document.querySelectorAll('.notif-delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // prevent triggering other clicks
+                const idToDelete = e.currentTarget.getAttribute('data-id');
+                const updatedAll = allNotifs.filter(notif => notif.id !== idToDelete);
+                localStorage.setItem('bp_notifications', JSON.stringify(updatedAll));
+                window.dispatchEvent(new Event('notificationsUpdated'));
+                renderNotifications();
+            });
+        });
     }
 
-    loadNotifications();
+    renderNotifications();
 });

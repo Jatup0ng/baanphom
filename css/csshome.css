@@ -480,6 +480,87 @@
      font-size: 12px;
  }
 
+ /* ----------------------------- ช่องทางการติดต่อ ----------------------------- */
+ .footer-container {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     transform: translateY(100%);
+     /* ซ่อนเนื้อหาไว้ตอนเริ่มต้น */
+     background-color: var(--bg-cream);
+     border-top: 2px solid #e0d5c1;
+     /* Soft border */
+     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+     z-index: 1000;
+     box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+ }
+
+ .footer-container.active {
+     transform: translateY(0);
+ }
+
+ .footer-content {
+     padding: 15px 30px;
+     max-width: 1000px;
+     margin: 0 auto;
+     font-family: 'Sarabun', sans-serif;
+     color: var(--text-dark);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     flex-wrap: wrap;
+     gap: 15px;
+ }
+
+ .footer-content h2 {
+     width: 100%;
+     text-align: center;
+     color: var(--primary-brown);
+     margin-bottom: 10px;
+     font-size: 18px;
+     font-weight: 600;
+ }
+
+ .footer-item {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     font-size: 14px;
+     color: #555;
+ }
+
+ .footer-item i {
+     color: var(--primary-brown);
+     font-size: 16px;
+ }
+
+ .toggle-btn {
+     position: absolute;
+     top: -39px;
+     width: 14%;
+     left: 90%;
+     /* Center the button */
+     transform: translateX(-50%);
+     padding: 10px 30px;
+     background-color:#9e7657;
+     color: white;
+     border: none;
+     border-radius: 12px 12px 0 0;
+     cursor: pointer;
+     font-family: 'Sarabun', sans-serif;
+     font-size: 14px;
+     font-weight: 600;
+     letter-spacing: 0.5px;
+     transition: background-color 0.3s ease;
+ }
+
+ .toggle-btn:hover {
+     background-color: #6d482c;
+ }
+
+ /* ---------------------------------------------------------------- */
+
  /* เอฟเฟกต์เลือนขึ้นมา */
  @keyframes fadeIn {
      from {

@@ -1,135 +1,171 @@
-/* Notification Styles */
-.notification-main {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    background-color: #faf8f5;
-    min-height: calc(100vh - 80px);
+/* Notification Container */
+body {
+    background-color: #fdfaf6;
+    /* Match the off-white background from the image */
 }
 
-.notification-container {
-    width: 100%;
+.notif-container {
     max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
     background-color: transparent;
-    border-radius: 8px;
-    padding: 20px 0;
 }
 
-.page-title {
+.notif-title {
     color: #5A3E25;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.title-divider {
+.notif-divider {
     border: none;
-    border-top: 2px solid #e0d8d0;
+    border-top: 1px solid #d3c4b7;
     margin-bottom: 20px;
 }
 
-.notification-list {
+.notif-list {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Base Item Style */
+/* Notification Item - Unread State */
 .notif-item {
     display: flex;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    background-color: #fff;
     align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     position: relative;
+    border-left: 5px solid #d3c4b7;
+    /* Default left border */
     overflow: hidden;
-    gap: 15px;
 }
 
-/* Unread Item Style */
 .notif-item.unread {
-    background-color: #fff;
-    border-left: 6px solid #8B5E3C;
+    border-left: 5px solid #5A3E25;
 }
 
-/* Read Item Style */
-.notif-item.read {
-    background-color: #f0f0f0;
-    box-shadow: none;
-    border-left: none;
+/* Red dot indicator for unread */
+.notif-item.unread::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
 }
 
-/* Icon Area */
+/* The icon circle */
 .notif-icon {
-    font-size: 32px;
-    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+    /* Space for the red dot */
+    margin-right: 20px;
+    font-size: 20px;
 }
 
 .notif-item.unread .notif-icon {
+    background-color: #5A3E25;
+    color: white;
+}
+
+/* Body and Text */
+.notif-content {
+    flex-grow: 1;
+}
+
+.notif-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.notif-item.unread .notif-header {
     color: #5A3E25;
+}
+
+.notif-msg {
+    font-size: 14px;
+}
+
+.notif-item.unread .notif-msg {
+    color: #5A3E25;
+}
+
+.notif-time {
+    font-size: 12px;
+    white-space: nowrap;
+    margin-left: 20px;
+    align-self: flex-start;
+}
+
+.notif-item.unread .notif-time {
+    color: #a09083;
+}
+
+/* Notification Item - Read State */
+.notif-item.read {
+    background-color: #e0e0e0;
+    border-left: none;
+    padding-left: 35px;
+    /* Adjust padding since no border/dot */
 }
 
 .notif-item.read .notif-icon {
-    color: #a0a0a0;
+    background-color: transparent;
+    border: 2px solid #888;
+    color: #888;
+    margin-left: 0;
 }
 
-/* Content Area */
-.notif-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.notif-title {
-    font-weight: bold;
-    font-size: 16px;
-    color: #4a4a4a;
-}
-
-.notif-item.unread .notif-title {
-    color: #5A3E25;
-}
-
-.notif-message {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.4;
-}
-
-.notif-item.unread .notif-message {
-    color: #5A3E25;
-}
-
-/* Time Area */
-.notif-time {
-    font-size: 12px;
-    color: #999;
-    white-space: nowrap;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+.notif-item.read .notif-header,
+.notif-item.read .notif-msg,
+.notif-item.read .notif-time {
+    color: #888;
 }
 
 /* Empty State */
 .notif-empty {
     background-color: #e0e0e0;
-    color: #666;
+    color: #888;
     text-align: center;
-    padding: 30px;
+    padding: 40px;
     border-radius: 8px;
     font-size: 16px;
 }
 
-/* Badge for Navbar */
-.notif-badge {
+/* Delete Button */
+.notif-delete-btn {
     position: absolute;
-    top: -5px;
-    right: -8px;
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
-    display: inline-block;
+    right: 20px;
+    bottom: 20px;
+    background-color: transparent;
+    border: 1px solid #ff5252;
+    color: #ff5252;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.notif-delete-btn:hover {
+    background-color: #ff5252;
+    color: white;
+}
+
+/* Hover effect for unread items */
+.notif-item.unread:hover {
+    background-color: #f9f6f2;
 }

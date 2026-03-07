@@ -225,9 +225,9 @@ function getServices() {
         const defaultServices = [
             {
                 id: '1',
-                image: 'https://via.placeholder.com/60',
+                image: '/images/s.png',
                 name: 'ตัด สระ ไดร์',
-                desc: 'ตัด สระ ไดร์',
+                desc: 'ตัดผมพร้อมบริการสระและไดร์ หล่อพร้อมเที่ยว ในราคาเดียว',
                 duration: '60 นาที',
                 price: '150 บาท',
                 active: true

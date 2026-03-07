@@ -236,6 +236,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        const selectedDate = new Date(newHolidayDate.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+            alert("ไม่สามารถเลือกวันหยุดย้อนหลังได้");
+            return;
+        }
+
         const val = barberSelect.value;
 
         // check if exists

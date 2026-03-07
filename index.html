@@ -31,19 +31,18 @@
         <div class="menu-icons">
             <a href="/index.html" class="menu-icon">หน้าแรก</a>
             <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+
             <span id="guest-nav">
                 <a href="#" class="menu-icon" onclick="openLogin(event)">เข้าสู่ระบบ</a>
             </span>
-            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
 
             <!-- Notification Bell -->
-            <span id="notification-nav" style="display: none; position: relative;">
-                <a href="/notification/notification.html" class="menu-icon">
-                    <i class="fas fa-bell"></i>
-                    <span id="notif-badge" class="notif-badge"
-                        style="display: none; position: absolute; top: -5px; right: -8px; width: 10px; height: 10px; background-color: red; border-radius: 50%;"></span>
-                </a>
-            </span>
+            <a href="/notification/notification.html" class="menu-icon notif-icon-container"
+                style="position: relative;">
+                <i class="fas fa-bell"></i>
+                <span id="notif-badge" class="notif-badge" style="display: none;"></span>
+            </a>
 
             <span id="member-nav" style="display: none; position: relative;">
                 <a href="#" class="menu-icon" onclick="toggleDropdown(event)">
@@ -80,21 +79,10 @@
             </div>
         </header>
 
-        <section>
+        <section id="services-section">
             <h2 class="section-title">บริการของเรา</h2>
-            <div class="service-card">
-                <img src="/images/s.png" alt="ตัดผมชาย" class="service-img">
-                <div class="service-info" style="flex: 1;">
-                    <h3>ตัดผมชาย</h3>
-                    <p class="service-desc">ตัดผมพร้อมบริการสระและไดร์ หล่อพร้อมเที่ยว ในราคาเดียว</p>
-                    <div class="service-price">ราคา 150 บาท</div>
-                    <div class="service-action">
-                        <span class="duration"><i class="far fa-clock"></i> 60 นาที</span>
-                        <a href="/booking/book.html">
-                            <button class="btn-outline">จองเลย</button>
-                        </a>
-                    </div>
-                </div>
+            <div id="services-container">
+                <!-- Services will be loaded here dynamically -->
             </div>
         </section>
 
@@ -111,7 +99,6 @@
                     </div>
                     <p class="review-text">บริการดีมากครับ ช่างตัดละเอียด ตรงตามบรีฟ แนะนำเลยครับ</p>
                 </div>
-                <!-- Other reviews -->
                 <div class="review-card">
                     <div class="reviewer">
                         <img src="/images/c.png" alt="User" class="avatar">
@@ -131,6 +118,16 @@
                         </div>
                     </div>
                     <p class="review-text">ตัดทรงวินเทจสวยครับ ราคาไม่แพง คุ้มค่ามาก</p>
+                </div>
+                <div class="review-card">
+                    <div class="reviewer">
+                        <img src="/images/dew.jpg" alt="User" class="avatar">
+                        <div class="reviewer-info">
+                            <h4>jatupong</h4>
+                            <div class="stars">★★★★★ 2 สัปดาห์</div>
+                        </div>
+                    </div>
+                    <p class="review-text">ร้านสะอาด บรรยากาศดี ตัดผมสวยครับ</p>
                 </div>
             </div>
         </section>
@@ -175,7 +172,7 @@
                     <input type="text" id="reg-firstname" class="form-input" placeholder="ชื่อ">
                 </div>
                 <div style="flex: 1;">
-                    <label class="form-label">นามสกุล*</label>
+                    <label class="form-label">นามสกุล</label>
                     <input type="text" id="reg-lastname" class="form-input" placeholder="นามสกุล">
                 </div>
             </div>
@@ -199,7 +196,8 @@
                         style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#8B5E3C;font-size:16px;padding:0;"><i
                             class="fas fa-eye"></i></button>
                 </div>
-                <p style="font-size: 12px; margin-top: 5px;">รหัสผ่านต้องมีอักขระอย่างน้อย 8 ตัว</p>
+                <p style="font-size: 12px; margin-top: 5px; color: #666;">รหัสผ่านต้องเป็นภาษาอังกฤษ อย่างน้อย 8 ตัว
+                    และมีตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว</p>
             </div>
             <div class="form-group">
                 <label class="form-label">ยืนยันรหัสผ่าน</label>
@@ -273,10 +271,32 @@
         </div>
     </div>
 
+    <!-- ---------------------------------------------------  Tab Bar ---------------------------------------------------  -->
+    <div id="footer-tabbar" class="footer-container">
+        <button onclick="toggleFooter()" class="toggle-btn">ติดต่อเรา / Contact</button>
+
+        <div class="footer-content">
+            <h2>ติดต่อเรา</h2>
+            <div class="footer-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span><strong>ที่อยู่:</strong> 774 หมู่ 16 ต.แม่กา อ.เมือง พะเยา 56000</span>
+            </div>
+            <div class="footer-item">
+                <i class="fas fa-phone-alt"></i>
+                <span><strong>เบอร์โทร:</strong> 062-642-5939</span>
+            </div>
+            <div class="footer-item">
+                <i class="fab fa-facebook"></i>
+                <span><strong>Facebook:</strong> Baanphom Barber Shop - ร้านตัดผมชายบ้านผม</span>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Scripts -->
     <script src="/js/layout.js"></script>
     <script src="/js/otp.js"></script>
+    <script src="/js/useBooking.js"></script>
     <script>
         function togglePassword(inputId, btn) {
             const input = document.getElementById(inputId);
@@ -291,6 +311,39 @@
                 icon.classList.add('fa-eye');
             }
         }
+        // ---------- Tab Bar ---------- //
+        function toggleFooter() {
+            const footer = document.getElementById('footer-tabbar');
+            footer.classList.toggle('active');
+        }
+
+        // ---------- Dynamic Services ---------- //
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.useBooking) {
+                const services = window.useBooking.getServices().filter(s => s.active);
+                const container = document.getElementById('services-container');
+                if (container && services.length > 0) {
+                    container.innerHTML = services.map(service => `
+                        <div class="service-card" style="margin-bottom: 20px;">
+                            <img src="${service.image || '/images/s.png'}" alt="${service.name}" class="service-img">
+                            <div class="service-info" style="flex: 1;">
+                                <h3>${service.name}</h3>
+                                <p class="service-desc">${service.desc || ''}</p>
+                                <div class="service-price">ราคา ${service.price}</div>
+                                <div class="service-action">
+                                    <span class="duration"><i class="far fa-clock"></i> ${service.duration || '60 นาที'}</span>
+                                    <a href="/booking/book.html">
+                                        <button class="btn-outline">จองเลย</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else if (container) {
+                    container.innerHTML = '<p style="text-align:center; color:#888;">ไม่มีบริการที่เปิดใช้งาน</p>';
+                }
+            }
+        });
     </script>
 </body>
 

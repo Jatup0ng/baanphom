@@ -101,6 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const dayNames = ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'];
         const today = new Date();
 
+        // Check if service and barber are selected
+        const canSelectDate = selectedService && selectedBarber;
+
         for (let i = 0; i < 7; i++) {
             const d = new Date(today);
             d.setDate(today.getDate() + i);
@@ -109,19 +112,24 @@ document.addEventListener("DOMContentLoaded", () => {
             const available = isDateAvailable(dateString);
 
             const dateBox = document.createElement('div');
-            dateBox.className = `date-box ${available ? '' : 'unavailable'} ${selectedDate === dateString ? 'selected' : ''}`;
+            // Add 'locked' class if service/barber not chosen yet
+            dateBox.className = `date-box ${!canSelectDate ? 'locked' : (available ? '' : 'unavailable')} ${selectedDate === dateString ? 'selected' : ''}`;
 
             dateBox.innerHTML = `
                 <div class="day-name">${dayNames[d.getDay()]}</div>
                 <div class="day-number">${d.getDate()}</div>
             `;
 
-            if (available) {
+            if (canSelectDate && available) {
                 dateBox.addEventListener('click', () => {
                     selectedDate = dateString;
                     selectedTime = ''; // reset time
                     renderDates();
                     renderTimes();
+                });
+            } else if (!canSelectDate) {
+                dateBox.addEventListener('click', () => {
+                    alert('กรุณาเลือกบริการและช่างตัดผมก่อนเลือกวันที่');
                 });
             }
             dateStrip.appendChild(dateBox);
@@ -130,7 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Render Times
     function renderTimes() {
-        if (!selectedDate) {
+        // Only show time grid when service + barber + date are all selected
+        if (!selectedService || !selectedBarber || !selectedDate) {
             timeGridContainer.style.display = 'none';
             return;
         }
