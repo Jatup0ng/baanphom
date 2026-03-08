@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let allBookings = [];
 
+    /* ─── Helper: format date YYYY-MM-DD → DD/MM/YYYY ─── */
+    function fmtDate(dateStr) {
+        if (!dateStr) return '-';
+        const [y, m, d] = dateStr.split('-');
+        return `${d}/${m}/${y}`;
+    }
+
     function loadData() {
         if (window.useBooking) {
             allBookings = window.useBooking.getBookings();
@@ -22,35 +29,188 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 const newStatus = booking.status === 'รอตัด' ? 'เสร็จสิ้น' : 'รอตัด';
                 window.useBooking.updateBookingStatus(id, newStatus);
-                booking.status = newStatus; // optimistic
+                booking.status = newStatus;
                 renderTable();
             }
         }
     }
 
-    function editBooking(id) {
-        if (window.useBooking) {
-            const booking = allBookings.find(b => b.id === id);
-            if (!booking) return;
+    /* ─────────────── EDIT BOOKING MODAL ─────────────── */
+    function injectEditModal() {
+        if (document.getElementById('edit-booking-modal')) return;
 
-            const newService = prompt("แก้ไขบริการ:", booking.service);
-            if (newService === null) return;
+        const barbers = window.useBooking ? window.useBooking.getBarbers() : [];
+        const services = window.useBooking ? window.useBooking.getServices() : [];
 
-            window.useBooking.updateBookingDetails(id, { service: newService });
-            loadData();
-        }
+        const timeSlots = [
+            '11.00 - 12.00', '12.00 - 13.00', '13.00 - 14.00', '14.00 - 15.00',
+            '15.00 - 16.00', '16.00 - 17.00', '17.00 - 18.00', '18.00 - 19.00',
+            '19.00 - 20.00', '20.00 - 21.00'
+        ];
+
+        const barberOptions = barbers.map(b =>
+            `<option value="${b.id}">${b.name}</option>`).join('');
+        const serviceOptions = services.map(s =>
+            `<option value="${s.name}">${s.name}</option>`).join('');
+        const timeOptions = timeSlots.map(t =>
+            `<option value="${t}">${t} น.</option>`).join('');
+
+        const modal = document.createElement('div');
+        modal.id = 'edit-booking-modal';
+        modal.style.cssText = `
+            display:none; position:fixed; inset:0;
+            background:rgba(0,0,0,0.5); z-index:9999;
+            justify-content:center; align-items:center;
+        `;
+        modal.innerHTML = `
+            <div style="background:#fff; border-radius:14px; padding:28px 32px;
+                        width:min(460px,92vw); box-shadow:0 8px 32px rgba(0,0,0,0.2); font-family:'Sarabun',sans-serif;">
+                <h3 style="margin:0 0 18px; color:#5A3E25; font-size:20px;">✏️ แก้ไขการจอง</h3>
+
+                <div style="margin-bottom:12px;">
+                    <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">วันที่</label>
+                    <input type="date" id="edit-date"
+                        style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:8px; font-size:15px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:12px;">
+                    <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">เวลา</label>
+                    <select id="edit-time"
+                        style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:8px; font-size:15px; box-sizing:border-box;">
+                        ${timeOptions}
+                    </select>
+                </div>
+                <div style="margin-bottom:12px;">
+                    <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">ช่าง</label>
+                    <select id="edit-barber"
+                        style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:8px; font-size:15px; box-sizing:border-box;">
+                        ${barberOptions}
+                    </select>
+                </div>
+                <div style="margin-bottom:20px;">
+                    <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">บริการ</label>
+                    <select id="edit-service"
+                        style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:8px; font-size:15px; box-sizing:border-box;">
+                        ${serviceOptions}
+                    </select>
+                </div>
+
+                <div style="display:flex; gap:10px; justify-content:flex-end;">
+                    <button id="edit-cancel-btn"
+                        style="padding:9px 22px; border-radius:8px; border:1px solid #ccc;
+                               background:#f5f5f5; cursor:pointer; font-size:15px;">
+                        ยกเลิก
+                    </button>
+                    <button id="edit-save-btn"
+                        style="padding:9px 22px; border-radius:8px; border:none;
+                               background:#8B5E3C; color:#fff; cursor:pointer; font-size:15px; font-weight:600;">
+                        บันทึก
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById('edit-cancel-btn').addEventListener('click', closeEditModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeEditModal(); });
     }
 
+    function openEditModal(id) {
+        injectEditModal();
+        const booking = allBookings.find(b => b.id === id);
+        if (!booking) return;
+
+        const modal = document.getElementById('edit-booking-modal');
+        document.getElementById('edit-date').value = booking.date || '';
+        document.getElementById('edit-time').value = booking.time || '';
+        document.getElementById('edit-barber').value = booking.barber || '';
+        document.getElementById('edit-service').value = booking.service || '';
+
+        modal.style.display = 'flex';
+        modal._currentId = id;
+
+        // Remove old save handler and add new
+        const saveBtn = document.getElementById('edit-save-btn');
+        const newSaveBtn = saveBtn.cloneNode(true);
+        saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
+        newSaveBtn.addEventListener('click', () => saveEdit(id, booking));
+    }
+
+    function closeEditModal() {
+        const modal = document.getElementById('edit-booking-modal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function saveEdit(id, originalBooking) {
+        const newDate = document.getElementById('edit-date').value;
+        const newTime = document.getElementById('edit-time').value;
+        const newBarberId = document.getElementById('edit-barber').value;
+        const newService = document.getElementById('edit-service').value;
+
+        if (!newDate) { alert("กรุณาเลือกวันที่"); return; }
+
+        const barbers = window.useBooking ? window.useBooking.getBarbers() : [];
+        const newBarberName = (barbers.find(b => b.id === newBarberId) || {}).name || newBarberId;
+
+        const hasDateTimeChanged = newDate !== originalBooking.date || newTime !== originalBooking.time;
+
+        if (window.useBooking) {
+            window.useBooking.updateBookingDetails(id, {
+                date: newDate,
+                time: newTime,
+                barber: newBarberId,
+                barberName: newBarberName,
+                service: newService
+            });
+
+            // Notify customer about reschedule
+            const targetEmail = originalBooking.userEmail || '';
+            const targetUser = originalBooking.name || '';
+
+            if (hasDateTimeChanged) {
+                const msg = `ทางร้านแจ้งเปลี่ยนแปลงข้อมูลการนัดหมายของคุณ\n` +
+                    `📅 วันที่ใหม่: ${fmtDate(newDate)} เวลา ${newTime} น.\n` +
+                    `✂️ ช่าง: ${newBarberName}\n` +
+                    `💈 บริการ: ${newService}\n\n` +
+                    `หากไม่สะดวกเวลาดังกล่าว กรุณาติดต่อทักแชทที่เพจ Facebook ของร้านได้เลยครับ`;
+                window.useBooking.sendNotification(targetEmail, targetUser,
+                    `แจ้งเลื่อนนัดตัดผม (วันที่ ${fmtDate(originalBooking.date)})`, msg, 'admin');
+            }
+        }
+
+        closeEditModal();
+        loadData();
+        alert("✅ บันทึกการแก้ไขเรียบร้อยแล้ว");
+    }
+
+    /* ─────────────── DELETE WITH NOTIFICATION ─────────────── */
     function deleteBookingAdmin(id) {
-        if (confirm("คุณต้องการลบคิวนี้ใช่หรือไม่?")) {
+        const booking = allBookings.find(b => b.id === id);
+        if (!booking) return;
+
+        const alreadyCancelled = booking.status === 'cancelled' || booking.status === 'ยกเลิก';
+        const confirmMsg = alreadyCancelled
+            ? "คุณต้องการลบคิวนี้ใช่หรือไม่?\n(คิวถูกยกเลิกโดยลูกค้าแล้ว — ไม่ส่งแจ้งเตือน)"
+            : "คุณต้องการลบคิวนี้ใช่หรือไม่?\n(ลูกค้าจะได้รับการแจ้งเตือน)";
+
+        if (confirm(confirmMsg)) {
             if (window.useBooking) {
+                // ส่งแจ้งเตือนเฉพาะกรณีที่ลูกค้ายังไม่ได้ยกเลิกเอง
+                if (!alreadyCancelled) {
+                    const targetEmail = booking.userEmail || '';
+                    const targetUser = booking.name || '';
+                    const dateStr = fmtDate(booking.date);
+                    const msg = `ทางร้านกราบขออภัยเป็นอย่างยิ่งที่จำเป็นต้องยกเลิกคิวของคุณเวลา ${booking.time || '-'} น. วันที่ ${dateStr}\n` +
+                        `ลูกค้าสามารถติดต่อขอรับเงินคืนเต็มจำนวนได้ทันที หรือจองวันนัดใหม่ได้\n` +
+                        `โดยรบกวนทักแชทที่เพจ Facebook ของร้านได้เลยครับ`;
+                    window.useBooking.sendNotification(targetEmail, targetUser,
+                        `แจ้งยกเลิกคิวตัดผม (วันที่ ${dateStr})`, msg, 'admin');
+                }
+
                 window.useBooking.deleteBooking(id);
                 loadData();
             }
         }
     }
-
-   
 
     function renderTable() {
         listContainer.innerHTML = '';
@@ -165,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         document.querySelectorAll('.btn-edit-booking').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                editBooking(e.currentTarget.getAttribute('data-id'));
+                openEditModal(e.currentTarget.getAttribute('data-id'));
             });
         });
         document.querySelectorAll('.btn-delete-booking').forEach(btn => {

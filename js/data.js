@@ -131,10 +131,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ---- Edit Phone (with inline toggle) ----
-    setupInlineEdit("profile-phone", "phone", "btn-edit-phone", "text-edit-phone");
+    setupInlineEdit("profile-phone", "phone", "btn-edit-phone", "text-edit-phone", {
+        validate: (val) => {
+            if (!val) { alert("กรุณากรอกเบอร์โทร"); return false; }
+            if (val.length !== 10 || !/^[0-9]+$/.test(val)) {
+                alert("กรุณากรอกเบอร์โทรให้ถูกต้อง (ตัวเลข 10 หลัก)");
+                return false;
+            }
+            // Duplicate check
+            const users = JSON.parse(localStorage.getItem("bp_users") || "[]");
+            const duplicate = users.find(u => u.phone === val && u.email !== currentUser.email);
+            if (duplicate) {
+                alert("เบอร์โทรศัพท์นี้ถูกใช้งานแล้ว");
+                return false;
+            }
+            return true;
+        }
+    });
 
     // ---- Edit Email (with inline toggle) ----
-    setupInlineEdit("profile-email", "email", "btn-edit-email", "text-edit-email");
+    setupInlineEdit("profile-email", "email", "btn-edit-email", "text-edit-email", {
+        validate: (val) => {
+            if (!val) { alert("กรุณากรอกอีเมล"); return false; }
+            if (!val.includes("@")) {
+                alert("กรุณากรอกอีเมลให้ถูกต้อง");
+                return false;
+            }
+            // Duplicate check
+            const users = JSON.parse(localStorage.getItem("bp_users") || "[]");
+            const duplicate = users.find(u => u.email === val && u.email !== currentUser.email);
+            if (duplicate) {
+                alert("อีเมลนี้ถูกใช้งานแล้ว");
+                return false;
+            }
+            return true;
+        }
+    });
 
     // ---- Generic inline edit helper ----
     function setupInlineEdit(inputId, fieldKey, btnId, textId, options = {}) {

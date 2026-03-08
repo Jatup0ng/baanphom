@@ -24,6 +24,48 @@
         .status-success {
             color: green;
         }
+
+        /* Loading Popup Overlay */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-box {
+            background: #fff;
+            border-radius: 16px;
+            width: min(420px, 88vw);
+            aspect-ratio: 4 / 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        }
+
+        .spinner {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 12px solid #e8d5c0;
+            border-top-color: #8B5E3C;
+            border-right-color: #704c30;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -122,6 +164,13 @@
             </div>
         </div>
     </main>
+
+    <!-- Loading Popup Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-box">
+            <div class="spinner"></div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <!-- include useBooking functions globally for handlePayment -->

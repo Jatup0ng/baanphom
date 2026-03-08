@@ -61,31 +61,46 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Update UI
-        qrStatus.innerText = " *ชำระเงินเสร็จสิ้น";
-        qrStatus.className = "status-success";
+        // แสดง Loading Popup ก่อน
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) overlay.classList.add('active');
 
-        data.id = Date.now().toString();
-        data.status = 'รอตัด';
-
-        // นำชื่อและนามสกุลมาต่อกันเพื่อให้แอดมินเห็นชื่อเต็ม แต่ตอนล็อกอินยังใช้แค่ชื่อแรก
-        if (currentUser) {
-            data.name = currentUser.lastName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser.firstName;
-        } else {
-            data.name = 'ลูกค้าทั่วไป';
-        }
-
-        // Save to Admin (this calculates queueID and saves to master list)
-        if (window.useBooking) {
-            window.useBooking.addBooking(data);
-        }
-
-        // Update tempBooking with the newly assigned queueID
-        localStorage.setItem('tempBooking', JSON.stringify(data));
-
-        // Redirect
+        // ซ่อน popup แล้วค่อยดำเนินการต่อ
         setTimeout(() => {
-            window.location.href = "/Queue/q.html";
-        }, 1500);
+            // ซ่อน popup
+            if (overlay) overlay.classList.remove('active');
+
+            // หลัง popup หายแล้ว เปลี่ยนสถานะ
+            setTimeout(() => {
+                // Update UI
+                qrStatus.innerText = " *ชำระเงินเสร็จสิ้น";
+                qrStatus.className = "status-success";
+
+                data.id = Date.now().toString();
+                data.status = 'รอตัด';
+
+                // นำชื่อและนามสกุลมาต่อกันเพื่อให้แอดมินเห็นชื่อเต็ม แต่ตอนล็อกอินยังใช้แค่ชื่อแรก
+                if (currentUser) {
+                    data.name = currentUser.lastName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser.firstName;
+                    data.userEmail = currentUser.email || '';
+                } else {
+                    data.name = 'ลูกค้าทั่วไป';
+                    data.userEmail = '';
+                }
+
+                // Save to Admin (this calculates queueID and saves to master list)
+                if (window.useBooking) {
+                    window.useBooking.addBooking(data);
+                }
+
+                // Update tempBooking with the newly assigned queueID
+                localStorage.setItem('tempBooking', JSON.stringify(data));
+
+                // Redirect
+                setTimeout(() => {
+                    window.location.href = "/Queue/q.html";
+                }, 1000);
+            }, 300);
+        }, 1800);
     });
 });

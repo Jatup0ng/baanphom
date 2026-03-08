@@ -109,6 +109,22 @@ function deleteBooking(id) {
     saveBookings(bookings);
 }
 
+// --- Notification Helper ---
+function sendNotification(targetEmail, targetUser, title, message, type) {
+    const notifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
+    notifs.push({
+        id: Date.now().toString() + Math.random().toString(36).slice(2),
+        targetEmail: targetEmail || '',
+        targetUser: targetUser || '',
+        title,
+        message,
+        type: type || 'general',
+        timestamp: new Date().toISOString(),
+        read: false
+    });
+    localStorage.setItem('bp_notifications', JSON.stringify(notifs));
+}
+
 // Get Today's bookings
 function getTodayBookings() {
     const bookings = getBookings();
@@ -287,5 +303,6 @@ window.useBooking = {
     saveServices,
     addService,
     updateService,
-    deleteService
+    deleteService,
+    sendNotification
 };

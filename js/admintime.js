@@ -268,11 +268,47 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.useBooking) {
             window.useBooking.addUnavailableDate(payload);
             unavailableDatesData = window.useBooking.getUnavailableDates(); // refresh
+
+            // ─── ส่งแจ้งเตือนลูกค้าที่ได้รับผลกระทบ ───
+            const allBookings = window.useBooking.getBookings();
+            const affectedBookings = allBookings.filter(b => {
+                if (b.status === 'cancelled' || b.status === 'ยกเลิก' || b.status === 'เสร็จสิ้น') return false;
+                if (b.date !== payload.date) return false;
+                // If shop closes entirely (barberId = null) → all bookings on that date
+                // If specific barber closes → only their bookings
+                if (payload.barberId && b.barber !== payload.barberId) return false;
+                // If specific time slot → only that slot
+                if (payload.time && b.time !== payload.time) return false;
+                return true;
+            });
+
+            if (affectedBookings.length > 0) {
+                const [y, m, d] = payload.date.split('-');
+                const dateDisplay = `${d}/${m}/${y}`;
+                const reasonNote = payload.reason ? ` เนื่องจาก${payload.reason}` : '';
+
+                affectedBookings.forEach(b => {
+                    const msg =
+                        `ทางร้านกราบขออภัยเป็นอย่างยิ่งที่จำเป็นต้องยกเลิกคิวของคุณเวลา ${b.time || '-'} น. วันที่ ${dateDisplay}${reasonNote}\n` +
+                        `ลูกค้าสามารถติดต่อขอรับเงินคืนเต็มจำนวนได้ทันที หรือนัดหมายวันใหม่ได้\n` +
+                        `โดยรบกวนทักแชทที่เพจ Facebook ของร้านได้เลยครับ`;
+                    window.useBooking.sendNotification(
+                        b.userEmail || '',
+                        b.name || '',
+                        `แจ้งยกเลิกคิวตัดผม (วันที่ ${dateDisplay})`,
+                        msg,
+                        'admin'
+                    );
+                });
+
+                alert(`✅ บันทึกวันหยุดเรียบร้อยแล้ว\n📢 ส่งแจ้งเตือนไปหาลูกค้า ${affectedBookings.length} คนที่ได้รับผลกระทบแล้ว`);
+            } else {
+                alert("บันทึกวันหยุดเรียบร้อยแล้ว");
+            }
         }
 
         newHolidayDate.value = '';
         newHolidayReason.value = '';
-        alert("บันทึกวันหยุดเรียบร้อยแล้ว");
         renderHolidays();
     });
 

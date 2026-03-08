@@ -94,7 +94,8 @@
                 <div class="form-group">
                     <label>เบอร์โทร*</label>
                     <div class="input-wrapper">
-                        <input type="text" id="profile-phone" class="form-control" readonly>
+                        <input type="text" id="profile-phone" class="form-control" readonly maxlength="10"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         <a href="javascript:void(0)" id="btn-edit-phone" class="edit-action">
                             <i class="fas fa-edit"></i> <span id="text-edit-phone">แก้ไข</span>
                         </a>
