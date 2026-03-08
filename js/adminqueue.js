@@ -67,6 +67,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         width:min(460px,92vw); box-shadow:0 8px 32px rgba(0,0,0,0.2); font-family:'Sarabun',sans-serif;">
                 <h3 style="margin:0 0 18px; color:#5A3E25; font-size:20px;">✏️ แก้ไขการจอง</h3>
 
+                <div style="margin-bottom:12px; display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">ชื่อลูกค้า</label>
+                        <input type="text" id="edit-display-name" readonly
+                            style="width:100%; padding:8px 10px; border:1px solid #eee; border-radius:8px; font-size:14px; box-sizing:border-box; background:#f9f9f9; color:#666;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">เบอร์โทร</label>
+                        <input type="text" id="edit-display-phone" readonly
+                            style="width:100%; padding:8px 10px; border:1px solid #eee; border-radius:8px; font-size:14px; box-sizing:border-box; background:#f9f9f9; color:#666;">
+                    </div>
+                </div>
+
                 <div style="margin-bottom:12px;">
                     <label style="font-weight:600; color:#8B5E3C; display:block; margin-bottom:4px;">วันที่</label>
                     <input type="date" id="edit-date"
@@ -120,6 +133,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!booking) return;
 
         const modal = document.getElementById('edit-booking-modal');
+
+        let displayPhone = booking.phone;
+        // Fallback for old bookings that don't have phone field saved
+        if (!displayPhone && booking.userEmail) {
+            const users = JSON.parse(localStorage.getItem("bp_users") || "[]");
+            const u = users.find(x => x.email === booking.userEmail);
+            if (u) displayPhone = u.phone;
+        }
+
+        document.getElementById('edit-display-name').value = booking.name || '-';
+        document.getElementById('edit-display-phone').value = displayPhone || '-';
         document.getElementById('edit-date').value = booking.date || '';
         document.getElementById('edit-time').value = booking.time || '';
         document.getElementById('edit-barber').value = booking.barber || '';
@@ -151,9 +175,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const barbers = window.useBooking ? window.useBooking.getBarbers() : [];
         const newBarberName = (barbers.find(b => b.id === newBarberId) || {}).name || newBarberId;
 
-        const hasDateTimeChanged = newDate !== originalBooking.date || newTime !== originalBooking.time;
+        const hasDateTimeChanged = newDate !== originalBooking.date || newTime !== originalBooking.time || newBarberId !== originalBooking.barber;
 
         if (window.useBooking) {
+            // Check if slot is available (excluding the current booking itself)
+            const isAvailable = window.useBooking.isSlotAvailable(newDate, newTime, newBarberId, id);
+            if (!isAvailable) {
+                alert("❌ ขออภัย ช่วงเวลาที่คุณเลือกมีผู้จองแล้วหรือช่างไม่ว่างในเวลาดังกล่าว กรุณาเลือกเวลาอื่น");
+                return;
+            }
+
             window.useBooking.updateBookingDetails(id, {
                 date: newDate,
                 time: newTime,

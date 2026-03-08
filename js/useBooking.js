@@ -198,7 +198,7 @@ function addUnavailableDate(dateInfo) {
 }
 
 // Check if a specific slot is available
-function isSlotAvailable(date, time, barberId) {
+function isSlotAvailable(date, time, barberId, excludeId = null) {
     // 1. Check Barber Schedule (from grid)
     const barbers = getBarbers();
     const barber = barbers.find(b => b.id === barberId);
@@ -228,7 +228,8 @@ function isSlotAvailable(date, time, barberId) {
         b.date === date &&
         b.time === time &&
         b.barber === barberId &&
-        b.status !== 'cancelled'
+        b.status !== 'cancelled' &&
+        (excludeId === null || b.id !== excludeId)
     );
 
     return !isBooked;

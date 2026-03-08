@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (currentUser) {
                     data.name = currentUser.lastName ? `${currentUser.firstName} ${currentUser.lastName}` : currentUser.firstName;
                     data.userEmail = currentUser.email || '';
+                    data.phone = currentUser.phone || '';
                 } else {
                     data.name = 'ลูกค้าทั่วไป';
                     data.userEmail = '';
