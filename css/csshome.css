@@ -538,7 +538,8 @@
  .toggle-btn {
      position: absolute;
      top: -39px;
-     width: 14%;
+     width: auto;
+     min-width: 200px;
      left: 90%;
      /* Center the button */
      transform: translateX(-50%);
@@ -575,9 +576,9 @@
  }
 
  /* =========================================
-   Responsive Design (Mobile & Tablet)
+   Responsive Design (Mobile & Tablet / iPad)
    ========================================= */
- @media screen and (max-width: 768px) {
+ @media screen and (max-width: 1024px) {
 
      /* Hero section */
      .hero {
