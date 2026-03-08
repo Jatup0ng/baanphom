@@ -50,31 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function handleCall(id) {
-        if (confirm("แจ้งเตือนลูกค้าท่านนี้ใช่หรือไม่?")) {
-            const booking = allBookings.find(b => b.id === id);
-            if (booking && booking.name) {
-                const title = "การแจ้งเตือน";
-                const message = `ใกล้ถึงคิวของคุณแล้ว\nคุณ ${booking.name} อีก 1 คิวโปรดเตรียมตัวและเตรียมผมให้พร้อม!`;
-
-                // Create Notification
-                const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-                allNotifs.push({
-                    id: Date.now().toString(),
-                    targetUser: booking.name,
-                    targetEmail: booking.userEmail || '',
-                    title: title,
-                    message: message,
-                    timestamp: new Date().toISOString(),
-                    read: false
-                });
-                localStorage.setItem('bp_notifications', JSON.stringify(allNotifs));
-                alert("ส่งการแจ้งเตือนสำเร็จ ✅");
-            } else {
-                alert("ไม่พบข้อมูลลูกค้า");
-            }
-        }
-    }
+   
 
     function renderTable() {
         listContainer.innerHTML = '';

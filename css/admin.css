@@ -804,3 +804,10 @@ body {
         align-items: stretch;
     }
 }
+
+/* ซ่อนปุ่มโทรในหน้าจัดการคิวสำหรับมือถือและไอแพด (max-width: 1024px) */
+@media (max-width: 1024px) {
+    #page-queue .btn-call {
+        display: none !important;
+    }
+}

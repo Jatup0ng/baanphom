@@ -87,11 +87,37 @@ document.addEventListener("DOMContentLoaded", () => {
             const isBarberClosed = unavailableDatesData.some(u => u.date === dateStr && u.barberId === selectedBarber);
             if (isBarberClosed) return false;
         }
+
+        // Block today's date if all time slots have already passed (last slot starts at 20.00)
+        const today = new Date();
+        const todayStr = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+        if (dateStr === todayStr) {
+            const currentHour = today.getHours();
+            const currentMin = today.getMinutes();
+            if (currentHour > 20 || (currentHour === 20 && currentMin >= 0)) {
+                return false;
+            }
+        }
+
         return true;
     }
 
     function isTimeSlotAvailable(time) {
         if (!selectedDate || !selectedBarber) return true;
+
+        // Check if the selected time has already passed for today
+        const today = new Date();
+        const todayStr = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+        if (selectedDate === todayStr) {
+            const startTimeStr = time.split(' - ')[0]; // e.g., "11.00"
+            const [startHour, startMin] = startTimeStr.split('.').map(Number);
+            const currentHour = today.getHours();
+            const currentMin = today.getMinutes();
+            if (currentHour > startHour || (currentHour === startHour && currentMin >= startMin)) {
+                return false;
+            }
+        }
+
         return window.useBooking.isSlotAvailable(selectedDate, time, selectedBarber);
     }
 

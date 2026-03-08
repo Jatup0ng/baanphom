@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const callBtn = document.createElement('button');
             callBtn.className = 'btn-call';
-            callBtn.innerHTML = `<i class="fas fa-phone-alt"></i> โทร`;
+            callBtn.innerHTML = `<i class="fas fa-bell"></i> แจ้งเตือน`;
             callBtn.onclick = () => {
                 const customerName = nextQueue.name || 'ลูกค้า';
                 alert(`กำลังเรียกคุณ ${customerName} คิวที่ Q-${nextQueue.queueID}`);
 
                 // Save notification directly to localStorage since layout.js isn't here
                 const allNotifs = JSON.parse(localStorage.getItem('bp_notifications') || '[]');
-                const message = `คุณ ${customerName} อีก 1 ชั่วโมง จะถึงคิวแล้วนะครับ เตรียมตัวหล่อได้เลย !!`;
+                const message = `คุณ ${customerName} จะถึงคิวแล้วนะครับ เตรียมตัวหล่อได้เลย !!`;
 
                 allNotifs.push({
                     id: Date.now().toString(),
