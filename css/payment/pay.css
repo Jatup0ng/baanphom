@@ -183,9 +183,14 @@ body {
 
 /* Make booking details align appropriately */
 .payment-titles .desktop-only {
-    width: 600px;
+    width: 620px;
     max-width: 50%;
-    
+
+}
+.payment-titles .desktop-only#qr-title{
+    width: 620px;
+    max-width: 50%;
+
 }
 
 .qrpayment-container {
@@ -455,7 +460,7 @@ button#next {
         padding: 15px;
     }
 
-    button#pay {
+    button#pay-btn {
         width: 100%;
     }
 
