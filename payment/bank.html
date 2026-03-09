@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โอนเงินผ่านเลขบัญชี - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/payment/pay.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+    <style>
+        * {
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .status-pending {
+            color: red;
+        }
+
+        .status-success {
+            color: green;
+        }
+
+        /* Loading Popup Overlay */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-box {
+            background: #fff;
+            border-radius: 16px;
+            width: min(420px, 88vw);
+            aspect-ratio: 4 / 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        }
+
+        .spinner {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 12px solid #e8d5c0;
+            border-top-color: #8B5E3C;
+            border-right-color: #704c30;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .bank-info-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .bank-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bank-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .bank-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .bank-details h4 {
+            margin: 0;
+            color: #5a3e2b;
+            font-size: 18px;
+        }
+
+        .bank-details p {
+            margin: 5px 0 0;
+            color: #704c30;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .slip-upload-section {
+            margin-top: 25px;
+            text-align: left;
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        .slip-upload-section label {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #5a3e2b;
+
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .btn-upload-custom {
+            background: #f8f9fa;
+            border: 2px dashed #8B5E3C;
+            color: #8B5E3C;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .btn-upload-custom:hover {
+            background: #fff2e6;
+        }
+
+        .preview-container {
+            margin-top: 15px;
+            display: none;
+        }
+
+        #slip-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <div class="page-header">
+            <a href="/payment/pay.html" style="text-decoration: none; color: inherit;">
+                <h2><i class="fas fa-angle-left"></i>&nbsp;โอนเงินผ่านเลขบัญชี</h2>
+            </a>
+        </div>
+
+        <div class="payment-titles">
+            <h3 style="visibility: hidden;">Bank Transfer</h3>
+            <h3 class="desktop-only">รายละเอียดการจอง</h3>
+        </div>
+
+        <div class="qrpayment-container">
+            <div class="qrpayment-methods" style="padding: 30px;">
+                <div class="bank-info-container">
+                    <div class="bank-item">
+                        <img src="/images/k.png" alt="KBank" class="bank-logo">
+                        <div class="bank-details">
+                            <h4>ธนาคารกสิกรไทย (KBank)</h4>
+                            <p style="font-size: 15.5px; font-weight: 500;">เลขบัญชี : 123-4-56789-0</p>
+                            <p style="font-size: 15.5px; font-weight: 500;">ชื่อบัญชี : บ้านผม บาร์เบอร์</p>
+                        </div>
+                    </div>
+                    <div class="bank-item">
+                        <img src="/images/k2.png" alt="krungthai" class="bank-logo">
+                        <div class="bank-details">
+                            <h4>ธนาคารกรุงไทย (Krungthai)</h4>
+                            <p style="font-size: 15.5px; font-weight: 500;">เลขบัญชี : 123-4-56789-0</p>
+                            <p style="font-size: 15.5px; font-weight: 500;">ชื่อบัญชี : บ้านผม บาร์เบอร์</p>
+                        </div>
+                    </div>
+                    <div class="bank-item">
+                        <img src="/images/k3.jpg" alt="krungsri" class="bank-logo">
+                        <div class="bank-details">
+                            <h4>ธนาคารกรุงศรี (Krungsri)</h4>
+                            <p style="font-size: 15.5px; font-weight: 500;">เลขบัญชี : 123-4-56789-0</p>
+                            <p style="font-size: 15.5px; font-weight: 500;">ชื่อบัญชี : บ้านผม บาร์เบอร์</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slip-upload-section">
+                    <label>แนบสลิปการโอนเงิน <span style="color: red;">* (จำเป็น)</span></label>
+                    <div class="file-input-wrapper">
+                        <div class="btn-upload-custom" id="upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i> เลือกรูปภาพสลิป
+                        </div>
+                        <input type="file" id="slip-file" accept="image/*" required>
+                    </div>
+                    <div class="preview-container" id="preview-container">
+                        <img id="slip-preview" src="#" alt="Preview">
+                    </div>
+                </div>
+
+                <div class="next-bt" style="margin-top: 15px;">
+                    <button type="button" id="next"
+                        style="width: 100%; border-radius: 12px; height: 55px; font-weight: bold;">ยืนยันการโอนเงิน</button>
+                </div>
+            </div>
+
+            <div class="qrbooking-details-card">
+                <div class="detail" style="clear: both; padding: 5px;">
+                    <a href="/booking/book.html" style="text-decoration: none;">
+                        <button id="undo"
+                            style="border: none; background: #60301e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                            <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                        </button>
+                    </a>
+
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                        <span style="margin-left: 10px;" id="bank-service">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                        <span style="margin-left: 10px;" id="bank-datetime">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                        <span style="margin-left: 10px;" id="bank-duration">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;" class="price">
+                        <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                        <span style="margin-left: 10px;" id="bank-price">-</span>
+                        <span id="bank-payment-status" class="status-pending"
+                            style="margin-left: 10px;">*รอชำระเงิน</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Popup Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-box">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/bank.js"></script>
+</body>
+
+</html>

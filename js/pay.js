@@ -24,4 +24,21 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('pay-duration').innerText = `${data.duration || '-'} นาที`;
         document.getElementById('pay-price').innerText = `${data.price || '-'} บาท`;
     }
+
+    // 3. Handle Redirection
+    const payBtn = document.getElementById("pay-btn");
+    if (payBtn) {
+        payBtn.addEventListener("click", () => {
+            const selectedMethod = document.querySelector('input[name="payment"]:checked');
+            if (selectedMethod) {
+                if (selectedMethod.value === "qr") {
+                    window.location.href = "/payment/qr.html";
+                } else if (selectedMethod.value === "bank") {
+                    window.location.href = "/payment/bank.html";
+                }
+            } else {
+                alert("กรุณาเลือกวิธีการชำระเงิน");
+            }
+        });
+    }
 });
