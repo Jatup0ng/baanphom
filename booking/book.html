@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จองคิว - BAAN PHOM</title>
+    <!-- Open Graph (สำหรับแชร์รุปภาพบน LINE, Facebook) -->
+    <meta property="og:title" content="จองคิวร้านตัดผม - BAAN PHOM">
+    <meta property="og:description" content="ร้านตัดผม บ้านผม บาร์เบอร์ บริการตัดผมสุดพิเศษ จองคิวออนไลน์ง่ายๆ">
+    <meta property="og:image" content="https://baanphom.vercel.app/images/icon.jpg">
+    <meta property="og:image:secure_url" content="https://baanphom.vercel.app/images/icon.jpg">
+    <meta property="og:url" content="https://baanphom.vercel.app/booking/book.html">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/book.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+
+
+
+            <!-- Notification Bell (Desktop: shows in menu. Mobile: hidden here, shown outside menu via JS) -->
+            <a href="/notification/notification.html" class="menu-icon notif-icon-container notif-menu-bell"
+                style="position: relative;">
+                <i class="fas fa-bell"></i>
+                <span class="notif-badge" style="display: none;"></span>
+            </a>
+
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <h2 style="margin-left: 80px; color: #5A3E25; font-size: 30px; font-weight: bold;">จองคิว</h2>
+        <div class="all_block">
+            <div class="booking-container">
+                <div class="boxone">
+                    <h3 style="font-size: 20px; font-weight: bold ; color: #aa7a50;">เลือกช่างและบริการ</h3><br>
+                    <div class="form-group">
+                        <label class="form-label">บริการ</label>
+                        <select id="inputService" class="form-input">
+                            <option value="" selected>เลือกบริการ</option>
+                            <option value="ตัด สระ ไดร์">ตัด สระ ไดร์</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">ช่างตัดผม</label>
+                        <select id="barber-select" class="form-input">
+                            <option value="" disabled selected>เลือกช่าง</option>
+                            <!-- Options injected by JS -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">ราคา</label>
+                        <input type="text" id="priceInput" class="form-input" placeholder="ราคา - บาท" readonly>
+                    </div>
+                </div>
+
+                <div class="boxtwo">
+                    <h3 style="font-size: 20px; font-weight: bold ; color: #aa7a50;">เลือกวันและเวลาสัปดาห์นี้</h3><br>
+                    <div class="form-group ">
+                        <label class="form-label">วันที่ต้องการจอง</label>
+                        <div class="date-strip" id="dateStrip">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="timeGridContainer" style="display: none;">
+                        <label class="form-label">เวลาที่ต้องการจอง</label>
+                        <div class="time-grid" id="timeGrid">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_about">
+            <h3 style="font-size: 20px; font-weight: bold ; color: #aa7a50;">ข้อมูลผู้จอง</h3><br>
+            <div class="form-group" style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label class="form-label">ชื่อ</label>
+                    <input type="text" id="userNameInput" class="form-input" placeholder="-" readonly>
+                </div>
+                <div style="flex: 1;">
+                    <label class="form-label">เบอร์โทร</label>
+                    <input type="text" id="bookingPhone" class="form-input" placeholder="-" readonly>
+                </div>
+            </div>
+            <div class="form-group" style="display: flex; margin-top: 20px; gap: 20px;">
+                <div style="flex: 1;">
+                    <label class="form-label">Email</label>
+                    <input type="text" id="bookingEmail" class="form-input" placeholder="-" readonly>
+                </div>
+                <div style="flex: 1;">
+                    <label class="form-label">หมายเหตุ</label>
+                    <input type="text" id="bookingNote" class="form-input" placeholder="-">
+                </div>
+            </div>
+            <button id="btnNext" class="btn-next" style="width: 100%;">ถัดไป</button>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <!-- include useBooking functions globally -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/book.js"></script>
+</body>
+
+</html>

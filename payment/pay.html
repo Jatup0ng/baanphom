@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชำระเงิน - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <!-- Make sure to copy pay.css and other dependencies -->
+    <link rel="stylesheet" href="/css/payment/pay.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <!-- ... Same navbar code ... -->
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <div class="page-header">
+            <h2>ชำระเงิน</h2>
+        </div>
+
+        <div class="payment-titles">
+            <h3>วิธีการชำระเงิน</h3>
+            <h3 class="desktop-only">รายละเอียดการจอง</h3>
+        </div>
+
+        <div class="payment-container">
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="qr-scan" name="payment" value="qr" checked
+                            style="margin-right: 10px; cursor: pointer;">
+                        <label for="qr-scan"
+                            style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">สแกนคิวอาร์โค้ด</label>
+                    </div>
+                    <img src="/images/payment.png" alt="PromptPay" style="height: 75px;">
+                </div>
+
+                <div class="payment-method">
+                    <div style="display: flex; align-items: center;">
+                        <input type="radio" id="tnk" name="payment" value="qr"
+                            style="margin-right: 10px; cursor: pointer;">
+                        <label for="tnk"
+                            style="margin: 0; cursor: pointer; font-weight: bold; color: #5a3e2b;">โอนเงินผ่านเลขบัญชี</label>
+                    </div>
+                    <img src="/images/bank.png" alt="รูปธนาคาร" style="height: 65px;">
+                </div>
+
+                <div style="margin-top:20px">
+                    <a href="/payment/qr.html"><button type="button" id="pay">ชำระเงิน</button></a>
+                </div>
+
+                <div class="warning" style="color: rgb(255, 0, 0); margin-top: 10px; font-size: 14px; ">
+                    <b>
+                        <p>***คำเตือน หากยกเลิกหลังการจอง 1 ชั่วโมง จะไม่สามารถขอเงินคืนได้***</p>
+                    </b>
+                </div>
+            </div>
+
+            <div class="booking-details-card">
+                <div class="detail" style="clear: both; padding: 5px;">
+                    <a href="/booking/book.html" style="text-decoration: none;">
+                        <button id="undo"
+                            style="border: none; background: #60301e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                            <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                        </button>
+                    </a>
+
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                        <span style="margin-left: 10px;" id="pay-service">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                        <span style="margin-left: 10px;" id="pay-datetime">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                        <span style="margin-left: 10px;" id="pay-duration">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                        <span style="margin-left: 10px;" id="pay-price">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+    <script src="/js/pay.js"></script>
+</body>
+
+</html>

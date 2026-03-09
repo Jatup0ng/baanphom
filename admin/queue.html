@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการคิว - BAAN PHOM ADMIN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/admin_layout.css">
+    <link rel="stylesheet" href="/css/admin.css"> <!-- Includes styles for the queue management page -->
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+</head>
+
+<body style="background-color: var(--bg-cream);">
+
+    <!-- Admin Navbar -->
+    <div class="admin-navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/admin/adminhome.html" class="menu-icon">แดชบอร์ด</a>
+            <a href="/admin/queue.html" class="menu-icon active">จัดการคิว</a>
+            <a href="/admin/service.html" class="menu-icon">จัดบริการและช่าง</a>
+            <a href="/admin/time.html" class="menu-icon">จัดตารางเวลา</a>
+
+            <span id="admin-nav" style="position: relative;">
+                <a href="#" class="menu-icon" id="admin-dropdown-trigger">
+                    <i class="fas fa-user-shield"></i>&nbsp;
+                    <span id="admin-name-display">AdminPhontud</span>
+                </a>
+                <div class="dropdown-content" id="admin-dropdown-menu">
+                    <div class="aboutme">
+                        <a href="/admin/profile.html">
+                            <i class="fas fa-user-tie"></i> บัญชีแอดมิน
+                        </a>
+                    </div>
+                    <a href="#" id="admin-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-container">
+        <div id="page-queue">
+            <div class="page-header">
+                <h1>จัดการคิว</h1>
+            </div>
+
+            <div class="queue-management-area">
+                <div class="brown-box-container">
+                    <div class="box-header">กรองข้อมูล</div>
+                    <div class="box-body filter-body">
+                        <div class="filter-row">
+                            <div class="filter-item">
+                                <label>วันที่</label>
+                                <input type="date" class="form-control" id="filter-date">
+                            </div>
+                            <div class="filter-item">
+                                <label>สถานะ</label>
+                                <select class="form-control" id="filter-status">
+                                    <option value="ทั้งหมด">ทั้งหมด</option>
+                                    <option value="รอตัด">รอตัด</option>
+                                    <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="brown-box-container mt-20">
+                    <div class="box-header">รายการคิว</div>
+                    <div class="box-body list-body" id="queue-list-container">
+                        <!-- Table injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/admin_layout.js"></script>
+    <script src="/js/adminqueue.js"></script>
+</body>
+
+</html>

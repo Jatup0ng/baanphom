@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สแกนชำระเงิน - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <!-- Make sure to copy pay.css and other dependencies -->
+    <link rel="stylesheet" href="/css/payment/pay.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+    <style>
+        .status-pending {
+            color: red;
+        }
+
+        .status-success {
+            color: green;
+        }
+
+        /* Loading Popup Overlay */
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-box {
+            background: #fff;
+            border-radius: 16px;
+            width: min(420px, 88vw);
+            aspect-ratio: 4 / 3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        }
+
+        .spinner {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 12px solid #e8d5c0;
+            border-top-color: #8B5E3C;
+            border-right-color: #704c30;
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <!-- ... Same navbar code ... -->
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <br>
+        <div class="page-header">
+            <a href="/payment/pay.html" style="text-decoration: none; color: inherit;">
+                <h2><i class="fas fa-angle-left"></i>&nbsp;สแกนเพื่อชำระเงิน</h2>
+            </a>
+        </div>
+
+        <div class="payment-titles">
+            <h3 style="visibility: hidden;">QR</h3> <!-- Spacer for flex layout -->
+            <h3 class="desktop-only">รายละเอียดการจอง</h3>
+        </div>
+
+        <div class="qrpayment-container">
+            <div class="qrpayment-methods">
+                <img id="dynamic-qr" src="" alt="qr" class="qrpay"
+                    style="min-height: 200px; background-color: #f4f4f4;">
+                <h2 style="color: #704c30; font-size: 30px;" id="qr-amount">- บาท</h2><br>
+                <h2 style="color: #704c30; font-size: 20px;">ชื่อบัญชี : บ้านผมบาร์เบอร์ช็อป </h2>
+                <div class="next-bt">
+                    <button type="button" id="ok" style="display: flex;">บันทึก QR</button>
+                    <button type="button" id="next" style="display: flex;">ยืนยันการโอนเงิน</button>
+                </div>
+            </div>
+
+            <div class="qrbooking-details-card">
+                <div class="detail" style="clear: both; padding: 5px;">
+                    <a href="/booking/book.html" style="text-decoration: none;">
+                        <button id="undo"
+                            style="border: none; background: #60301e; padding: 10px; border-radius: 5px; float: right; cursor: pointer;">
+                            <i class="fas fa-edit" style="color: rgb(255, 255, 255);"></i>
+                        </button>
+                    </a>
+
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                        <span style="margin-left: 10px;" id="qr-service">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                        <span style="margin-left: 10px;" id="qr-datetime">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                        <span style="margin-left: 10px;" id="qr-duration">-</span>
+                    </div>
+                    <div style="margin-bottom: 15px;" class="price">
+                        <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                        <span style="margin-left: 10px;" id="qr-price">-</span>
+                        <span id="qr-payment-status" class="status-pending"
+                            style="margin-left: 10px;">*รอชำระเงิน</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Popup Overlay -->
+    <div id="loading-overlay">
+        <div class="loading-box">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- include useBooking functions globally for handlePayment -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/layout.js"></script>
+    <script src="/js/qr.js"></script>
+</body>
+
+</html>

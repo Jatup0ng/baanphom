@@ -1,0 +1,193 @@
+/* Extracted from layouts/admin.vue */
+
+/* --- 1. Navbar --- */
+.admin-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    height: 90px;
+}
+
+.admin-navbar .logo {
+    font-family: "Rye", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+    font-weight: bold;
+    color: #5A3E25;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -15px;
+}
+
+.admin-navbar .logo .en {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.admin-navbar .logo .th {
+    display: block;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+.admin-navbar .menu-icons {
+    font-size: 14px;
+    color: #5A3E25;
+    cursor: pointer;
+    margin-left: 25px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.admin-navbar .menu-icon {
+    text-decoration: none;
+    color: #442f1c;
+    font-size: 16px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.admin-navbar .menu-icon:hover,
+.admin-navbar .menu-icon.active {
+    text-shadow: 0 0 1px #442f1c, 0 0 1px #442f1c;
+    transform: translateY(-1px);
+    color: #8B5E3C;
+}
+
+/* Dropdown */
+.admin-navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: #fff;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.admin-navbar .dropdown-content.show {
+    display: block;
+}
+
+.admin-navbar .dropdown-content a {
+    color: #333 !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-navbar .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: rgb(255, 0, 0) !important;
+}
+
+.admin-navbar .aboutme a:hover {
+    background-color: #f1f1f1;
+    color: #333 !important;
+}
+
+.admin-container {
+    padding: 20px;
+}
+
+/* Hide mobile hamburger on desktop */
+.admin-mobile-right {
+    display: none;
+}
+
+/* =========================================
+   Responsive Design (Mobile & Tablet)
+   ========================================= */
+@media screen and (max-width: 768px) {
+
+    /* Admin Navbar: row layout, logo left, hamburger right */
+    .admin-navbar {
+        flex-direction: row !important;
+        height: 70px;
+        padding: 5px 15px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .admin-navbar .logo {
+        margin-top: 0;
+        font-size: 20px;
+        text-align: left;
+        margin-right: auto;
+    }
+
+    .admin-navbar .logo .th {
+        display: none;
+    }
+
+    /* Hamburger button (admin) */
+    .admin-mobile-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .hamburger-btn {
+        font-size: 22px;
+        color: #5A3E25;
+        cursor: pointer;
+    }
+
+    /* Slide-down dropdown menu */
+    .admin-navbar .menu-icons {
+        position: absolute !important;
+        top: 70px !important;
+        right: 0 !important;
+        width: 230px !important;
+        height: auto !important;
+        background: #fff !important;
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+        margin-left: 0 !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 0 0 10px 10px !important;
+        z-index: 500 !important;
+        display: none !important;
+    }
+
+    .admin-navbar .menu-icons.active-mobile {
+        display: flex !important;
+    }
+
+    .admin-navbar .menu-icon {
+        padding: 14px 20px !important;
+        font-size: 15px !important;
+        border-bottom: 1px solid #f5f0eb !important;
+        text-align: left !important;
+        width: 100% !important;
+        display: block !important;
+    }
+
+    /* Nested user dropdown inside menu */
+    .admin-navbar .dropdown-content {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        background-color: #fdfafa !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+}

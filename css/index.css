@@ -1,0 +1,163 @@
+/* Styles for index.html extracted from pages/index.vue if any, though it seems they were probably in css/csshome.css */
+@import url('/css/csshome.css');
+/* Assuming csshome.css holds index page styles based on earlier view_dir */
+
+/* Hero section */
+.hero {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+    text-align: center;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Rye', serif;
+}
+
+.hero-title span {
+    color: #E8DCC4;
+    font-size: 1.5rem;
+    display: block;
+    font-family: 'Sarabun', sans-serif;
+}
+
+.book-btn {
+    background: #5A3E25;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.book-btn:hover {
+    background: #442f1c;
+}
+
+section {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title {
+    color: #5A3E25;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.service-card {
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.service-img {
+    width: 200px;
+    object-fit: cover;
+}
+
+.service-info {
+    padding: 20px;
+}
+
+.service-desc {
+    color: #666;
+    margin: 10px 0;
+}
+
+.service-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5A3E25;
+    margin-bottom: 15px;
+}
+
+.service-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-outline {
+    border: 2px solid #5A3E25;
+    background: transparent;
+    color: #5A3E25;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background: #5A3E25;
+    color: white;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.review-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.stars {
+    color: #f39c12;
+    font-size: 0.9rem;
+}
+
+.review-text {
+    color: #666;
+    line-height: 1.5;
+}
+

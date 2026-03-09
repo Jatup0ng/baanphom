@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แดชบอร์ด - BAAN PHOM ADMIN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css"> <!-- Some base styles -->
+    <link rel="stylesheet" href="/css/admin_layout.css">
+    <link rel="stylesheet" href="/css/admin.css"> <!-- Original Admin CSS from assets/css/admin -->
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+</head>
+
+<body style="background-color: var(--bg-cream);">
+
+    <!-- Admin Navbar -->
+    <div class="admin-navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/admin/adminhome.html" class="menu-icon active">แดชบอร์ด</a>
+            <a href="/admin/queue.html" class="menu-icon">จัดการคิว</a>
+            <a href="/admin/service.html" class="menu-icon">จัดบริการและช่าง</a>
+            <a href="/admin/time.html" class="menu-icon">จัดตารางเวลา</a>
+
+            <span id="admin-nav" style="position: relative;">
+                <a href="#" class="menu-icon" id="admin-dropdown-trigger">
+                    <i class="fas fa-user-shield"></i>&nbsp;
+                    <span id="admin-name-display">AdminPhontud</span>
+                </a>
+                <div class="dropdown-content" id="admin-dropdown-menu">
+                    <div class="aboutme">
+                        <a href="/admin/profile.html">
+                            <i class="fas fa-user-tie"></i> บัญชีแอดมิน
+                        </a>
+                    </div>
+                    <a href="#" id="admin-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-container">
+        <div id="page-dashboard">
+            <div class="page-header">
+                <h1>แดชบอร์ด</h1>
+                <p class="date" id="current-date"></p>
+            </div>
+
+            <div class="dashboard-layout">
+                <!-- Left Panel -->
+                <div class="left-panel">
+                    <div class="stat-card card-light-brown">
+                        <h3>คิววันนี้</h3>
+                        <div class="number" id="today-queue-count">0 คิว</div>
+                    </div>
+                    <div class="stat-card card-dark-brown">
+                        <h3>การจองในเดือนนี้</h3>
+                        <div class="number" id="month-queue-count">0 คิว</div>
+                    </div>
+                    <div class="stat-card card-red">
+                        <h3>ยกเลิกการจอง</h3>
+                        <div class="number" id="cancel-queue-count">0 คิว</div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="right-panel">
+                    <h3 class="panel-heading">คิวถัดไป</h3>
+                    <div class="queue-card" id="next-queue-card">
+                        <!-- Injected by JS -->
+                    </div>
+
+                    <h3 class="panel-heading mt-20">ตารางเวลา</h3>
+                    <div class="schedule-container">
+                        <div class="time-list" id="dashboard-time-list">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/admin_layout.js"></script>
+    <script src="/js/adminhome.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การจองคิวสำเร็จ - BAAN PHOM</title>
+    <!-- Open Graph (สำหรับแชร์รุปภาพบน LINE, Facebook) -->
+    <meta property="og:title" content="การจองคิวสำเร็จ - BAAN PHOM">
+    <meta property="og:description" content="ร้านตัดผม บ้านผม บาร์เบอร์ บริการตัดผมสุดพิเศษ จองคิวออนไลน์ง่ายๆ">
+    <meta property="og:image" content="https://baanphom.vercel.app/images/icon.jpg">
+    <meta property="og:image:secure_url" content="https://baanphom.vercel.app/images/icon.jpg">
+    <meta property="og:url" content="https://baanphom.vercel.app/Queue/q.html">
+    <meta property="og:type" content="website">
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/q.css"> <!-- We will create this or inline from q.vue -->
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+    <style>
+        .q_con {
+            background-color: #5A3E25;
+            padding: 60px;
+            color: white;
+            text-align: center;
+            width: 90%;
+            margin: auto;
+            border-radius: 30px;
+            margin-top: 20px;
+
+        }
+
+        .detail {
+            max-width: 90%;
+            margin-left: 60px;
+            padding: 20px;
+            /* border: solid 1px; */
+
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            width: 600px;
+            height: 200px;
+
+
+
+        }
+
+        .btn-rebook {
+            background-color: #60462e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 16px;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .btn-rebook:hover {
+            background-color: #442f1c;
+        }
+
+        .rebook-container {
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+            width: 50%;
+        }
+
+        @media screen and (max-width: 768px) {
+            .q_con {
+                padding: 30px;
+                width: 95%;
+            }
+
+            .detail {
+                margin-left: 0;
+                margin: 0 auto;
+                max-width: 100%;
+            }
+
+            .column {
+                flex-direction: column;
+                gap: 20px !important;
+            }
+
+            .card {
+                width: 100%;
+                height: auto;
+                margin: 0;
+            }
+
+            .rebook-container {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <main>
+        <div>
+            <div class="q_con">
+                <div class="q_text" style="text-align: center;">
+                    <h1>การจองคิวสำเร็จ !</h1>
+                    <h2 id="showQNumber"
+                        style="text-align: center; font-size: 40px; color: #ffffff; margin-bottom: 10px;">-</h2>
+                    <p>ขอบคุณที่ใช้บริการกับบ้านผม บาร์เบอร์</p>
+                    <p>‼️รอรับข้อความแจ้งเตือนเมื่อใกล้ถึงคิวของคุณ‼️</p>
+                </div>
+            </div>
+
+            <div class="detail">
+                <h3 style="margin-top: 20px; color: #aa7a50; font-weight: bold; font-size: 20px;">รายละเอียดการจอง</h3>
+                <div class="column" style="display: flex; gap: 80px;">
+                    <div class="card">
+                        <div style="margin-bottom: 15px;">
+                            <span style="font-weight: bold; color: #8B5E3C;">บริการ:</span>
+                            <span style="margin-left: 10px;" id="q-service">-</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <span style="font-weight: bold; color: #8B5E3C;">วัน เวลา:</span>
+                            <span style="margin-left: 10px;" id="q-datetime">-</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <span style="font-weight: bold; color: #8B5E3C;">ระยะเวลา:</span>
+                            <span style="margin-left: 10px;" id="q-duration">-</span>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <span style="font-weight: bold; color: #8B5E3C;">ค่าบริการ:</span>
+                            <span style="margin-left: 10px;" id="q-price">-</span>
+                            <span class="status-pending"
+                                style="margin-left: 10px;color: rgb(0, 166, 66);font-weight: bold;">*ชำระเงินเสร็จสิ้น</span>
+                        </div>
+                    </div>
+
+                    <div class="rebook-container">
+                        <a href="/booking/book.html"><button class="btn-rebook"
+                                style="width: 100%; margin-top: 5px;">จองอีกครั้ง</button></a>
+                        <a href="/history/history.html"><button class="btn-rebook"
+                                style="width: 100%;">ประวัติการจอง</button></a>
+                        <a href="/index.html"><button class="btn-rebook" style="width: 100%;">กลับหน้าหลัก</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+    <script src="/js/q.js"></script>
+</body>
+
+</html>

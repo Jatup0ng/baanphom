@@ -1,0 +1,813 @@
+/* --- Variables --- */
+:root {
+    --bg-main: #FFFFFF;
+    /* Like --bg-cream */
+    --text-brown: #5A3E25;
+    --panel-dark: #8B5E3C;
+    /* Like --primary-brown */
+    --card-light-brown: #A1887F;
+    --card-dark-brown: #3E2723;
+    --card-red: #C62828;
+    --schedule-bg: #FAF7F2;
+    --border-dashed: #8D6E63;
+    --filter-bg: #8D6E63;
+    --filter-input-bg: #FFFFFF;
+    --header-brown: #5D4037;
+    --body-brown: #8D6E63;
+    --white: #FFFFFF;
+    --card-brown-bg: #8D6E63;
+    --status-green: #00C853;
+    --status-red: #D32F2F;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-brown);
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--bg-main);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 2px solid #D7CCC8; */
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-brown);
+}
+
+.logo-icon {
+    font-size: 32px;
+    transform: rotate(-15deg);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-en {
+    font-family: 'Rye', serif;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.brand-th {
+    font-size: 16px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #8D6E63;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.nav-item.active,
+.nav-item:hover,
+.router-link-active {
+    color: var(--text-brown);
+    font-weight: bold;
+}
+
+/* --- Admin Dropdown --- */
+.admin-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.admin-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--text-brown);
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Sarabun', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    z-index: 100;
+    overflow: hidden;
+    padding: 5px 0;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: var(--text-brown);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+}
+
+.dropdown-content a.logout-link:hover {
+    color: var(--card-red);
+    background-color: #FFF0F0;
+}
+
+/* --- Layout Main --- */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    min-height: 80vh;
+}
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    font-size: 32px;
+    color: var(--text-brown);
+    margin-bottom: 5px;
+}
+
+.page-header .date {
+    color: #8D6E63;
+    font-weight: 500;
+}
+
+/* --- Dashboard Style --- */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-card {
+    height: 150px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.stat-card .number {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.card-light-brown {
+    background-color: var(--card-light-brown);
+}
+
+.card-dark-brown {
+    background-color: var(--card-dark-brown);
+}
+
+.card-red {
+    background-color: var(--card-red);
+}
+
+.right-panel {
+    background-color: var(--panel-dark);
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.panel-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.mt-20 {
+    margin-top: 25px;
+}
+
+.queue-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    color: var(--text-brown);
+}
+
+.user-icon {
+    font-size: 55px;
+    color: var(--text-brown);
+}
+
+.queue-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-row {
+    font-size: 15px;
+}
+
+.btn-call {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #A1887F;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.schedule-container {
+    background-color: var(--schedule-bg);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.time-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.time-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.time-text {
+    width: 65px;
+    text-align: right;
+    font-size: 14px;
+    color: var(--text-brown);
+    font-weight: 500;
+}
+
+.slot-box {
+    flex-grow: 1;
+    border: 1px dashed var(--border-dashed);
+    border-radius: 6px;
+    padding: 8px 15px;
+    color: #888;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slot-box i {
+    color: var(--text-brown);
+    cursor: pointer;
+}
+
+/* --- Queue Management Style --- */
+.queue-management-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.filter-section {
+    background-color: var(--filter-bg);
+    border-radius: 8px;
+    padding: 15px 20px;
+    color: white;
+}
+
+.filter-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.filter-inputs {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.form-control {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: var(--filter-input-bg);
+    color: var(--text-brown);
+    font-family: 'Sarabun', sans-serif;
+}
+
+.list-section {
+    border: 2px solid var(--filter-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.list-header {
+    background-color: var(--filter-bg);
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.list-body {
+    background-color: #fff;
+    padding: 20px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.empty-state {
+    color: #999;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Brown Box (from Queue.css) --- */
+.brown-box-container {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.box-header {
+    background-color: var(--header-brown);
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.box-body {
+    background-color: var(--body-brown);
+    padding: 20px;
+}
+
+.filter-body {
+    padding: 25px 30px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.filter-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 150px;
+}
+
+.filter-item label {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.white-inner-box {
+    background-color: var(--white);
+    border-radius: 6px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-brown);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* --- Queue List layout --- */
+/* กล่องหัวข้อ: มีกรอบ border แยกชัดเจน */
+.q-header-row {
+    display: grid;
+    grid-template-columns: 20% 25% 15% 10% 10% 20%;
+    background-color: #f4f4f4;
+    padding: 14px 20px;
+    border-radius: 8px;
+    /* border: 2px solid #c5aa98; */
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--text-brown);
+    align-items: center;
+}
+
+/* กล่องข้อมูล: กรอบ border แยกอยู่ข้างล่าง */
+.q-data-container {
+    background-color: var(--white);
+    border-radius: 8px;
+    /* border: 2px solid #c5aa98; */
+    padding: 5px 0;
+    width: 100%;
+}
+
+/* แต่ละแถวข้อมูล คั่นด้วยเส้นประ */
+.q-data-line {
+    display: grid;
+    grid-template-columns: 20% 25% 15% 10% 10% 20%;
+    padding: 14px 20px;
+    align-items: center;
+    border-bottom: 2px dashed #d1c4b9;
+    color: var(--text-brown);
+}
+
+.q-data-line:last-child {
+    border-bottom: none;
+}
+
+/* cell ทั่วไป */
+.q-col {
+    padding: 0 8px;
+    word-break: break-word;
+}
+
+
+
+/* ================== CSS จาก Service.css ================== */
+
+/* Table Card (Services) */
+.table-card {
+    background-color: var(--card-brown-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.table-header-row {
+    background-color: #7B5E50;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.table-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.search-box {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+}
+
+.table-content {
+    background-color: white;
+    padding: 20px;
+    margin: 0 15px;
+    border-radius: 4px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    text-align: left;
+    background-color: #f4f4f4;
+    padding: 10px;
+    font-weight: bold;
+    color: var(--text-brown);
+}
+
+.data-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.img-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #ddd;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-desc {
+    font-size: 12px;
+    color: #888;
+}
+
+.status-pill {
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 60px;
+}
+
+.status-on {
+    background-color: var(--status-green);
+}
+
+.status-off {
+    background-color: var(--status-red);
+}
+
+.btn-edit {
+    background-color: #795548;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.table-footer-btn {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.table-footer-btn button {
+    width: 100%;
+    background-color: white;
+    color: var(--text-brown);
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ================== CSS จาก Time.css ================== */
+
+/* Dropdown เลือกช่าง */
+.schedule-selector-area {
+    margin-bottom: 20px;
+}
+
+.schedule-dropdown {
+    width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #8D6E63;
+    border-radius: 6px;
+    font-size: 16px;
+    color: var(--text-brown);
+    font-family: 'Sarabun', sans-serif;
+    font-weight: bold;
+    outline: none;
+    margin-bottom: 15px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.instruction-bar {
+    background-color: #8D6E63;
+    /* สีน้ำตาลแถบยาว */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* ตาราง Grid */
+.schedule-table-wrapper {
+    background-color: white;
+    border-radius: 6px;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+.schedule-grid {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.schedule-grid th {
+    border: 1px solid #8D6E63;
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--text-brown);
+    background-color: #eee;
+}
+
+.schedule-grid td {
+    border: 1px solid #8D6E63;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.day-cell {
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--text-brown);
+    text-align: left !important;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-select-all {
+    display: block;
+    margin-top: 5px;
+    font-size: 10px;
+    background: #eee;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 2px 5px;
+}
+
+/* Checkbox ขนาดใหญ่ขึ้นนิดนึง */
+.schedule-grid input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ส่วนวันหยุด (2 กล่องล่าง) */
+.holiday-section-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.holiday-box {
+    flex: 1;
+    min-width: 300px;
+}
+
+.holiday-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.holiday-body label {
+    color: white;
+    margin-bottom: 5px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+    }
+
+    .table-content {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        min-width: 600px;
+    }
+
+    .q-header-row {
+        display: none;
+        /* Hide header row on mobile, rely on cards instead */
+    }
+
+    .q-data-container {
+        padding: 10px;
+    }
+
+    .q-data-line {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border: 1px solid #d1c4b9;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        padding: 15px;
+        position: relative;
+    }
+
+    .q-col {
+        width: 100%;
+        padding: 5px 0;
+    }
+
+    .filter-inputs {
+        flex-direction: column;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* ซ่อนปุ่มโทรในหน้าจัดการคิวสำหรับมือถือและไอแพด (max-width: 1024px) */
+@media (max-width: 1024px) {
+    #page-queue .btn-call {
+        display: none !important;
+    }
+}

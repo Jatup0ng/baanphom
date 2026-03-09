@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติการจอง - BAAN PHOM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/history/history.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/index.html" class="menu-icon">หน้าแรก</a>
+            <a href="/booking/book.html" class="menu-icon">จองคิว</a>
+            <span id="guest-nav">
+                <a href="#" class="menu-icon" onclick="openLogin()">เข้าสู่ระบบ</a>
+            </span>
+            <a href="/history/history.html" class="menu-icon">ประวัติ</a>
+
+
+
+            <!-- Notification Bell (Desktop: shows in menu. Mobile: hidden here, shown outside menu via JS) -->
+            <a href="/notification/notification.html" class="menu-icon notif-icon-container notif-menu-bell"
+                style="position: relative;">
+                <i class="fas fa-bell"></i>
+                <span class="notif-badge" style="display: none;"></span>
+            </a>
+
+            <span id="member-nav" style="display: none; position: relative;">
+                <a href="#" class="menu-icon" onclick="toggleDropdown()">
+                    <i class="fas fa-user-tie"></i>&nbsp;
+                    <span id="user-name-display"></span>
+                </a>
+                <div id="userDropdown" class="dropdown-content">
+                    <div class="aboutme">
+                        <a href="/data-profile/data.html">
+                            <i class="fas fa-user-tie"></i> ข้อมูลส่วนตัว
+                        </a>
+                    </div>
+                    <a href="#" onclick="logout()" id="logoutword">
+                        <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                    </a>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <main>
+        <br>
+        <h2 style="margin-left: 80px;color: #5A3E25; font-size: 30px; font-weight: bold;">ประวัติการจอง</h2><br>
+        <h3 style=" margin-left: 80px; font-size: 20px; font-weight: bold ; color: #aa7a50;">-วันนี้</h3><br>
+
+        <div class="container" id="history-container" style="padding-left: 0px; max-width: 500px; margin-left: 5%;">
+            <!-- History list will be rendered here via JS -->
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- (Using layout.js for handling the auth modals dynamically or copy them if strictly needed, but since we extract layot, we'll keep them here for now) -->
+    <div id="loginModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeLogin()">x</span>
+            <h2 style="color: #5A3E25; margin-bottom: 5px;">ยินดีต้อนรับสู่ BAAN PHOM</h2>
+            <h3 style="color: #5A3E25; margin-bottom: 20px;">เข้าสู่ระบบสมาชิก</h3>
+            <div class="form-group">
+                <label class="form-label">ชื่อผู้ใช้</label>
+                <input type="text" id="username-input" class="form-input" placeholder="ชื่อผู้ใช้">
+            </div>
+            <div class="form-group">
+                <label class="form-label">รหัสผ่าน</label>
+                <input type="password" id="password-input" class="form-input" placeholder="รหัสผ่าน">
+            </div>
+            <button class="login-btn" onclick="performLogin()">เข้าสู่ระบบ</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/layout.js"></script>
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/history.js"></script>
+</body>
+
+</html>
