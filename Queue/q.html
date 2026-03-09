@@ -25,8 +25,12 @@
     <link rel="stylesheet" href="/css/q.css"> <!-- We will create this or inline from q.vue -->
     <link rel="website icon" type="png" href="/images/icon.jpg">
     <style>
+        * {
+            font-family: 'Sarabun', sans-serif;
+        }
+
         .q_con {
-            background-color: #5A3E25;
+            background: linear-gradient(135deg, #804000 10%, #a65e1a 100%);
             padding: 60px;
             color: white;
             text-align: center;
@@ -34,52 +38,103 @@
             margin: auto;
             border-radius: 30px;
             margin-top: 20px;
-
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .detail {
             max-width: 90%;
             margin-left: 60px;
             padding: 20px;
-            /* border: solid 1px; */
-
         }
 
         .card {
             background: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             margin: 20px 0;
             width: 600px;
             height: 200px;
-
-
-
-        }
-
-        .btn-rebook {
-            background-color: #60462e;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-            font-size: 16px;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        .btn-rebook:hover {
-            background-color: #442f1c;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .rebook-container {
-            display: grid;
-            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             margin-top: 20px;
             width: 50%;
+        }
+
+        .btn-main {
+            background-color: #4B2C0A;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 16px;
+            transition: 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: #FFF8F0;
+            color: #4B2C0A;
+            border: 3px solid #4B2C0A;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 16px;
+            transition: 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-rebook {
+            background-color: #FFF8F0;
+            color: #98642c;
+            border: 3px solid #98642c;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 16px;
+            transition: 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-main:hover {
+            background-color: #351f07;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:hover {
+            background-color:#f7eadc;
+            transform: translateY(-1px);
+        }
+
+        .btn-rebook:hover {
+            background-color: #f7eadc;
+            transform: translateY(-1px);
         }
 
         @media screen and (max-width: 768px) {
@@ -187,11 +242,21 @@
                     </div>
 
                     <div class="rebook-container">
-                        <a href="/booking/book.html"><button class="btn-rebook"
-                                style="width: 100%; margin-top: 5px;">จองอีกครั้ง</button></a>
-                        <a href="/history/history.html"><button class="btn-rebook"
-                                style="width: 100%;">ประวัติการจอง</button></a>
-                        <a href="/index.html"><button class="btn-rebook" style="width: 100%;">กลับหน้าหลัก</button></a>
+                        <a href="/index.html" style="text-decoration: none;">
+                            <button class="btn-main">
+                                <i class="fas fa-home"></i> กลับหน้าหลัก
+                            </button>
+                        </a>
+                        <a href="/history/history.html" style="text-decoration: none;">
+                            <button class="btn-secondary">
+                                ประวัติการจอง
+                            </button>
+                        </a>
+                        <a href="/booking/book.html" style="text-decoration: none;">
+                            <button class="btn-rebook">
+                                จองอีกครั้ง
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
