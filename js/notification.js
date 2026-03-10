@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentUser = JSON.parse(localStorage.getItem("bp_currentUser"));
 
     if (!isLoggedIn || !currentUser) {
-        alert("กรุณาเข้าสู่ระบบก่อนดูการแจ้งเตือน");
-        window.location.href = '/index.html';
+        bpAlert.error("⛔ เข้าสู่ระบบ", "กรุณาเข้าสู่ระบบก่อนดูการแจ้งเตือนครับผม").then(() => {
+            window.location.href = '/index.html';
+        });
         return;
     }
 

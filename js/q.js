@@ -16,15 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const stored = localStorage.getItem('tempBooking');
 
     if (!stored) {
-        alert("❌ ไม่พบข้อมูลการจอง! (คุณอาจจะกดรีเฟรชหน้าคิวเล่นๆ ให้กลับไปจองใหม่)");
-        window.location.href = "/index.html";
+        bpAlert.error("ไม่พบข้อมูล", "ไม่พบข้อมูลการจอง! กรุณาลองจองใหม่อีกครั้งครับผม").then(() => {
+            window.location.href = "/index.html";
+        });
         return;
     }
 
     const data = JSON.parse(stored);
 
     if (!data.queueID) {
-        alert("❌ ข้อมูลมาแล้ว แต่ไม่มีเลขคิว! (โค้ดหน้า Pay อาจจะยังไม่บันทึก)");
+        bpAlert.error("เกิดข้อผิดพลาด", "ระบบไม่สามารถดึงเลขคิวได้ กรุณาติดต่อแอดมินหรือลองใหม่อีกครั้งครับผม");
         return;
     }
 

@@ -28,12 +28,12 @@ function openResetPassword() {
     const email = document.getElementById("forgot-email").value.trim();
 
     if (!email.includes("@")) {
-        alert("กรุณากรอกอีเมลก่อนกด รับรหัส OTP");
+        bpAlert.error("อีเมลไม่ถูกต้อง", "กรุณากรอกอีเมลก่อนกด รับรหัส OTP ครับผม");
         return;
     }
 
     if (otp !== FIXED_OTP) {
-        alert("รหัส OTP ไม่ถูกต้อง! (รหัสคือ " + FIXED_OTP + ")");
+        bpAlert.error("รหัสไม่ถูกต้อง", "รหัส OTP ที่คุณกรอกไม่ถูกต้องครับผม (รหัสคือ " + FIXED_OTP + ")");
         return;
     }
 
@@ -41,7 +41,7 @@ function openResetPassword() {
     const users = (typeof getUsers === "function") ? getUsers() : JSON.parse(localStorage.getItem("bp_users") || "[]");
     const user = users.find(u => u.email === email);
     if (!user) {
-        alert("ไม่พบบัญชีที่ใช้อีเมลนี้ กรุณาตรวจสอบอีกครั้ง");
+        bpAlert.error("ไม่พบข้อมูล", "ไม่พบบัญชีที่ใช้อีเมลนี้ในระบบครับผม กรุณาตรวจสอบอีกครั้ง");
         return;
     }
 
@@ -60,12 +60,11 @@ function closeResetPassword() {
 }
 
 function handleSendOTP() {
-    const email = document.getElementById("forgot-email").value.trim();
     if (!email.includes("@")) {
-        alert("กรุณากรอกรูปแบบอีเมลให้ถูกต้อง");
+        bpAlert.error("รูปแบบไม่ถูกต้อง", "กรุณากรอกรูปแบบอีเมลให้ถูกต้องด้วยครับผม");
         return;
     }
-    alert("ระบบได้ส่งรหัส OTP ไปที่อีเมล " + email + " แล้ว\n(รหัส OTP: " + FIXED_OTP + ")");
+    bpAlert.success("ส่ง OTP สำเร็จ", "ระบบได้ส่งรหัส OTP ไปที่อีเมล " + email + " เรียบร้อยแล้วครับผม\n(รหัส OTP: " + FIXED_OTP + ")");
 }
 
 function handleUpdatePassword() {
@@ -73,19 +72,19 @@ function handleUpdatePassword() {
     const p2 = document.getElementById("confirm-new-password").value;
 
     if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(p1)) {
-        alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+        bpAlert.error("รหัสผ่านไม่ปลอดภัย", "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้นครับผม");
         return;
     }
     if (p1.length < 8) {
-        alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+        bpAlert.error("รหัสผ่านสั้นเกินไป", "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษรครับผม");
         return;
     }
     if (!/[A-Z]/.test(p1)) {
-        alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
+        bpAlert.error("รหัสผ่านไม่ถูกต้อง", "รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัวครับผม");
         return;
     }
     if (p1 !== p2) {
-        alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
+        bpAlert.error("รหัสผ่านไม่ตรงกัน", "รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกันครับผม");
         return;
     }
 
@@ -93,7 +92,7 @@ function handleUpdatePassword() {
     const users = (typeof getUsers === "function") ? getUsers() : JSON.parse(localStorage.getItem("bp_users") || "[]");
     const idx = users.findIndex(u => u.email === _forgotEmail);
     if (idx === -1) {
-        alert("ไม่พบบัญชีนี้ในระบบ");
+        bpAlert.error("ผิดพลาด", "ไม่พบบัญชีนี้ในระบบครับผม");
         return;
     }
 
@@ -111,10 +110,11 @@ function handleUpdatePassword() {
         }
     }
 
-    alert("เปลี่ยนรหัสผ่านสำเร็จ! กรุณาล็อกอินด้วยรหัสผ่านใหม่");
-    closeResetPassword();
-    _forgotEmail = "";
-    openLogin();
+    bpAlert.success("เปลี่ยนรหัสผ่านสำเร็จ", "กรุณาล็อกอินด้วยรหัสผ่านใหม่ได้ทันทีครับผม").then(() => {
+        closeResetPassword();
+        _forgotEmail = "";
+        openLogin();
+    });
 }
 
 // ---- Global Export ----

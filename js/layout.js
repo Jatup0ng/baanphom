@@ -245,35 +245,35 @@ function performRegister() {
 
     // Validation
     if (!firstName || !phone || !email || !password || !confirm) {
-        alert("กรุณากรอกข้อมูลให้ครบ (ชื่อ, เบอร์โทร, อีเมล, รหัสผ่าน)");
+        bpAlert.error("ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบ (ชื่อ, เบอร์โทร, อีเมล, รหัสผ่าน)");
         return;
     }
     if (!email.includes("@")) {
-        alert("กรุณากรอกอีเมลให้ถูกต้อง");
+        bpAlert.error("อีเมลไม่ถูกต้อง", "กรุณากรอกรูปแบบอีเมลให้ถูกต้องครับ");
         return;
     }
     // Password: English only, min 8 chars, at least 1 uppercase
     if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(password)) {
-        alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+        bpAlert.error("รหัสผ่านไม่ถูกต้อง", "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
         return;
     }
     if (password.length < 8) {
-        alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+        bpAlert.error("รหัสผ่านสั้นเกินไป", "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
         return;
     }
     if (!/[A-Z]/.test(password)) {
-        alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
+        bpAlert.error("รหัสผ่านไม่ปลอดภัย", "รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
         return;
     }
     if (password !== confirm) {
-        alert("รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน");
+        bpAlert.error("รหัสผ่านไม่ตรงกัน", "รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง");
         return;
     }
 
     const users = getUsers();
     const duplicate = users.find(u => u.email === email || u.phone === phone);
     if (duplicate) {
-        alert("อีเมลหรือเบอร์โทรนี้ถูกใช้งานแล้ว กรุณาตรวจสอบ");
+        bpAlert.error("ข้อมูลซ้ำ", "อีเมลหรือเบอร์โทรนี้ถูกใช้งานแล้ว กรุณาตรวจสอบ");
         return;
     }
 
@@ -281,11 +281,10 @@ function performRegister() {
     users.push(newUser);
     saveUsers(users);
 
-    // Auto login after register
-    saveCurrentUser(newUser);
-    closeRegister();
-    updateNavToMember(firstName);
-    alert("สมัครสมาชิกสำเร็จ! ยินดีต้อนรับ " + firstName + " 🎉");
+    bpAlert.success("สมัครสมาชิกสำเร็จ!", `ยินดีต้อนรับคุณ ${firstName} 🎉`).then(() => {
+        closeRegister();
+        updateNavToMember(firstName);
+    });
 }
 
 // ---- Login ----
@@ -307,7 +306,7 @@ function performLogin() {
     }
 
     if (!inputUsername || !inputPassword) {
-        alert("กรุณากรอกชื่อผู้ใช้และรหัสผ่าน");
+        bpAlert.error("แจ้งเตือน", "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน");
         return;
     }
 
@@ -319,7 +318,7 @@ function performLogin() {
     );
 
     if (!user) {
-        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+        bpAlert.error("ผิดพลาด", "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
         return;
     }
 
@@ -341,10 +340,12 @@ function toggleDropdown(e) {
 
 function logout(e) {
     if (e) e.preventDefault();
-    if (confirm("ต้องการออกจากระบบใช่หรือไม่?")) {
-        clearSession();
-        window.location.href = "/index.html";
-    }
+    bpAlert.confirm("ออกจากระบบ", "คุณต้องการออกจากระบบใช่หรือไม่?").then((result) => {
+        if (result.isConfirmed) {
+            clearSession();
+            window.location.href = "/index.html";
+        }
+    });
 }
 
 // ---- Global Export ----

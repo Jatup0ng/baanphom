@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Check Login
     const status = localStorage.getItem("isLoggedIn");
     if (status !== "yes") {
-        alert("⛔ กรุณาเข้าสู่ระบบ");
-        window.location.href = "/index.html";
+        bpAlert.error("⛔ เข้าสู่ระบบ", "กรุณาเข้าสู่ระบบก่อนดำเนินการต่อครับ").then(() => {
+            window.location.href = "/index.html";
+        });
         return;
     }
 
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.location.href = "/payment/bank.html";
                 }
             } else {
-                alert("กรุณาเลือกวิธีการชำระเงิน");
+                bpAlert.error("ข้อมูลไม่ครบ", "กรุณาเลือกวิธีการชำระเงินก่อนกดยืนยันครับ");
             }
         });
     }

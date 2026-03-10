@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const status = localStorage.getItem("isLoggedIn");
     const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
     if (status !== "yes" || !currentUser) {
-        alert("⛔ กรุณาเข้าสู่ระบบ");
-        window.location.href = "/index.html";
+        bpAlert.error("⛔ เข้าสู่ระบบ", "กรุณาเข้าสู่ระบบก่อนดำเนินการต่อครับ").then(() => {
+            window.location.href = "/index.html";
+        });
         return;
     }
 
@@ -66,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 1. Validate Slip
         if (!slipInput.files || slipInput.files.length === 0) {
-            alert("❌ กรุณาแนบสลิปการโอนเงินก่อนกดยืนยัน");
+            bpAlert.error("❌ ไม่พบสลิป", "กรุณาแนบสลิปการโอนเงินก่อนกดยืนยันด้วยครับผม");
             return;
         }
 
@@ -74,8 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.useBooking) {
             const isAvailable = window.useBooking.isSlotAvailable(data.date, data.time, data.barber);
             if (!isAvailable) {
-                alert("❌ ขออภัย คิวเวลานี้เพิ่งถูกจองไปเมื่อสักครู่ กรุณากลับไปเลือกเวลาใหม่น้าา");
-                window.location.href = "/booking/book.html";
+                bpAlert.error("❌ คิวไม่ว่าง", "ขออภัย คิวเวลานี้เพิ่งถูกจองไปเมื่อสักครู่ กรุณากลับไปเลือกเวลาใหม่น้าา").then(() => {
+                    window.location.href = "/booking/book.html";
+                });
                 return;
             }
         }

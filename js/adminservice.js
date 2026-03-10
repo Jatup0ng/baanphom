@@ -95,38 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener('click', (e) => {
                 const idx = e.currentTarget.getAttribute('data-index');
                 const s = services[idx];
-                const newName = prompt('แก้ไขชื่อบริการ:', s.name);
-                if (newName) {
-                    const newDesc = prompt('แก้ไขรายละเอียดบริการ:', s.desc || '');
-                    if (newDesc !== null) {
-                        const newPrice = prompt('แก้ไขราคา (บาท):', s.price);
-                        if (newPrice) {
-                            if (confirm('คุณต้องการเปลี่ยนรูปภาพบริการด้วยหรือไม่?')) {
-                                if (imageInput) {
-                                    currentEditServiceId = s.id;
-                                    currentEditData = { name: newName, desc: newDesc, price: newPrice };
-                                    imageInput.click();
-                                }
-                            } else {
-                                if (window.useBooking) {
-                                    window.useBooking.updateService(s.id, { name: newName, desc: newDesc, price: newPrice });
-                                    loadData();
-                                }
-                            }
-                        }
-                    }
-                }
+                // เปลี่ยนจาก prompt เป็นการ Redirect ไปหน้าแก้ไขใหม่
+                window.location.href = `/admin/edit-service.html?id=${s.id}`;
             });
         });
         servicesTbody.querySelectorAll('.btn-delete-service').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const idx = e.currentTarget.getAttribute('data-index');
-                if (confirm('คุณต้องการลบบริการนี้ใช่หรือไม่?')) {
-                    if (window.useBooking) {
-                        window.useBooking.deleteService(services[idx].id);
-                        loadData();
+                bpAlert.confirm('ยืนยันการลบ', `คุณต้องการลบบริการ "${services[idx].name}" ใช่หรือไม่?`).then((result) => {
+                    if (result.isConfirmed) {
+                        if (window.useBooking) {
+                            window.useBooking.deleteService(services[idx].id);
+                            loadData();
+                            bpAlert.success('ลบสำเร็จ', 'บริการถูกลบออกเรียบร้อยแล้ว');
+                        }
                     }
-                }
+                });
             });
         });
     }
@@ -146,9 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const statusText = barber.active ? 'พร้อม' : 'ไม่พร้อม';
 
             tr.innerHTML = `
-                <td><div class="item-name">${barber.name}</div><div class="item-desc">ช่างประจำร้าน</div></td>
-                <td>ตัดผม</td>
-                <td>0 บาท</td>
+                <td><div class="item-name">${barber.name}</div></td>
+                <td>${barber.service || 'ตัดผม'}</td>
+                <td>${barber.additionalFee || 0} บาท</td>
                 <td>
                     <button class="status-pill ${statusClass}" data-index="${index}">
                         ${statusText}
@@ -183,70 +167,35 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener('click', (e) => {
                 const idx = e.currentTarget.getAttribute('data-index');
                 const b = barbers[idx];
-                const newName = prompt('แก้ไขชื่อช่างตัดผม:', b.name);
-                if (newName && newName.trim() !== '') {
-                    if (window.useBooking) {
-                        window.useBooking.updateBarber(b.id, newName.trim());
-                        loadData();
-                    }
-                }
+                // เปลี่ยนเป็น Redirect ไปหน้าแก้ไขช่าง
+                window.location.href = `/admin/edit-barber.html?id=${b.id}`;
             });
         });
         barbersTbody.querySelectorAll('.btn-delete-barber').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const idx = e.currentTarget.getAttribute('data-index');
-                if (confirm('คุณต้องการลบช่างนี้ใช่หรือไม่?')) {
-                    if (window.useBooking) {
-                        window.useBooking.deleteBarber(barbers[idx].id);
-                        loadData();
+                bpAlert.confirm('ยืนยันการลบช่าง', `คุณต้องการลบช่าง "${barbers[idx].name}" ใช่หรือไม่?`).then((result) => {
+                    if (result.isConfirmed) {
+                        if (window.useBooking) {
+                            window.useBooking.deleteBarber(barbers[idx].id);
+                            loadData();
+                            bpAlert.success('ลบสำเร็จ', 'ช่างถูกลบออกจากระบบแล้ว');
+                        }
                     }
-                }
+                });
             });
         });
     }
 
     btnAddBarber.addEventListener('click', () => {
-        const name = prompt("กรุณากรอกชื่อช่างใหม่:");
-        if (name) {
-            if (name.trim() === '') return;
-
-            const newB = {
-                id: Date.now().toString(),
-                name: name.trim(),
-                active: true
-            };
-
-            if (window.useBooking) {
-                window.useBooking.addBarber(newB);
-                loadData();
-            }
-        }
+        // เปลี่ยนเป็น Redirect ไปหน้าเพิ่มช่างใหม่
+        window.location.href = '/admin/edit-barber.html';
     });
 
     if (btnAddService) {
         btnAddService.addEventListener('click', () => {
-            const name = prompt("กรุณากรอกชื่อบริการใหม่:");
-            if (name && name.trim() !== '') {
-                const desc = prompt("รายละเอียดบริการ:");
-                if (desc !== null) {
-                    const price = prompt("ราคา (บาท):");
-                    if (price) {
-                        const newS = {
-                            id: Date.now().toString(),
-                            image: '/images/s.png',
-                            name: name.trim(),
-                            desc: desc.trim(),
-                            duration: '60 นาที',
-                            price: price + (!price.includes('บาท') ? ' บาท' : ''),
-                            active: true
-                        };
-                        if (window.useBooking) {
-                            window.useBooking.addService(newS);
-                            loadData();
-                        }
-                    }
-                }
-            }
+            // เปลี่ยนเป็น Redirect ไปหน้าเพิ่มบริการใหม่
+            window.location.href = '/admin/edit-service.html';
         });
     }
 

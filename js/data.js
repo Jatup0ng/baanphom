@@ -8,8 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
 
     if (!currentUser) {
-        alert("กรุณาเข้าสู่ระบบก่อน");
-        window.location.href = "/index.html";
+        bpAlert.error("⛔ เข้าสู่ระบบ", "กรุณาเข้าสู่ระบบก่อนดำเนินการต่อครับผม").then(() => {
+            window.location.href = "/index.html";
+        });
         return;
     }
 
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Edit First Name ----
     setupInlineEdit("profile-firstname", "firstName", "btn-edit-firstname", "text-edit-firstname", {
         validate: (val) => {
-            if (!val) { alert("กรุณากรอกชื่อ"); return false; }
+            if (!val) { bpAlert.error("ข้อมูลไม่ครบ", "กรุณากรอกชื่อด้วยครับผม"); return false; }
             return true;
         },
         onSave: () => {
@@ -102,15 +103,15 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 const newPass = passInput.value;
                 if (!/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/.test(newPass)) {
-                    alert("รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้น");
+                    bpAlert.error("รหัสผ่านไม่ปลอดภัย", "รหัสผ่านต้องเป็นตัวอักษรภาษาอังกฤษเท่านั้นครับผม");
                     return;
                 }
                 if (newPass.length < 8) {
-                    alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+                    bpAlert.error("รหัสผ่านสั้นเกินไป", "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษรครับผม");
                     return;
                 }
                 if (!/[A-Z]/.test(newPass)) {
-                    alert("รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว");
+                    bpAlert.error("รหัสผ่านไม่ถูกต้อง", "รหัสผ่านต้องมีตัวพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัวครับผม");
                     return;
                 }
                 saveField("password", newPass);
@@ -125,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (togglePassBtn) togglePassBtn.style.display = "none";
 
-                alert("บันทึกรหัสผ่านเรียบร้อยแล้ว!");
+                bpAlert.success("บันทึกสำเร็จ", "บันทึกรหัสผ่านใหม่เรียบร้อยแล้วครับผม");
             }
         });
     }
@@ -133,16 +134,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Edit Phone (with inline toggle) ----
     setupInlineEdit("profile-phone", "phone", "btn-edit-phone", "text-edit-phone", {
         validate: (val) => {
-            if (!val) { alert("กรุณากรอกเบอร์โทร"); return false; }
+            if (!val) { bpAlert.error("ข้อมูลไม่ครบ", "กรุณากรอกเบอร์โทรศัพท์ด้วยครับผม"); return false; }
             if (val.length !== 10 || !/^[0-9]+$/.test(val)) {
-                alert("กรุณากรอกเบอร์โทรให้ถูกต้อง (ตัวเลข 10 หลัก)");
+                bpAlert.error("ข้อมูลไม่ถูกต้อง", "กรุณากรอกเบอร์โทรให้ถูกต้อง (ตัวเลข 10 หลัก) ครับผม");
                 return false;
             }
             // Duplicate check
             const users = JSON.parse(localStorage.getItem("bp_users") || "[]");
             const duplicate = users.find(u => u.phone === val && u.email !== currentUser.email);
             if (duplicate) {
-                alert("เบอร์โทรศัพท์นี้ถูกใช้งานแล้ว");
+                bpAlert.error("เบอร์ซ้ำในระบบ", "เบอร์โทรศัพท์นี้ถูกใช้งานแล้วครับผม");
                 return false;
             }
             return true;
@@ -152,16 +153,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // ---- Edit Email (with inline toggle) ----
     setupInlineEdit("profile-email", "email", "btn-edit-email", "text-edit-email", {
         validate: (val) => {
-            if (!val) { alert("กรุณากรอกอีเมล"); return false; }
+            if (!val) { bpAlert.error("ข้อมูลไม่ครบ", "กรุณากรอกอีเมลด้วยครับผม"); return false; }
             if (!val.includes("@")) {
-                alert("กรุณากรอกอีเมลให้ถูกต้อง");
+                bpAlert.error("รูปแบบไม่ถูกต้อง", "กรุณากรอกอีเมลให้ถูกต้องด้วยครับผม");
                 return false;
             }
             // Duplicate check
             const users = JSON.parse(localStorage.getItem("bp_users") || "[]");
             const duplicate = users.find(u => u.email === val && u.email !== currentUser.email);
             if (duplicate) {
-                alert("อีเมลนี้ถูกใช้งานแล้ว");
+                bpAlert.error("อีเมลซ้ำในระบบ", "อีเมลนี้ถูกใช้งานไปแล้วครับผม");
                 return false;
             }
             return true;
@@ -189,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (options.validate) {
                     if (!options.validate(val)) return;
                 } else {
-                    if (!val && fieldKey !== "lastName") { alert("กรุณากรอกข้อมูล"); return; }
+                    if (!val && fieldKey !== "lastName") { bpAlert.error("ข้อมูลไม่ครบ", "กรุณากรอกข้อมูลให้ครบถ้วนด้วยครับผม"); return; }
                 }
                 saveField(fieldKey, val);
                 if (options.onSave) options.onSave();
@@ -199,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.style.color = "#5D3A1A";
                 btn.querySelector("i").className = "fas fa-edit";
                 if (txt) txt.innerText = "แก้ไข";
-                alert("บันทึกข้อมูลเรียบร้อยแล้ว!");
+                bpAlert.success("บันทึกสำเร็จ", "ข้อมูลได้รับการบันทึกเรียบร้อยแล้วครับผม");
             }
         });
     }

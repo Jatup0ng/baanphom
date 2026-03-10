@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">จัดการบริการ - BAAN PHOM ADMIN</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Rye&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/admin_layout.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="website icon" type="png" href="/images/icon.jpg">
+</head>
+
+<body style="background-color: var(--bg-cream);">
+
+    <!-- Admin Navbar -->
+    <div class="admin-navbar">
+        <div class="logo">
+            <i class="fas fa-cut"></i>
+            <div class="text">
+                <span class="en">BAAN PHOM</span>
+                <span class="th">บ้านผม บาร์เบอร์</span>
+            </div>
+        </div>
+        <div class="menu-icons">
+            <a href="/admin/adminhome.html" class="menu-icon">แดชบอร์ด</a>
+            <a href="/admin/queue.html" class="menu-icon">จัดการคิว</a>
+            <a href="/admin/service.html" class="menu-icon active">จัดบริการและช่าง</a>
+            <a href="/admin/time.html" class="menu-icon">จัดตารางเวลา</a>
+
+            <span id="admin-nav" style="position: relative;">
+                <a href="#" class="menu-icon" id="admin-dropdown-trigger">
+                    <i class="fas fa-user-shield"></i>&nbsp;
+                    <span id="admin-name-display">Admin</span>
+                </a>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-container">
+        <div class="edit-form-card">
+            <h2 id="form-title"><i class="fas fa-edit"></i> แก้ไขข้อมูลบริการ</h2>
+            <p id="form-subtitle" style="color: #888;">ปรับแต่งรายละเอียดบริการของคุณให้ดูน่าสนใจ</p>
+
+            <form id="edit-service-form">
+                <div class="image-upload-wrapper">
+                    <div class="image-preview-container" id="image-preview-btn">
+                        <img src="/images/s.png" id="service-img-preview" alt="Service Image">
+                        <div class="upload-overlay">
+                            <i class="fas fa-camera"></i> เปลี่ยนรูปภาพ
+                        </div>
+                    </div>
+                    <input type="file" id="service-image-input" accept="image/*" style="display:none">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ชื่อบริการ</label>
+                    <input type="text" id="service-name" class="form-input" placeholder="เช่น ตัดผมชาย" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">รายละเอียดบริการ</label>
+                    <textarea id="service-desc" class="form-input" rows="3"
+                        placeholder="อธิบายรายละเอียดการให้บริการ..." style="resize: none;"></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">ราคา (บาท)</label>
+                        <input type="text" id="service-price" class="form-input" placeholder="เช่น 250 บาท" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">ระยะเวลา (นาที)</label>
+                        <input type="text" id="service-duration" class="form-input" placeholder="เช่น 60 นาที" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-back-cancel"
+                        onclick="window.location.href='/admin/service.html'">ยกเลิก</button>
+                    <button type="submit" id="submit-btn" class="btn-save">บันทึกการเปลี่ยนแปลง</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/useBooking.js"></script>
+    <script src="/js/admin_layout.js"></script>
+    <script src="/js/alerts.js"></script>
+    <script src="/js/admin_edit_service.js"></script>
+</body>
+
+</html>

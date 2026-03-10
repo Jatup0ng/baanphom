@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (window.useBooking) {
                 window.useBooking.updateBarberSchedule(val, newSchedule);
-                alert("บันทึกตารางเวลาเรียบร้อยแล้ว");
+                bpAlert.success("บันทึกสำเร็จ", "บันทึกตารางเวลาการทำงานเรียบร้อยแล้วครับ");
                 loadData(); // refresh to get updated barbers
                 renderWorkspace();
             }
@@ -214,25 +214,28 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.btn-delete-holiday').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const idx = e.currentTarget.getAttribute('data-index');
-                if (confirm('คุณต้องการลบวันหยุดนี้ใช่หรือไม่?')) {
-                    // find correct index in main array
-                    const originalItem = filteredHolidays[idx];
-                    const mainIndex = unavailableDatesData.indexOf(originalItem);
-                    if (mainIndex > -1) {
-                        unavailableDatesData.splice(mainIndex, 1);
-                        if (window.useBooking) {
-                            window.useBooking.saveUnavailableDates(unavailableDatesData);
+                const originalItem = filteredHolidays[idx];
+                bpAlert.confirm('ยืนยันการลบ', `คุณต้องการลบวันหยุดวันที่ ${originalItem.date} ใช่หรือไม่?`).then((result) => {
+                    if (result.isConfirmed) {
+                        // find correct index in main array
+                        const mainIndex = unavailableDatesData.indexOf(originalItem);
+                        if (mainIndex > -1) {
+                            unavailableDatesData.splice(mainIndex, 1);
+                            if (window.useBooking) {
+                                window.useBooking.saveUnavailableDates(unavailableDatesData);
+                            }
+                            renderHolidays();
+                            bpAlert.success("ลบสำเร็จ", "ลบข้อมูลวันหยุดเรียบร้อยแล้วครับ");
                         }
-                        renderHolidays();
                     }
-                }
+                });
             });
         });
     }
 
     btnSaveHoliday.addEventListener('click', () => {
         if (!newHolidayDate.value) {
-            alert("กรุณาเลือกวันที่");
+            bpAlert.error("ข้อมูลไม่ครบ", "กรุณาเลือกวันที่ต้องการหยุดครับ");
             return;
         }
 
@@ -240,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         if (selectedDate < today) {
-            alert("ไม่สามารถเลือกวันหยุดย้อนหลังได้");
+            bpAlert.error("วันที่ไม่ถูกต้อง", "ไม่สามารถเลือกวันหยุดย้อนหลังได้ครับ");
             return;
         }
 
@@ -254,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (exists) {
-            alert("วันที่/เวลานี้ถูกตั้งเป็นวันหยุดแล้ว");
+            bpAlert.error("ข้อมูลซ้ำ", "วันที่/เวลานี้ถูกตั้งเป็นวันหยุดไว้แล้วครับ");
             return;
         }
 
@@ -301,9 +304,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
                 });
 
-                alert(`✅ บันทึกวันหยุดเรียบร้อยแล้ว\n📢 ส่งแจ้งเตือนไปหาลูกค้า ${affectedBookings.length} คนที่ได้รับผลกระทบแล้ว`);
+                bpAlert.success("บันทึกสำเร็จ", `✅ บันทึกวันหยุดเรียบร้อยแล้วครับ\n📢 ส่งแจ้งเตือนไปหาลูกค้า ${affectedBookings.length} คนที่ได้รับผลกระทบแล้ว`);
             } else {
-                alert("บันทึกวันหยุดเรียบร้อยแล้ว");
+                bpAlert.success("บันทึกสำเร็จ", "บันทึกข้อมูลวันหยุดเรียบร้อยแล้วครับ");
             }
         }
 

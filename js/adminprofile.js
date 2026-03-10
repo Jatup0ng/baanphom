@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             nameInput.focus();
         } else {
             if (nameInput.value.trim() === "") {
-                alert("กรุณากรอกชื่อ");
+                bpAlert.error("ข้อมูลไม่ครบ", "กรุณากรอกชื่อแอดมินด้วยครับผม");
                 return;
             }
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             iconEditName.className = "fas fa-edit";
             textEditName.innerText = "แก้ไข";
 
-            alert("บันทึกชื่อเรียบร้อยแล้ว! (หากต้องการให้ชื่อมุมขวาบนเปลี่ยน ให้รีเฟรชหน้าเว็บ)");
+            bpAlert.success("บันทึกสำเร็จ", "บันทึกชื่อเรียบร้อยแล้วครับผม\n(หากต้องการให้ชื่อมุมขวาบนเปลี่ยนทันที กรุณารีเฟรชหน้าเว็บนะครับ)");
         }
     });
 
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
             passInput.focus();
         } else {
             if (passInput.value.trim() === "") {
-                alert("รหัสผ่านห้ามว่างเปล่า");
+                bpAlert.error("ข้อมูลไม่ครบ", "รหัสผ่านห้ามว่างเปล่าครับผม");
                 return;
             }
 
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             iconEditPass.className = "fas fa-edit";
             textEditPass.innerText = "แก้ไข";
 
-            alert("บันทึกรหัสผ่านเรียบร้อยแล้ว! (จำรหัสผ่านใหม่ให้ดีสำหรับการเข้าระบบครั้งถัดไป)");
+            bpAlert.success("บันทึกรหัสผ่านสำเร็จ", "บันทึกรหัสผ่านใหม่เรียบร้อยแล้วครับผม\nอย่าลืมจำรหัสผ่านใหม่สำหรับการเข้าระบบครั้งถัดไปนะครับ");
         }
     });
 });

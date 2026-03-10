@@ -209,12 +209,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Next Button
     nextBtn.addEventListener('click', () => {
-        if (!selectedService || !selectedBarber) {
-            alert("กรุณาเลือกบริการและช่าง");
-            return;
-        }
-        if (!selectedDate || !selectedTime) {
-            alert("กรุณาเลือกวันและเวลาให้ครบถ้วน");
+        if (!selectedService || !selectedBarber || !selectedDate || !selectedTime) {
+            bpAlert.error("ข้อมูลไม่ครบ", "กรุณาเลือกบริการ ช่าง วันที่ และเวลาให้ครบถ้วนก่อนจองครับ");
             return;
         }
 

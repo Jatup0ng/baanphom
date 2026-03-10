@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/css/admin_layout.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="website icon" type="png" href="/images/icon.jpg">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .schedule-dropdown {
             padding: 10px;
@@ -176,8 +178,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label style="display:block; margin-bottom:5px; color:#ffffff; font-weight:bold;margin-bottom: 10px;">เหตุผล
-                                    </label>
+                                <label
+                                    style="display:block; margin-bottom:5px; color:#ffffff; font-weight:bold;margin-bottom: 10px;">เหตุผล
+                                </label>
                                 <input type="text" class="form-control" id="new-holiday-reason"
                                     placeholder="เช่น ลากิจ, วันหยุดนักขัตฤกษ์"
                                     style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; margin-bottom:15px; outline:none; transition:border 0.3s;">
@@ -207,6 +210,7 @@
     <!-- Scripts -->
     <script src="/js/useBooking.js"></script>
     <script src="/js/admin_layout.js"></script>
+    <script src="/js/alerts.js"></script>
     <script src="/js/admintime.js"></script>
 </body>
 

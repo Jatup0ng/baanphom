@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const status = localStorage.getItem("isLoggedIn");
     const currentUser = JSON.parse(localStorage.getItem("bp_currentUser") || "null");
     if (status !== "yes" || !currentUser) {
-        alert("⛔ กรุณาเข้าสู่ระบบก่อนเข้าใช้งานหน้าประวัติ");
-        window.location.href = '/index.html';
+        bpAlert.error("⛔ เข้าสู่ระบบ", "กรุณาเข้าสู่ระบบก่อนเข้าใช้งานหน้าประวัติครับผม").then(() => {
+            window.location.href = '/index.html';
+        });
         return;
     }
 
@@ -20,13 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function removeHistory(id) {
-        if (confirm("ยืนยันการยกเลิกการจอง?")) {
-            if (window.useBooking) {
-                window.useBooking.updateBookingStatus(id, 'cancelled');
-                window.useBooking.updateBookingDetails(id, { cancelledAt: new Date().toISOString() });
-                loadHistory(); // Reload from master list
+        bpAlert.confirm("ยืนยันการยกเลิก", "คุณต้องการยกเลิกการจองคิวนี้ใช่หรือไม่?").then((result) => {
+            if (result.isConfirmed) {
+                if (window.useBooking) {
+                    window.useBooking.updateBookingStatus(id, 'cancelled');
+                    window.useBooking.updateBookingDetails(id, { cancelledAt: new Date().toISOString() });
+                    loadHistory(); // Reload from master list
+                    bpAlert.success("ยกเลิกสำเร็จ", "คุณได้ยกเลิกการจองเรียบร้อยแล้วครับผม");
+                }
             }
-        }
+        });
     }
 
     function toggleCard(id) {

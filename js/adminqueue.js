@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const booking = allBookings.find(b => b.id === id);
             if (booking) {
                 if (booking.status === 'cancelled' || booking.status === 'ยกเลิก') {
-                    alert("คิวที่ถูกยกเลิกแล้ว ไม่สามารถเปลี่ยนสถานะได้");
+                    bpAlert.error("ไม่สามารถดำเนินการได้", "คิวที่ถูกยกเลิกแล้ว ไม่สามารถเปลี่ยนสถานะได้ครับ");
                     return;
                 }
                 const newStatus = booking.status === 'รอตัด' ? 'เสร็จสิ้น' : 'รอตัด';
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const newBarberId = document.getElementById('edit-barber').value;
         const newService = document.getElementById('edit-service').value;
 
-        if (!newDate) { alert("กรุณาเลือกวันที่"); return; }
+        if (!newDate) { bpAlert.error("ข้อมูลไม่ครบ", "กรุณาเลือกวันที่ก่อนบันทึกครับ"); return; }
 
         const barbers = window.useBooking ? window.useBooking.getBarbers() : [];
         const newBarberName = (barbers.find(b => b.id === newBarberId) || {}).name || newBarberId;
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Check if slot is available (excluding the current booking itself)
             const isAvailable = window.useBooking.isSlotAvailable(newDate, newTime, newBarberId, id);
             if (!isAvailable) {
-                alert("❌ ขออภัย ช่วงเวลาที่คุณเลือกมีผู้จองแล้วหรือช่างไม่ว่างในเวลาดังกล่าว กรุณาเลือกเวลาอื่น");
+                bpAlert.error("เวลาไม่ว่าง", "❌ ขออภัย ช่วงเวลาที่คุณเลือกมีผู้จองแล้วหรือช่างไม่ว่างในเวลาดังกล่าว กรุณาเลือกเวลาอื่นครับ");
                 return;
             }
 
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         closeEditModal();
         loadData();
-        alert("✅ บันทึกการแก้ไขเรียบร้อยแล้ว");
+        bpAlert.success("บันทึกสำเร็จ", "✅ บันทึกการแก้ไขข้อมูลการจองเรียบร้อยแล้วครับ");
     }
 
     /* ─────────────── DELETE WITH NOTIFICATION ─────────────── */
@@ -218,29 +218,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const booking = allBookings.find(b => b.id === id);
         if (!booking) return;
 
-        const alreadyCancelled = booking.status === 'cancelled' || booking.status === 'ยกเลิก';
-        const confirmMsg = alreadyCancelled
-            ? "คุณต้องการลบคิวนี้ใช่หรือไม่?\n(คิวถูกยกเลิกโดยลูกค้าแล้ว — ไม่ส่งแจ้งเตือน)"
-            : "คุณต้องการลบคิวนี้ใช่หรือไม่?\n(ลูกค้าจะได้รับการแจ้งเตือน)";
+        const isCancelled = booking.status === 'cancelled' || booking.status === 'ยกเลิก';
+        const dateStr = fmtDate(booking.date);
+        const confirmMsg = `คุณต้องการลบข้อมูลการจองของคุณ "${booking.name || 'ไม่ระบุชื่อ'}" วันที่ ${dateStr} ใช่หรือไม่?`;
 
-        if (confirm(confirmMsg)) {
-            if (window.useBooking) {
-                // ส่งแจ้งเตือนเฉพาะกรณีที่ลูกค้ายังไม่ได้ยกเลิกเอง
-                if (!alreadyCancelled) {
-                    const targetEmail = booking.userEmail || '';
-                    const targetUser = booking.name || '';
-                    const dateStr = fmtDate(booking.date);
-                    const msg = `ทางร้านกราบขออภัยเป็นอย่างยิ่งที่จำเป็นต้องยกเลิกคิวของคุณเวลา ${booking.time || '-'} น. วันที่ ${dateStr}\n` +
-                        `ลูกค้าสามารถติดต่อขอรับเงินคืนเต็มจำนวนได้ทันที หรือจองวันนัดใหม่ได้\n` +
-                        `โดยรบกวนทักแชทที่เพจ Facebook ของร้านได้เลยครับ`;
-                    window.useBooking.sendNotification(targetEmail, targetUser,
-                        `แจ้งยกเลิกคิวตัดผม (วันที่ ${dateStr})`, msg, 'admin');
+        bpAlert.confirm('ยืนยันการลบคิว', confirmMsg).then((result) => {
+            if (result.isConfirmed) {
+                if (window.useBooking) {
+                    // ส่งแจ้งเตือนเฉพาะกรณีที่ลูกค้ายังไม่ได้ยกเลิกเอง
+                    if (!isCancelled) {
+                        const targetEmail = booking.userEmail || '';
+                        const targetUser = booking.name || '';
+                        const msg = `ทางร้านกราบขออภัยเป็นอย่างยิ่งที่จำเป็นต้องยกเลิกคิวของคุณเวลา ${booking.time || '-'} น. วันที่ ${dateStr}\n` +
+                            `ลูกค้าสามารถติดต่อขอรับเงินคืนเต็มจำนวนได้ทันที หรือจองวันนัดใหม่ได้\n` +
+                            `โดยรบกวนทักแชทที่เพจ Facebook ของร้านได้เลยครับ`;
+                        window.useBooking.sendNotification(targetEmail, targetUser,
+                            `แจ้งยกเลิกคิวตัดผม (วันที่ ${dateStr})`, msg, 'admin');
+                    }
+
+                    window.useBooking.deleteBooking(id);
+                    loadData();
+                    bpAlert.success("ลบสำเร็จ", "ลบข้อมูลการจองออกจากระบบเรียบร้อยแล้วครับ");
                 }
-
-                window.useBooking.deleteBooking(id);
-                loadData();
             }
-        }
+        });
+    }
+
+    function handleCall(id) {
+        // ในระบบจริงอาจจะมีการส่ง Push Notification หรือ Signal ไปที่หน้าจอเรียกคิว
+        // ในที่นี้เราจะแสดง Alert และบันทึกประวัติการเรียก (ถ้ามี)
+        bpAlert.success("เรียกคิวสำเร็จ", "ระบบได้ทำการส่งสัญญาณเรียกคิวเรียบร้อยแล้วครับผม");
     }
 
     function renderTable() {

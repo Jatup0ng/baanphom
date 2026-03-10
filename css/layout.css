@@ -413,9 +413,137 @@ body {
     /* Nested dropdown inside menu (user profile, etc.) */
     .dropdown-content {
         position: static;
-        width: 100%;
-        box-shadow: none;
-        background-color: #fdfafa;
-        border-bottom: 1px solid #f0f0f0;
+        object-fit: cover;
+    }
+}
+
+/* --- Custom SweetAlert2 Styling --- */
+.swal2-popup {
+    border-radius: 15px !important;
+    font-family: 'Sarabun', sans-serif !important;
+    background-color: #FAF7F2 !important;
+}
+
+.swal2-title {
+    color: #5A3E25 !important;
+}
+
+.swal2-confirm {
+    background-color: #8B5E3C !important;
+    border-radius: 8px !important;
+}
+
+.swal2-cancel {
+    border-radius: 8px !important;
+}
+
+/* --- Edit Service Premium Form --- */
+.edit-form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.edit-form-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.edit-form-header h2 {
+    color: #5A3E25;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.image-upload-wrapper {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.image-preview-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 3px solid #E8DCC4;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.image-preview-container:hover {
+    border-color: #8B5E3C;
+    transform: scale(1.02);
+}
+
+.image-preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(139, 94, 60, 0.8);
+    color: white;
+    padding: 8px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-preview-container:hover .upload-overlay {
+    opacity: 1;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.btn-save {
+    background: #8B5E3C;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background: #5A3E25;
+}
+
+.btn-back-cancel {
+    background: #f1f1f1;
+    color: #666;
+    padding: 12px 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 }
